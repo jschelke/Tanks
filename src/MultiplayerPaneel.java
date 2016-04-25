@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class MultiplayerPaneel extends JPanel implements ActionListener {
 
-	public MultiplayerPaneel(TankPaneel mainscreen){
+	public MultiplayerPaneel(Tanks mainscreen){
 		
 	}
 	

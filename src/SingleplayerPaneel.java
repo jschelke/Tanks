@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class SingleplayerPaneel extends JPanel implements ActionListener {
-	private static TankPaneel mainscreen;
+	private static Tanks mainscreen;
 	private JButton DesertButton, MountainButton, PlainButton;
 	
-	public SingleplayerPaneel(TankPaneel mainscreen){
+	public SingleplayerPaneel(Tanks mainscreen){
 		
 		this.mainscreen = mainscreen;
 		

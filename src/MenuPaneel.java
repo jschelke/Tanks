@@ -8,9 +8,9 @@ import java.awt.event.*;
 
 public class MenuPaneel extends JPanel implements ActionListener {
 	private JButton SingleplayerButton, MultiplayerButton, QuitButton;
-	private static TankPaneel mainscreen;
+	private static Tanks mainscreen;
 
-	public MenuPaneel(TankPaneel mainscreen ) {
+	public MenuPaneel(Tanks mainscreen ) {
 		this.mainscreen = mainscreen;
 		
 		SingleplayerButton = new JButton("Singleplayer");
@@ -39,26 +39,14 @@ public class MenuPaneel extends JPanel implements ActionListener {
 	}
 
 
-	public static void main(String[] args) {
-		JFrame Menuframe = new JFrame("Tanks");
-		Menuframe.setSize(700, 700);
-		Menuframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		Menuframe.setLocation(330,10);
-
-		JPanel hoofdpaneel = new MenuPaneel(mainscreen);
-		Menuframe.add(hoofdpaneel);
-
-		Menuframe.setVisible(true);
-
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == SingleplayerButton){
-			mainscreen.switchPanel(new SingleplayerPaneel(mainscreen));
+			mainscreen.switchPaneel(new SingleplayerPaneel(mainscreen));
 			
 		
 		}else if(e.getSource()== MultiplayerButton){
-			mainscreen.switchPanel(new MultiplayerPaneel(mainscreen));
+			mainscreen.switchPaneel(new MultiplayerPaneel(mainscreen));
 			
 		}else{
 			System.exit(0);
@@ -66,5 +54,8 @@ public class MenuPaneel extends JPanel implements ActionListener {
 		
 
 	}
+	
+	
+	
 }
 
