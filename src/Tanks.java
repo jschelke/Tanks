@@ -31,7 +31,7 @@ public class Tanks extends JFrame {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize(width, heigth);
 		window.setResizable(false);
-		
+		xvjkhglkgxd
 		
 		window.setVisible(true);
 	}
