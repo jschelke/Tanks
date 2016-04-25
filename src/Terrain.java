@@ -12,6 +12,7 @@ public class Terrain extends JPanel{
 	
 	public void drawme(Graphics g){
 		g.setColor(Color.GREEN);
+		g.
 		g.fillPolygon(xPoints, yPoints, nPoints);
 	}
 	public void drawhit(Graphics g,int posx){
