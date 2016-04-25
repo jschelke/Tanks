@@ -3,14 +3,16 @@ package src;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Terrain {
-	public Terrain() {
+import javax.swing.JPanel;
 
+public class Terrain extends JPanel{
+	public Terrain() {
+		PolynomalSplineFunction();
 	}
 	
 	public void drawme(Graphics g){
 		g.setColor(Color.GREEN);
-		g.fillRect(0, 4*TankPaneel.heigth/5, TankPaneel.width, (int)TankPaneel.heigth/5);
+		g.fillPolygon(xPoints, yPoints, nPoints);
 	}
 	public void drawhit(Graphics g,int posx){
 		g.setColor(Color.black);
