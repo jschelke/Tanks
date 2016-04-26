@@ -35,28 +35,14 @@ public class SingleplayerPaneel extends JPanel implements ActionListener {
 		this.add(PlainButton);
 	}
 	
-	
-	public static void main(String[] args) {
-		JFrame SPframe = new JFrame("Tanks.Singleplayermode");
-		SPframe.setSize(700, 700);
-		SPframe.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		SPframe.setLocation(330,10);
-
-		JPanel hoofdpaneel = new SingleplayerPaneel(mainscreen);
-		SPframe.add(hoofdpaneel);
-
-		SPframe.setVisible(true);
-	}
-	
-	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == DesertButton){
-			System.out.println("Desert");
+			mainscreen.switchPanel(new TankPaneel(mainscreen));
 			
 		}else if(e.getSource() == MountainButton){
-			System.out.println("Mountain");
+			mainscreen.switchPanel(new TankPaneel(mainscreen));
 		}else{
-			System.out.println("Plain");
+			mainscreen.switchPanel(new TankPaneel(mainscreen));
 		}
 		
 	}
