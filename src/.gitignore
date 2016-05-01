@@ -11,3 +11,6 @@
 /Shell.class
 /Tank.class
 /MenuPanel.class
+/CubicInterpolator.class
+/BicubicInterpolator$TricubicInterpolator.class
+/BicubicInterpolator.class

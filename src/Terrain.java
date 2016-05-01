@@ -3,9 +3,11 @@ package src;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import src.CubicInterpolator;
+
 import javax.swing.JPanel;
 
-public class Terrain extends JPanel {
+public class Terrain extends JPanel{
 	private Tanks mainscreen;
 
 	public Terrain(Tanks mainscreen) {
@@ -21,12 +23,8 @@ public class Terrain extends JPanel {
 
 	public void drawme(Graphics g) {
 		g.setColor(Color.GREEN);
-<<<<<<< HEAD
-		// g.fillPolygon(xPoints, yPoints, nPoints);
-=======
-		g.
-		g.fillPolygon(xPoints, yPoints, nPoints);
->>>>>>> origin/master
+		
+		//g.fillPolygon(xPoints, yPoints, nPoints);
 	}
 
 	public void drawhit(Graphics g, int posx) {
