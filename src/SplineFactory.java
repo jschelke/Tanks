@@ -444,22 +444,20 @@ class CatmullRomSpline extends CubicSpline
     else              return ((t - 1) * t * t) / 2;
   }
   public int[][] TerrainGeneration(){
-	  private int WIDTH = (int)(Tanks.SCHERM_BREEDTE*0.7),HEIGHT = Tanks.SCHERM_HOOGTE;
-		double[] ControlPoints = new double[(int)(WIDTH*3/50+1)];
-		
-		
-Random rand = new Random();
+	  	int WIDTH = (int)(Tanks.SCHERM_BREEDTE*0.7), HEIGHT = Tanks.SCHERM_HOOGTE;
+		double[] ControlPoints = new double[(int)(Tanks.SCHERM_BREEDTE*1.8/50+1)];
+		Random rand = new Random();
 		
 		for(int i = 0;i<((WIDTH-WIDTH%50)/50);i+=1){
 			ControlPoints[i*3] = i*50;
 			ControlPoints[i*3+1] = 300+rand.nextInt(HEIGHT-300);
 		}
 		 
-		double[] spline = SplineFactory.createCubic(ControlPoints,50);
+		double[] spline = SplineFactory.createCubic(ControlPoints,20);
 		
 		int[] xPoints = new int[spline.length/3+2];
 		int[] yPoints = new int[xPoints.length+1];
-		
+		int[][] Points = new int[2][];
 		for(int i =0;i<(spline.length/3);i++){
 			xPoints[i] = (int) spline[i*3];
 		}
@@ -470,9 +468,10 @@ Random rand = new Random();
 		yPoints[yPoints.length-3] = HEIGHT;
 		xPoints[xPoints.length-2] = 0;
 		yPoints[yPoints.length-2] = HEIGHT;
-		for(int i = 0;i<xPoints.length;i++){
-			System.out.println(xPoints[i] + " ; " + yPoints[i]);
-		}
-		repaint();
+		
+		Points[0] = xPoints;
+		Points[1] = yPoints;
+		
+		return Points;
   }
 }
