@@ -44,7 +44,7 @@ public class Tanks extends JPanel {
 		add(activePanel);
 		validate(); // het plaatsen van de componenten (de layout) wordt
 					// berekend
-	}
+		}
 
 	public void switchPanel(JPanel toActivate) {
 		remove(activePanel);

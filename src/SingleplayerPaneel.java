@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -37,12 +38,11 @@ public class SingleplayerPaneel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == DesertButton){
-			mainscreen.switchPanel(new TankPaneel(mainscreen));
-			
+			mainscreen.switchPanel(new Terrain(mainscreen));			
 		}else if(e.getSource() == MountainButton){
-			mainscreen.switchPanel(new TankPaneel(mainscreen));
+			mainscreen.switchPanel(new Terrain(mainscreen));
 		}else{
-			mainscreen.switchPanel(new TankPaneel(mainscreen));
+			mainscreen.switchPanel(new Terrain(mainscreen));
 		}
 		
 	}

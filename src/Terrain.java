@@ -1,38 +1,60 @@
 package src;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Terrain extends JPanel {
+public class Terrain extends JPanel implements ActionListener {
 	private Tanks mainscreen;
+	private JButton PauseButton, ShootButton;
 
 	public Terrain(Tanks mainscreen) {
 		this.mainscreen = mainscreen;
-
-		mainscreen.setBackground(Color.cyan);
-		mainscreen.setSize((int) (WIDTH * 0.7), HEIGHT);
+		mainscreen.setBackground(Color.BLUE);
+		mainscreen.setBounds(0, 0, 700, 700);
+		
+		JPanel TankPaneel = new TankPaneel();
+		//mainscreen.add(TankPaneel);
+		
+		
+		this.PauseButton = new JButton("Pause");
+		PauseButton.addActionListener(this);
+		
+		//this.ShootButton = new JButton("Shoot");
+		//ShootButton.addActionListener(this);
+		
+		PauseButton.setPreferredSize(new Dimension(130, 30));
+		//ShootButton.setPreferredSize(new Dimension(130, 30));
+		
+		
+		this.add(PauseButton);
+		//this.add(ShootButton);
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		g.fillRect(5, 5, 50, 50);
 	}
 
 	public void drawme(Graphics g) {
 		g.setColor(Color.GREEN);
-<<<<<<< HEAD
-		// g.fillPolygon(xPoints, yPoints, nPoints);
-=======
-		g.
-		g.fillPolygon(xPoints, yPoints, nPoints);
->>>>>>> origin/master
 	}
 
 	public void drawhit(Graphics g, int posx) {
 		g.setColor(Color.black);
-		// System.out.println(0.8*TankPaneel.heigth);
-		// g.fillOval(posx, 7*TankPaneel.heigth/10, 100, 100);
 	}
 
-}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == PauseButton) {
+			System.out.println("Pause");
+		}//else if (e.getSource() == ShootButton){
+			//mainscreen.add(new TankPaneel(mainscreen));
+		}
+		
+	}
