@@ -1,4 +1,6 @@
-package src;   
+package src;
+
+import java.util.Random;
 
 /*
  * This code is free software; you can redistribute it and/or
@@ -84,7 +86,7 @@ public class SplineFactory
    * 
    * @param args  Not used.
    */
-  
+}
 
 
 
@@ -441,29 +443,36 @@ class CatmullRomSpline extends CubicSpline
     else if (i ==  0) return ((-3 * t + 4) * t + 1) * t / 2;
     else              return ((t - 1) * t * t) / 2;
   }
+  public int[][] TerrainGeneration(){
+	  private int WIDTH = (int)(Tanks.SCHERM_BREEDTE*0.7),HEIGHT = Tanks.SCHERM_HOOGTE;
+		double[] ControlPoints = new double[(int)(WIDTH*3/50+1)];
+		
+		
+Random rand = new Random();
+		
+		for(int i = 0;i<((WIDTH-WIDTH%50)/50);i+=1){
+			ControlPoints[i*3] = i*50;
+			ControlPoints[i*3+1] = 300+rand.nextInt(HEIGHT-300);
+		}
+		 
+		double[] spline = SplineFactory.createCubic(ControlPoints,50);
+		
+		int[] xPoints = new int[spline.length/3+2];
+		int[] yPoints = new int[xPoints.length+1];
+		
+		for(int i =0;i<(spline.length/3);i++){
+			xPoints[i] = (int) spline[i*3];
+		}
+		for(int i =1;i<spline.length/3;i++){
+			yPoints[i-1] = (int) spline[i*3+1];
+		}
+		xPoints[xPoints.length-3] = WIDTH;
+		yPoints[yPoints.length-3] = HEIGHT;
+		xPoints[xPoints.length-2] = 0;
+		yPoints[yPoints.length-2] = HEIGHT;
+		for(int i = 0;i<xPoints.length;i++){
+			System.out.println(xPoints[i] + " ; " + yPoints[i]);
+		}
+		repaint();
+  }
 }
-
-
-           
-         
-    
-    
-  
-
-
-
-
-
-
-
-
-
-
-//Related examples in the same category
-//1.	Move the curve control point and redraw the curve		
-//2.	Draw curve with mouse		Draw curve with mouse
-//3.	Curve with QuadCurve2D		Curve with QuadCurve2D
-//4.	Spline 2D		
-//5.	Interpolates given points by a bezier curve		
-//6.	A class that models a Cubic-Bezier curve		
-//java2s.com  | Email:info at java2s.com | © Demo Source and Support. All rights reserved.
