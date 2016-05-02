@@ -25,7 +25,7 @@ public class Tanks extends JPanel {
 																			// scherm!!!
 		window.setLocation(screenSize.width / 2 - frameSize.width / 2, screenSize.height / 2 - frameSize.height / 2);
 
-		Tanks hoofdpaneel = new Tanks();
+		JPanel hoofdpaneel = new PlayPaneel();
 		window.setContentPane(hoofdpaneel);
 
 		window.setVisible(true); // hier wordt de applicatie effectief gestart
@@ -35,10 +35,7 @@ public class Tanks extends JPanel {
 	private JPanel activePanel; // dit is het paneel dat getoond wordt
 
 	public Tanks() {
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS)); // is nodig zodat
-															// paneel heel de
-															// ruimte bedekt
-
+		
 		activePanel = new MenuPanel(this); // het eerste paneel dat getoond
 											// wordt
 		add(activePanel);

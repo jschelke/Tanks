@@ -11,17 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TankPaneel extends JPanel implements ActionListener{
-	private Tanks mainscreen;
 	
 	public TankPaneel() {
-	this.setBounds(700, 0, 300, 700);
-	this.setBackground(Color.BLACK);
-	
+	this.setBackground(Color.red);
+	this.setBounds(0, 0, 300, 700);
+	//this.setSize(300, 700);
+
 	}
 
-	public void drawme(Graphics g) {
-		
-		
+	public void drawme(Graphics g) {	
 		
 	}
 

@@ -12,13 +12,13 @@ public class Shell {
 		this.time = 0;
 		this.interval = 10;
 		
-		while(ycoord <){
+		/*while(ycoord <0){
 			xcoord = speed*Math.cos(Angle)*time;
 			ycoord = speed*Math.sin(Angle)*time-100*time*time/2;
 			repaint();
 			time = time + 1/interval;
 			Thread.sleep(10);
-		}
+		}*/
 	}
 
 }

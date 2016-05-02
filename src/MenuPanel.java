@@ -39,7 +39,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == SingleplayerButton) {
-			mainscreen.switchPanel(new SingleplayerPaneel(mainscreen));
+			mainscreen.switchPanel(new PlayPaneel());
 
 		} else if (e.getSource() == MultiplayerButton) {
 			mainscreen.switchPanel(new MultiplayerPaneel(mainscreen));
