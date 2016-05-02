@@ -15,7 +15,7 @@ public class Terrain extends JPanel implements ActionListener {
 
 	public Terrain(Tanks mainscreen) {
 		this.mainscreen = mainscreen;
-		mainscreen.setBackground(Color.BLUE);
+		this.setBackground(Color.BLUE);
 		mainscreen.setBounds(0, 0, 700, 700);
 		
 		JPanel TankPaneel = new TankPaneel();
@@ -38,7 +38,6 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.fillRect(5, 5, 50, 50);
 	}
 
 	public void drawme(Graphics g) {

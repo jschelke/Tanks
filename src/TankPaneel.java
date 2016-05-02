@@ -14,7 +14,9 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private Tanks mainscreen;
 	
 	public TankPaneel() {
-	//this.setBounds(700, 0, 300, 700);
+	this.setBounds(700, 0, 300, 700);
+	this.setBackground(Color.BLACK);
+	
 	}
 
 	public void drawme(Graphics g) {
