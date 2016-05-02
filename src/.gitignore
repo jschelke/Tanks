@@ -14,3 +14,12 @@
 /CubicInterpolator.class
 /BicubicInterpolator$TricubicInterpolator.class
 /BicubicInterpolator.class
+/BezierSpline.class
+/CatmullRomSpline$that.class
+/CatmullRomSpline.class
+/CubicSpline.class
+/Spline.class
+/SplineFactory$BezierSpline.class
+/SplineFactory$CatmullRomSpline.class
+/SplineFactory$CubicSpline.class
+/SplineFactory$Spline.class

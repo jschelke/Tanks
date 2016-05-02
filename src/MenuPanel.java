@@ -12,7 +12,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	public MenuPanel(Tanks mainscreen) {
 		this.mainscreen = mainscreen;	
-		
+		mainscreen.set
 		SingleplayerButton = new JButton("Singleplayer");
 		SingleplayerButton.addActionListener(this);
 

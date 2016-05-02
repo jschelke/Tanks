@@ -14,7 +14,6 @@ public class Tanks extends JPanel {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		window.setSize(SCHERM_BREEDTE, SCHERM_HOOGTE);
-
 		// toont window in het midden van het scherm
 		Dimension frameSize = window.getSize();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // geeft
