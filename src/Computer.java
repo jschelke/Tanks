@@ -1,6 +1,6 @@
 package src;
 
-public class Computer extends Tank {
+public class Computer  {
 
 	public Computer() {
 		// TODO Auto-generated constructor stub
