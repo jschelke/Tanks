@@ -10,24 +10,26 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 public class Terrain extends JPanel implements ActionListener {
+	private int[][] Points;
 	
 	public Terrain() {
 		
 		this.setBackground(Color.BLUE);
-		
+		//System.out.println(this.getWidth());
+		Points = SplineFactory.TerrainGeneration();
 	
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawRect(5, 5, WIDTH, HEIGHT);
 		drawme(g);
 	}
 
 	public void drawme(Graphics g) {
 		g.setColor(Color.GREEN);
-		//g.fillPolygon(xPoints, yPoints, nPoints);
+		g.fillPolygon(Points[0], Points[1], Points[0].length);
 		}
 
 	public void drawhit(Graphics g, int posx) {
