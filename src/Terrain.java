@@ -13,6 +13,7 @@ import java.util.TimerTask;
 import javax.swing.JPanel;
 //maxPower: +- 10
 
+@SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener {
 	private int[][] Points;
 	private static int[] yPoints;

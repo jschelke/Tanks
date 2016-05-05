@@ -3,8 +3,6 @@ package src;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.sun.javafx.geom.Rectangle;
-
 public class Tank {
 	private int xcoord,ycoord,AngleBarrel, AngleTank ,Power;
 	private Color kleur;

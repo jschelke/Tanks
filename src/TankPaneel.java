@@ -1,68 +1,27 @@
 package src;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 
-public class TankPaneel extends JPanel implements MouseListener{
+@SuppressWarnings("serial")
+public class TankPaneel extends JPanel{
+	private String ANGLE, POWER;
+	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 50, PowerMajor = 100;
+	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 500;
+	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 100;
 	
 	public TankPaneel() {
 	super(true);
-	
 	this.setBackground(Color.BLACK);
 	
-	
-	
-	JSlider slider = new JSlider(0,180,90);
-	slider.addMouseListener((MouseListener) this);
-	
-	this.add(slider);	
+	Slider Angle = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
+	Slider Power = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
+
+	this.add(Angle);
+	this.add(Power);
 
 	}
 
-	public void drawme(Graphics g) {	
-		
-	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

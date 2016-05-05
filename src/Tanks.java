@@ -3,6 +3,7 @@ package src;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class Tanks extends JPanel {
 	final static int SCHERM_BREEDTE = 1000, SCHERM_HOOGTE = 700;
 

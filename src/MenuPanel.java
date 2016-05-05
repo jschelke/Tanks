@@ -1,11 +1,12 @@
 package src;
 
 import javax.swing.*;
-import java.awt.Dimension;
+
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.*;
 
+@SuppressWarnings("serial")
 public class MenuPanel extends JPanel implements ActionListener {
 	private JButton SingleplayerButton, MultiplayerButton, QuitButton, DesertButton, MountainButton, PlainButton;
 	private Tanks mainscreen;
@@ -13,30 +14,34 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public MenuPanel(Tanks mainscreen){	
 		this.mainscreen = mainscreen;
 		
+		this.setLayout(null);
+		
 		SingleplayerButton = new JButton("Singleplayer");
 		SingleplayerButton.addActionListener(this);
+		SingleplayerButton.setBounds(10, 10, 130, 30);
 
 		MultiplayerButton = new JButton("Multiplayer");
 		MultiplayerButton.addActionListener(this);
+		MultiplayerButton.setBounds(150, 10, 130, 30);
 
 		QuitButton = new JButton("Quit");
 		QuitButton.addActionListener(this);
+		QuitButton.setBounds(850, 600, 130, 30);
 		
 		DesertButton = new JButton("Desert");
 		DesertButton.addActionListener(this);
+		DesertButton.setBounds(10, 50, 130, 30);
+		DesertButton.setBackground(Color.YELLOW);
 		
 		MountainButton = new JButton("Mountains");
 		MountainButton.addActionListener(this);
+		MountainButton.setBounds(150, 50, 130, 30);
+		MountainButton.setBackground(Color.GRAY);
 		
 		PlainButton = new JButton("Plain");
 		PlainButton.addActionListener(this);
-
-		SingleplayerButton.setPreferredSize(new Dimension(130, 30));
-		MultiplayerButton.setPreferredSize(new Dimension(130, 30));
-		QuitButton.setPreferredSize(new Dimension(130, 30));
-		DesertButton.setPreferredSize(new Dimension(130,30));
-		MountainButton.setPreferredSize(new Dimension(130,30));
-		PlainButton.setPreferredSize(new Dimension(130,30));
+		PlainButton.setBounds(300, 50, 130, 30);
+		PlainButton.setBackground(Color.green);
 
 		this.add(SingleplayerButton);
 		this.add(MultiplayerButton);

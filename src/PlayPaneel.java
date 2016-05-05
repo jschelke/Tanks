@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class PlayPaneel extends JPanel {
 	
 

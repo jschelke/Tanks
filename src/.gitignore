@@ -14,3 +14,9 @@
 /SpelPaneel.class
 /PlayPaneel.class
 /Terrain$MyTimerTask.class
+/BezierSpline.class
+/CatmullRomSpline.class
+/CubicSpline.class
+/Spline.class
+/SplineFactory.class
+/Slider.class
