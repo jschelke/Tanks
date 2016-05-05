@@ -12,6 +12,7 @@ public class Tanks extends JPanel {
 	public static void main(String[] args) {
 		JFrame window = new JFrame("Tanks");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setResizable(false);
 		
 
 		window.setSize(SCHERM_BREEDTE, SCHERM_HOOGTE);

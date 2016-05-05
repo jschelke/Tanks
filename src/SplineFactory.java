@@ -96,12 +96,6 @@ public class SplineFactory
 				}		
 			}
 		}
-//		for(int i =1;i<spline.length/3;i++){
-//			xPoints[i-1] = (int) spline[i*3];
-//		}
-//		for(int i =1;i<spline.length/3;i++){
-//			yPoints[i-1] = (int) spline[i*3+1];
-//		}
 		xPoints[xPoints.length-2] = WIDTH;
 		yPoints[xPoints.length-2] = HEIGHT;
 		xPoints[xPoints.length-1] = 0;
@@ -110,7 +104,7 @@ public class SplineFactory
 		Points[0] = xPoints;
 		Points[1] = yPoints;
 //		for(int i = 0;i<xPoints.length;i++){
-//			System.out.println(xPoints[i] + " " + yPoints[i]); 
+//			System.out.println(i + "\t"+xPoints[i] + " " + yPoints[i]); 
 //		}
 		
 		return Points;
