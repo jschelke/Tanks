@@ -19,7 +19,6 @@ public class Terrain extends JPanel implements ActionListener {
 		this.setBackground(Color.BLUE);
 		//System.out.println(this.getWidth());
 		Points = SplineFactory.TerrainGeneration();
-	
 	}
 	
 	public void paintComponent(Graphics g){
