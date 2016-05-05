@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class TankPaneel extends JPanel{
 	private String ANGLE, POWER;
-	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 50, PowerMajor = 100;
-	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 500;
-	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 100;
+	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 1/2, PowerMajor = 1;
+	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 10;
+	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 1;
 	
 	public TankPaneel() {
 	super(true);

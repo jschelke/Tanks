@@ -1,12 +1,9 @@
 package src;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,7 +47,6 @@ public class Terrain extends JPanel implements ActionListener {
 			if(yPoints[posx+i]>Tanks.SCHERM_HOOGTE){
 				yPoints[posx+i] = Tanks.SCHERM_HOOGTE;
 			}
-			
 		}
 		repaint();
 	}

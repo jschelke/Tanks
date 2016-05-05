@@ -10,8 +10,7 @@ public class Tank {
 	public Tank(int xcoord,Color kleur) {
 		this.xcoord = xcoord;
 		this.kleur = kleur;
-		
-		this.ycoord = 0;
+		this.ycoord = Terrain.getyPoints(xcoord);
 		this.AngleBarrel = 0;
 		this.Power = 10;
 	}
@@ -24,7 +23,7 @@ public class Tank {
 		g.fillRoundRect(xcoord, 30, 50, 10, 5, 5);
 		
 	}
-	public void fire(){
-		//new Shell();
+	private int getxcoord(){
+		return xcoord;
 	}
 }
