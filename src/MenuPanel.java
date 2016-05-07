@@ -10,7 +10,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private JButton PlayButton, QuitButton;
 	private Tanks mainscreen;
 	@SuppressWarnings("rawtypes")
-	private JComboBox environment;//kies kleur terrein
+	private JComboBox environment;//kies soort terrein
 	private String[] environmentChoices = {"Plains","Desert", "Arctic"};// keuzes voor de ComboBox
 	@SuppressWarnings("unused")
 	private int environmentChoice = 0;
