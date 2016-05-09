@@ -34,7 +34,7 @@ public class Terrain extends JPanel implements ActionListener {
 		repaint();
 		}
 	
-	public static int getyPoints(int xcoord){
+	public int getyPoints(int xcoord){
 		if(xcoord<700 ){
 			return(yPoints[xcoord]);
 		} else{
@@ -43,7 +43,7 @@ public class Terrain extends JPanel implements ActionListener {
 		
 	}
 	
-	public static int[] Tank_spawn(){ 
+	public int[] Tank_spawn(){ 
 		int [] SpawnPlace = new int [AmountOfTanks];
 		int Splitscreen = yPoints.length/AmountOfTanks; //Deel op in amountoftanks delen en kies random
 		Random rand = new Random();

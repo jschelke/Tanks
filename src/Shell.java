@@ -21,7 +21,7 @@ public class Shell {
 	public int updateme(int time){
 		xcoord = startx + (int) (speed*Math.cos(Math.toRadians(Angle))*time);
 		ycoord = starty + (int) ((gravity*time*time/2)-(speed*Math.sin(Math.toRadians(Angle))*time));
-		if(xcoord<700 && xcoord > 0 &&ycoord >= Terrain.getyPoints(xcoord)&&time != 0){
+		if(xcoord<700 && xcoord > 0 &&ycoord >= terrain.getyPoints(xcoord)&&time != 0){
 			return xcoord;
 		}
 		else if(xcoord>=700 && xcoord >= 0) {
