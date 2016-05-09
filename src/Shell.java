@@ -7,20 +7,25 @@ public class Shell {
 	private final int speed,Angle;
 	private final double gravity = 0.1;
 	private int xcoord,ycoord,startx,starty;
+	private Terrain terrain;
 	
-	public Shell(int speed,int Angle,int xcoord) {
+	public Shell(int speed,int Angle,int xcoord,Terrain terrain) {
+		this.terrain = terrain;
 		this.speed = speed;
 		this.Angle = Angle;
 		this.xcoord = xcoord;
-		this.ycoord = Terrain.getyPoints(xcoord);
+		this.ycoord = terrain.getyPoints(xcoord);
 		this.startx = xcoord;
 		this.starty = ycoord;
 	}
 	public int updateme(int time){
 		xcoord = startx + (int) (speed*Math.cos(Math.toRadians(Angle))*time);
 		ycoord = starty + (int) ((gravity*time*time/2)-(speed*Math.sin(Math.toRadians(Angle))*time));
-		if(ycoord >= Terrain.getyPoints(xcoord)&&time != 0&&xcoord<=700){
+		if(xcoord<700 && xcoord > 0 &&ycoord >= Terrain.getyPoints(xcoord)&&time != 0){
 			return xcoord;
+		}
+		else if(xcoord>=700 && xcoord >= 0) {
+			return -2;
 		}
 		else
 			return -1;

@@ -18,9 +18,9 @@ public class Terrain extends JPanel implements ActionListener {
 	protected static int[] yPoints;
 	Timer timer = new Timer();
 	Shell firedShell;
-	Tank tank;
 	private ArrayList<Tank> TankList;
 	private static int AmountOfTanks;
+	private int CurrentTank = 0;
 	
 	public Terrain(int AmountPlayers){
 		this.setBackground(Color.CYAN);
@@ -35,7 +35,12 @@ public class Terrain extends JPanel implements ActionListener {
 		}
 	
 	public static int getyPoints(int xcoord){
-		return(yPoints[xcoord]);
+		if(xcoord<700 ){
+			return(yPoints[xcoord]);
+		} else{
+			return -1;
+		}
+		
 	}
 	
 	public static int[] Tank_spawn(){ 
@@ -86,6 +91,10 @@ public class Terrain extends JPanel implements ActionListener {
 			if(returnValue == -1){
 				time++;
 				repaint();
+			}else if(returnValue == -2){
+				firedShell = null;
+				repaint();
+				timer.cancel();
 			}
 			else{
 				drawhit(returnValue,10);
@@ -97,8 +106,16 @@ public class Terrain extends JPanel implements ActionListener {
 	}
 	
 	public void ShellFired(int speed,int Angle,Tank tank){
-		firedShell = new Shell(speed,Angle,tank.getxcoord());
+		firedShell = new Shell(speed,Angle,tank.getxcoord(),this);
+		timer = new Timer();
 		timer.schedule(new MyTimerTask(firedShell), 0, 20);
+	}
+	public void fireTank(int speed,int Angle){
+		ShellFired(speed,Angle,TankList.get(CurrentTank));
+		CurrentTank++;
+		if(CurrentTank >=AmountOfTanks){
+			CurrentTank -= AmountOfTanks;
+		}
 	}
 	
 	@Override
