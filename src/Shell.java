@@ -15,14 +15,6 @@ public class Shell {
 		this.ycoord = Terrain.getyPoints(xcoord);
 		this.startx = xcoord;
 		this.starty = ycoord;
-		
-		/*while(ycoord <0){
-			xcoord = speed*Math.cos(Angle)*time;
-			ycoord = speed*Math.sin(Angle)*time-100*time*time/2;
-			repaint();
-			time = time + 1/interval;
-			Thread.sleep(10);
-		}*/
 	}
 	public int updateme(int time){
 		xcoord = startx + (int) (speed*Math.cos(Math.toRadians(Angle))*time);

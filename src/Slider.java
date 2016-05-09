@@ -35,6 +35,9 @@ public class Slider extends JPanel implements MouseListener  {
 	public int getValue(){
 		return (int) slider.getValue();
 	}
+	public boolean getValueIsAdjusting() {
+		return slider.getValueIsAdjusting();
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -65,6 +68,7 @@ public class Slider extends JPanel implements MouseListener  {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	
 }
