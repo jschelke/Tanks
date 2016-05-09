@@ -1,10 +1,10 @@
 package src;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -15,22 +15,36 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 1;
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
+	private JLabel AngleLabel, PowerLabel;
 	private int AngleValue = 90,PowerValue = 5;
 	private Tank tank;
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain) {
 	this.terrain = terrain;
-	ShootButton = new JButton("Shoot!");
-	ShootButton.addActionListener(this);
-	ShootButton.setBounds(400, 250, 130, 30);
+	
+	this.setLayout(null);
+	
+	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
+	AngleLabel.setBounds(10, 80, 250, 20);
 	
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
-	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
+	AngleSlider.setBounds(10, 100, 250, 50);
 	
-	this.add(ShootButton);
+	PowerLabel = new JLabel("POWER", JLabel.CENTER);
+	PowerLabel.setBounds(10, 280, 250, 20);
+	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
+	PowerSlider.setBounds(10, 300, 250, 50);
+	
+	ShootButton = new JButton("Shoot!");
+	ShootButton.addActionListener(this);
+	ShootButton.setBounds(80, 600, 130, 30);
+	
+	this.add(AngleLabel);
 	this.add(AngleSlider);
+	this.add(PowerLabel);
 	this.add(PowerSlider);
+	this.add(ShootButton);
 	}
 
 	@Override

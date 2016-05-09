@@ -23,34 +23,6 @@ public class Tank extends Terrain{
 		this.WheelRadius = 5;
 		this.kleur = kleur;
 	}
-	public static int[] Extrema(){ //Zoek extrema daar spawnen we
-		int[] Extremum = new int[4];
-		int middle = (yPoints.length / 2);
-		for(int i=1; i<middle; i++){ //Begint van 1, anders buiten lijst
-			int Minimum = yPoints[i]; 
-			int Maximum = yPoints[i];
-			if(yPoints[i-1]>=Minimum && yPoints[i+1]>=Minimum){
-				Minimum = yPoints[i];
-				Extremum[0] = Minimum;
-			}else if(yPoints[i-1]<=Maximum && yPoints[i+1]<=Maximum){
-				Maximum = yPoints[i];
-				Extremum [1] = Maximum; //volgorde maakt niet uit voor vervolg
-			} 
-		}
-		for(int j=middle; j<yPoints.length; j++){
-			int Minimum = yPoints[j]; 
-			int Maximum = yPoints[j];
-			if(yPoints[j-1]>=Minimum && yPoints[j+1]>=Minimum){
-				Minimum = yPoints[j];
-				Extremum[2] = Minimum;
-			}else if(yPoints[j-1]<=Maximum && yPoints[j+1]<=Maximum){
-				Maximum = yPoints[j];
-				Extremum [3] = Maximum;
-			}
-		
-		}
-		return Extremum;
-	}
 	
 	public void drawTank(Graphics g){
 		g.setColor(kleur);

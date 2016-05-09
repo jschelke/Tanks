@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,31 +19,25 @@ public class Terrain extends JPanel implements ActionListener {
 	Timer timer = new Timer();
 	Shell firedShell;
 	Tank tank;
+	private ArrayList<Tank> TankList;
+	private static int AmountOfTanks;
 	
-	public Terrain(){
+	public Terrain(int AmountPlayers){
 		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
+		this.TankList = new ArrayList<Tank>(AmountOfTanks);
+		this.AmountOfTanks = AmountPlayers;
 		repaint();
 		}
 	public static int getyPoints(int xcoord){
 		return(yPoints[xcoord]);
 	}
 	
-	public static int[] Tank_spawn(){ // Kies random extrema en spawn daar
-		int[] Extremum = Tank.Extrema();
-		Random rand = new Random();
-		int [] SpawnPlace = new int[2];
-		int Spawn = 0;
-		int ycoord = Extremum[rand.nextInt()];
-		for(int i=0; i<yPoints.length; i++){
-			if(yPoints.equals(ycoord)){ 
-				Spawn = yPoints[i]; // Neem x coordinaat
-			}
-			SpawnPlace[0] = Spawn;
-			SpawnPlace[1] = ycoord;
-		}
-		return SpawnPlace;
+	public static int[] Tank_spawn(){ 
+		int [] SpawnPlace = new int [AmountOfTanks]; 
+		
+		
 	}
 	
 	public void paintComponent(Graphics g){
@@ -51,11 +46,6 @@ public class Terrain extends JPanel implements ActionListener {
 		if(firedShell!=null){
 			firedShell.drawme(g);
 		}
-		/*if(tank == null){
-			tank.drawTank(g);
-		}*/ //Hier moet iets veranderd worden? 
-		
-		
 	}
 
 	public void drawTerrain(Graphics g) {
