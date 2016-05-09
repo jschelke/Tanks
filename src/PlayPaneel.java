@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 public class PlayPaneel extends JPanel {
 	
 
-	public PlayPaneel(){
+	public PlayPaneel(int amountPlayers){
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		Terrain Terrain = new Terrain();
+		Terrain Terrain = new Terrain(amountPlayers);
 		Terrain.setMaximumSize(new Dimension(700,700));
 		Terrain.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.add(Terrain);

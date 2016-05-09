@@ -61,7 +61,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	@SuppressWarnings({ "rawtypes", "unused" })
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == PlayButton) {
-			mainscreen.switchPanel(new PlayPaneel());
+			mainscreen.switchPanel(new PlayPaneel((int) amountPlayersSlider.getValue));
 		} else if (e.getSource() == environment) {
 			JComboBox cb = (JComboBox)e.getSource();
 			String selection =  (String) ((JComboBox) e.getSource()).getSelectedItem();
