@@ -59,6 +59,7 @@ public class Tank extends Terrain{
 		g.setColor(Color.BLACK);
 		g.fillOval(xcoord-(BigRect/2), ycoord+WheelRadius*2, WheelRadius, WheelRadius);
 		g.fillOval(xcoord+(BigRect/2), ycoord+WheelRadius*2, WheelRadius, WheelRadius);
+		drawTankgun((Graphics2D) g);
 	}
 	
 	public void drawTankgun(Graphics2D g){

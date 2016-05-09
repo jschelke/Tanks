@@ -14,12 +14,26 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private String[] environmentChoices = {"Plains","Desert", "Arctic"};// keuzes voor de ComboBox
 	@SuppressWarnings("unused")
 	private int environmentChoice = 0;
+	private Slider amountPlayersSlider;
+	private JLabel amountPlayersLabel;
+	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public MenuPanel(Tanks mainscreen){	
 		this.mainscreen = mainscreen;
 
 		this.setLayout(null);
+		
+		environment = new JComboBox(environmentChoices);
+		environment.setSelectedIndex(0);
+		environment.addActionListener(this);
+		environment.setBounds(400, 10, 130, 30);
+		
+		amountPlayersLabel = new JLabel("Amount of Tanks",JLabel.CENTER);
+		amountPlayersLabel.setBounds(350, 80, 250, 20);;
+		
+		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 8, 4, 2);
+		amountPlayersSlider.setBounds(350, 100, 250, 50);
 
 		PlayButton = new JButton("Play");
 		PlayButton.addActionListener(this);
@@ -29,13 +43,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 		QuitButton = new JButton("Quit");
 		QuitButton.addActionListener(this);
 		QuitButton.setBounds(850, 600, 130, 30);
-		
-		environment = new JComboBox(environmentChoices);
-		environment.setSelectedIndex(0);
-		environment.addActionListener(this);
-		environment.setBounds(400, 10, 130, 30);
+
 
 		this.add(PlayButton);
+		this.add(amountPlayersLabel);
+		this.add(amountPlayersSlider);
 		this.add(QuitButton);
 		this.add(environment);
 	}
