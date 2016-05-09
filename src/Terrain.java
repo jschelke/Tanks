@@ -24,7 +24,6 @@ public class Terrain extends JPanel implements ActionListener {
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
 		repaint();
-		ShellFired(7,30,4);
 		}
 	public static int getyPoints(int xcoord){
 		return(yPoints[xcoord]);
@@ -96,8 +95,8 @@ public class Terrain extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void ShellFired(int speed,int Angle,int xcoord){
-		firedShell = new Shell(speed,Angle,xcoord);
+	public void ShellFired(int speed,int Angle,Tank tank){
+		firedShell = new Shell(speed,Angle,tank.getxcoord());
 		timer.schedule(new MyTimerTask(firedShell), 0, 20);
 	}
 	

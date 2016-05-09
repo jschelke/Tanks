@@ -11,6 +11,7 @@ import javax.swing.JSlider;
 
 @SuppressWarnings("serial")
 public class Slider extends JPanel implements MouseListener  {
+	JSlider slider;
 	
 	public Slider(String Name, int Minor, int Major, int Min, int Max, int Begin, int Between){
 		super(true);
@@ -19,7 +20,7 @@ public class Slider extends JPanel implements MouseListener  {
 		JLabel SliderLabel = new JLabel(Name, JLabel.CENTER);
 		SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		JSlider slider = new JSlider(JSlider.HORIZONTAL, Min, Max, Begin);
+		slider = new JSlider(JSlider.HORIZONTAL, Min, Max, Begin);
 		slider.addMouseListener(this);
 		
 		slider.setMinorTickSpacing(Minor);
@@ -30,6 +31,9 @@ public class Slider extends JPanel implements MouseListener  {
 		
 		add(SliderLabel);
 		add(slider);
+	}
+	public int getValue(){
+		return (int) slider.getValue();
 	}
 
 	@Override

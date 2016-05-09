@@ -69,7 +69,7 @@ public class Tank extends Terrain{
 		g.fill(Tankgun);
 	}
 	
-	private int getxcoord(){
+	int getxcoord(){
 		return xcoord;
 	}
 }

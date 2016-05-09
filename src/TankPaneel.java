@@ -14,25 +14,29 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 10;
 	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 1;
 	private JButton ShootButton;
+	private Slider AngleSlider,PowerSlider;
+	private int AngleValue = 90,PowerValue = 5;
+	private Tank tank;
+	Terrain terrain;
 	
-	public TankPaneel() {
-	this.setBackground(Color.BLACK);
-	
+	public TankPaneel(Terrain terrain) {
+	this.terrain = terrain;
 	ShootButton = new JButton("Shoot!");
 	ShootButton.addActionListener(this);
 	ShootButton.setBounds(400, 250, 130, 30);
 	
-	Slider Angle = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
-	Slider Power = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
+	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
+	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
 	
 	this.add(ShootButton);
-	this.add(Angle);
-	this.add(Power);
+	this.add(AngleSlider);
+	this.add(PowerSlider);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
+			terrain.ShellFired(PowerSlider.getValue(), AngleSlider.getValue(),tank);
 		}
 		
 	}
