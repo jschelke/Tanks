@@ -44,10 +44,11 @@ public class Tank {
 		g.fill(Tankgun);
 	}
 	public boolean Hit(int Damage){
+		updateHeight();
 		if (Damage>0){
 			HP -=Damage;
 		}
-		if(HP <= 0)
+		if(HP <= 0||ycoord<=0)
 			return true;
 		else
 			return false;

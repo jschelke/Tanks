@@ -77,7 +77,6 @@ public class Terrain extends JPanel implements ActionListener {
 			}
 		}
 		for(int i = 0;i<TankList.size();i++){
-			TankList.get(i).updateHeight();
 			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx));
 		}
 		repaint();

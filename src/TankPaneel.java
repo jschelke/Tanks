@@ -16,13 +16,15 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
-	private JLabel AngleLabel, PowerLabel;
+	private JLabel AngleLabel, PowerLabel,ErrorLabel;
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain) {
 	this.terrain = terrain;
 	
 	this.setLayout(null);
+	
+	ErrorLabel = new JLabel("Wait till the shell hits the Terrain before firing again");
 	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
 	AngleLabel.setBounds(10, 80, 250, 20);
@@ -48,11 +50,18 @@ public class TankPaneel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == ShootButton && terrain.firedShell == null){
-			this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
-			PowerSlider.setValue(CurrentTank.getPower()*10);
-			AngleSlider.setValue(CurrentTank.getAngle());
+		if(e.getSource() == ShootButton){
+			if(terrain.firedShell == null){
+				this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
+				PowerSlider.setValue(CurrentTank.getPower()*10);
+				AngleSlider.setValue(CurrentTank.getAngle());
+				ErrorLabel.setVisible(false);
+				}
+			}
+			else{
+				ErrorLabel.setBounds(0,20,300,10);
+				add(ErrorLabel);
+		}
 			repaint();
-		}	
+		}
 	}
-}
