@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 
 public class Tank {
 	private int xcoord, ycoord,HP, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius, TANKID;
 	private Color kleur;
 	private Terrain terrain;
-	private int Angle = 45,Power = 5;
+	private int Angle = 45, Power = 5;
 	
 	public Tank(Color kleur, Terrain terrain, int TANKID) {
 		this.TANKID = TANKID;
@@ -27,22 +29,25 @@ public class Tank {
 	}
 	
 	public void drawTank(Graphics g){
+		drawTankgun((Graphics2D) g);
 		g.setColor(Color.BLACK);
 		g.fillOval(xcoord-(BigRectWidth/4), ycoord-BigRectHeight-(BigRadius/2), BigRadius, BigRadius);
 		g.setColor(kleur);
 		g.fillRoundRect(xcoord-(BigRectWidth/2), ycoord-BigRectHeight, BigRectWidth, BigRectHeight, BigRadius, BigRadius);
 		g.setColor(Color.gray);
 		g.fillRoundRect(xcoord-(BigRectWidth/2)+2, ycoord-WheelRadius, BigRectWidth-4, WheelRadius, WheelRadius, WheelRadius);
-		//drawTankgun((Graphics2D) g);
 	}
 	
 	public void drawTankgun(Graphics2D g){
 		g.setColor(kleur); //Bgtan van vector tot de muis voor hoek aan te passen + power = distance van dezelfde vector
 		Rectangle Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
-		g.rotate(Math.toRadians(Angle));
+		AffineTransform at = AffineTransform.getRotateInstance(Angle*(Math.PI/180), xcoord, ycoord-BigRectHeight-(WheelRadius*1/2)-1);
 		g.draw(Tankgun);
 		g.fill(Tankgun);
+		Shape rotatedRect = at.createTransformedShape(Tankgun);
+		//g.setTransform(at);
 	}
+	
 	public boolean Hit(int Damage){
 		updateHeight();
 		if (Damage>0){

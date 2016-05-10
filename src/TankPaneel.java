@@ -13,7 +13,7 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
-	private int AngleBegin = 90, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
+	private int AngleBegin = 0, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
 	private JLabel AngleLabel, PowerLabel,ErrorLabel;
