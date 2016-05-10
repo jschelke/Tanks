@@ -54,7 +54,7 @@ public class TankPaneel extends JPanel implements ActionListener{
 			if(terrain.firedShell == null){
 				this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
 				PowerSlider.setValue(CurrentTank.getPower()*10);
-				AngleSlider.setValue(CurrentTank.getAngle());
+				AngleSlider.setValue(180-CurrentTank.getAngle());
 				ErrorLabel.setVisible(false);
 				}
 			}

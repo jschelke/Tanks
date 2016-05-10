@@ -38,7 +38,7 @@ public class SplineFactory
 		
 		for(int i = 0;i<(ControlPoints.length/3);i+=1){
 			ControlPoints[i*3] = i*SectionWidth;
-			ControlPoints[i*3+1] = 400+rand.nextInt(HEIGHT-400);
+			ControlPoints[i*3+1] = 300+rand.nextInt(HEIGHT-300);
 		}
 		 
 		double[] spline = SplineFactory.createCubic(ControlPoints,SectionWidth/2);

@@ -71,9 +71,11 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	public void drawhit(int posx,int hitRadius) {
 		for(int i =-hitRadius;i<=hitRadius;i++){
-			yPoints[posx+i] = yPoints[posx+i]+(int)Math.sqrt(Math.abs(Math.pow(hitRadius,2)-Math.pow(i, 2)));
-			if(yPoints[posx+i]>Tanks.SCHERM_HOOGTE){
-				yPoints[posx+i] = Tanks.SCHERM_HOOGTE;
+			if(posx-hitRadius>0 ||posx+hitRadius<700){
+				yPoints[posx+i] = yPoints[posx+i]+(int)Math.sqrt(Math.abs(Math.pow(hitRadius,2)-Math.pow(i, 2)));
+				if(yPoints[posx+i]>Tanks.SCHERM_HOOGTE){
+					yPoints[posx+i] = Tanks.SCHERM_HOOGTE;
+				}
 			}
 		}
 		for(int i = 0;i<TankList.size();i++){
