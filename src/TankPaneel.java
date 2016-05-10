@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class TankPaneel extends JPanel implements ActionListener{
+	private Tank CurrentTank;
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
@@ -16,8 +17,6 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
 	private JLabel AngleLabel, PowerLabel;
-	private int AngleValue = 90,PowerValue = 50;
-	private Tank tank;
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain) {
@@ -50,7 +49,9 @@ public class TankPaneel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton && terrain.firedShell == null){
-			terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
+			this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
+			PowerSlider.setValue(CurrentTank.getPower());
+			AngleSlider.setValue(CurrentTank.getAngle());
 		}	
 	}
 }

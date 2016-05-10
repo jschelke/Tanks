@@ -17,6 +17,7 @@ public class PlayPaneel extends JPanel {
 		Terrain.setMaximumSize(new Dimension(700,700));
 		Terrain.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.add(Terrain);
+		
 		TankPaneel TankPaneel = new TankPaneel(Terrain);
 		TankPaneel.setMaximumSize(new Dimension(300,700));
 		TankPaneel.setAlignmentX(Component.LEFT_ALIGNMENT);

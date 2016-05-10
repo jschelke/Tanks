@@ -35,6 +35,9 @@ public class Slider extends JPanel implements MouseListener  {
 	public int getValue(){
 		return (int) slider.getValue();
 	}
+	public void setValue(int Value){
+		slider.setValue(Value);
+	}
 	public boolean getValueIsAdjusting() {
 		return slider.getValueIsAdjusting();
 	}

@@ -19,7 +19,7 @@ public class Terrain extends JPanel implements ActionListener {
 	Timer timer = new Timer();
 	Shell firedShell;
 	private ArrayList<Tank> TankList;
-	private static int AmountOfTanks;
+	private int AmountOfTanks;
 	private int CurrentTank = 0;
 	
 	public Terrain(int AmountPlayers){
@@ -76,6 +76,9 @@ public class Terrain extends JPanel implements ActionListener {
 				yPoints[posx+i] = Tanks.SCHERM_HOOGTE;
 			}
 		}
+		for(int i = 0;i<TankList.size();i++){
+			TankList.get(i).updateHeight();
+		}
 		repaint();
 	}
 
@@ -110,12 +113,15 @@ public class Terrain extends JPanel implements ActionListener {
 		timer = new Timer();
 		timer.schedule(new MyTimerTask(firedShell), 0, 20);
 	}
-	public void fireTank(int speed,int Angle){
+	public Tank fireTank(int speed,int Angle){
 		ShellFired(speed,Angle,TankList.get(CurrentTank));
+		TankList.get(CurrentTank).setAngle(Angle);
+		TankList.get(CurrentTank).setPower(speed);
 		CurrentTank++;
 		if(CurrentTank >=AmountOfTanks){
 			CurrentTank -= AmountOfTanks;
 		}
+		return TankList.get(CurrentTank);
 	}
 	
 	@Override

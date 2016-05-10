@@ -6,16 +6,15 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Tank {
-	private int xcoord, ycoord, Angle, Power, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius ;
+	private int xcoord, ycoord, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius ;
 	private Color kleur;
 	private Terrain terrain;
+	private int Angle = 45,Power = 5;
 	
 	public Tank(Color kleur, Terrain terrain) {
 		this.terrain = terrain;
 		this.xcoord = terrain.Tank_spawn()[0];
 		this.ycoord = terrain.getyPoints(xcoord);
-		this.Angle = Angle;
-		this.Power = Power;
 		this.BigRectWidth = 18;
 		this.BigRectHeight = 10;
 		this.SmallRectWidth = 20;
@@ -45,5 +44,21 @@ public class Tank {
 	
 	int getxcoord(){
 		return xcoord;
+	}
+	public void updateHeight(){
+		ycoord = terrain.getyPoints(xcoord);
+		return;
+	}
+	public int getAngle(){
+		return Angle;
+	}
+	public int getPower(){
+		return Power;
+	}
+	public void setAngle(int Angle){
+		this.Angle = Angle;
+	}
+	public void setPower(int Power){
+		this.Power = Power;
 	}
 }
