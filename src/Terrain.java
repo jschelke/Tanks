@@ -29,7 +29,7 @@ public class Terrain extends JPanel implements ActionListener {
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = AmountPlayers;
 		for(int i =0;i<AmountOfTanks;i++){
-			TankList.add(new Tank(Color.RED,this));
+			TankList.add(new Tank(Color.RED,this,i));
 		}
 		repaint();
 		}
@@ -43,14 +43,10 @@ public class Terrain extends JPanel implements ActionListener {
 		
 	}
 	
-	public int[] Tank_spawn(){ 
-		int [] SpawnPlace = new int [AmountOfTanks];
-		int Splitscreen = yPoints.length/AmountOfTanks; //Deel op in amountoftanks delen en kies random
+	public int Tank_spawn(int TANKID){ 
+		int Splitscreen = yPoints.length/AmountOfTanks;
 		Random rand = new Random();
-		for(int i=0; i<AmountOfTanks; i++){
-			SpawnPlace[i] = rand.nextInt(Splitscreen) + Splitscreen*i;
-		}
-		return SpawnPlace;
+		return rand.nextInt(Splitscreen) + Splitscreen*TANKID;
 	}
 	
 	public void paintComponent(Graphics g){

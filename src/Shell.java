@@ -24,7 +24,7 @@ public class Shell {
 		if(xcoord<700 && xcoord > 0 &&ycoord >= terrain.getyPoints(xcoord)&&time != 0){
 			return xcoord;
 		}
-		else if(xcoord>=700 && xcoord >= 0) {
+		else if(xcoord>=700 || xcoord <= 0) {
 			return -2;
 		}
 		else
