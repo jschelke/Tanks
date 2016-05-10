@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 //maxPower: +- 10
 
@@ -55,8 +56,11 @@ public class Terrain extends JPanel implements ActionListener {
 		if(firedShell!=null){
 			firedShell.drawme(g);
 		}
-		for(int i=0; i<TankList.size(); i++){
+		for(int i=0; i<TankList.size(); i++){//tekenen van Tanks en hun HP waarden
 			TankList.get(i).drawTank(g);
+			JLabel HPLabel = new JLabel(TankList.get(i).getHP() + "%",JLabel.CENTER);
+			HPLabel.setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
+			add(HPLabel);
 		}
 	}
 
@@ -74,6 +78,7 @@ public class Terrain extends JPanel implements ActionListener {
 		}
 		for(int i = 0;i<TankList.size();i++){
 			TankList.get(i).updateHeight();
+			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx));
 		}
 		repaint();
 	}

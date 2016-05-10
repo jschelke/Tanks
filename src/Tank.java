@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Tank {
-	private int xcoord, ycoord, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius, TANKID;
+	private int xcoord, ycoord,HP, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius, TANKID;
 	private Color kleur;
 	private Terrain terrain;
 	private int Angle = 45,Power = 5;
@@ -23,6 +23,7 @@ public class Tank {
 		this.BigRadius = 9;
 		this.WheelRadius = 5;
 		this.kleur = kleur;
+		this.HP = 100;
 	}
 	
 	public void drawTank(Graphics g){
@@ -42,13 +43,27 @@ public class Tank {
 		g.draw(Tankgun);
 		g.fill(Tankgun);
 	}
-	
-	int getxcoord(){
-		return xcoord;
+	public boolean Hit(int Damage){
+		if (Damage>0){
+			HP -=Damage;
+		}
+		if(HP <= 0)
+			return true;
+		else
+			return false;
 	}
 	public void updateHeight(){
 		ycoord = terrain.getyPoints(xcoord);
 		return;
+	}
+	public int getTANKID() {
+		return TANKID;
+	}
+	public int getHP(){
+		return HP;
+	}
+	int getxcoord(){
+		return xcoord;
 	}
 	public int getAngle(){
 		return Angle;
@@ -61,9 +76,5 @@ public class Tank {
 	}
 	public void setPower(int Power){
 		this.Power = Power;
-	}
-
-	public int getTANKID() {
-		return TANKID;
 	}
 }
