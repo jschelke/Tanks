@@ -7,7 +7,13 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
-public class Tank {
+import com.sun.javafx.geom.transform.Affine3D;
+import com.sun.javafx.geom.transform.BaseTransform;
+
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
+
+public class Tank extends Transform {
 	private int xcoord, ycoord,HP, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius, TANKID;
 	private Color kleur;
 	private Terrain terrain;
@@ -41,11 +47,16 @@ public class Tank {
 	public void drawTankgun(Graphics2D g){
 		g.setColor(kleur); //Bgtan van vector tot de muis voor hoek aan te passen + power = distance van dezelfde vector
 		Rectangle Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
-		AffineTransform at = AffineTransform.getRotateInstance(Angle*(Math.PI/180), xcoord, ycoord-BigRectHeight-(WheelRadius*1/2)-1);
-		g.draw(Tankgun);
-		g.fill(Tankgun);
-		Shape rotatedRect = at.createTransformedShape(Tankgun);
-		//g.setTransform(at);
+		AffineTransform at = g.getTransform();
+		if(Angle != 0){
+			g.rotate(Angle, xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
+			g.draw(Tankgun);
+			g.fill(Tankgun);
+			g.setTransform(at);
+		}else{
+			g.draw(Tankgun);
+			g.fill(Tankgun);
+		}
 	}
 	
 	public boolean Hit(int Damage){
@@ -82,5 +93,17 @@ public class Tank {
 	}
 	public void setPower(int Power){
 		this.Power = Power;
+	}
+
+	@Override
+	public void impl_apply(Affine3D arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BaseTransform impl_derive(BaseTransform arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

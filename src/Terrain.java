@@ -22,6 +22,8 @@ public class Terrain extends JPanel implements ActionListener {
 	private ArrayList<Tank> TankList;
 	private int AmountOfTanks;
 	private int CurrentTank = 0;
+	private int ConfigureX = 10;
+	private int SideEffect = 20;
 	
 	public Terrain(int AmountPlayers){
 		this.setBackground(Color.CYAN);
@@ -45,9 +47,9 @@ public class Terrain extends JPanel implements ActionListener {
 	}
 	
 	public int Tank_spawn(int TANKID){ 
-		int Splitscreen = yPoints.length/AmountOfTanks;
+		int Splitscreen = (yPoints.length-SideEffect)/AmountOfTanks;
 		Random rand = new Random();
-		return rand.nextInt(Splitscreen) + Splitscreen*TANKID;
+		return rand.nextInt(Splitscreen) + Splitscreen*TANKID + ConfigureX;
 	}
 	
 	public void paintComponent(Graphics g){
