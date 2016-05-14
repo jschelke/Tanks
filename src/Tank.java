@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
+import javax.swing.Timer;
+
 import com.sun.javafx.geom.transform.Affine3D;
 import com.sun.javafx.geom.transform.BaseTransform;
 
@@ -24,10 +26,9 @@ public class Tank extends Transform implements ActionListener{
 	private int BigRadius;
 	private int WheelRadius;
 	private int TANKID;
-	private int fuel;
 	private Color kleur;
 	private Terrain terrain;
-	private int Angle = 45, Power = 5;
+	private int Angle = 45, Power = 5, Fuel = 100;
 	static double vx = 0;
 	static double vy = 0;
 	
@@ -44,7 +45,6 @@ public class Tank extends Transform implements ActionListener{
 		this.WheelRadius = 5;
 		this.kleur = kleur;
 		this.HP = 100;	
-		this.fuel = fuel;
 	}
 	
 	public void drawTank(Graphics g){
@@ -78,21 +78,33 @@ public class Tank extends Transform implements ActionListener{
 			return false;
 	}
 	
-	public static void Right(int fuel){
-		if(fuel>0){
+	public static void Right(int Fuel){
+		if(Fuel>0){
 			vx = 0.5;
 			vy = 0;
-			fuel -= 5; 
+			Fuel -= 5; 
 		}
 	}
 	
-	public static void Left(int fuel){
-		if(fuel>0){
+	public static void Left(int Fuel){
+		if(Fuel>0){
 			vx = -0.5;
 			vy = 0;
-			fuel -= 5;
+			Fuel -= 5;
 		}
 	}
+	
+	public int updateme(int time){
+		if(xcoord<700 && xcoord > 0 &&ycoord >= terrain.getyPoints(xcoord)&&time != 0){
+			return xcoord;
+		}
+		else if(xcoord>=700 || xcoord <= 0) {
+			return -2;
+		}
+		else
+			return -1;
+	}
+	
 	public void updateHeight(){
 		ycoord = terrain.getyPoints(xcoord);
 		return;
@@ -112,11 +124,17 @@ public class Tank extends Transform implements ActionListener{
 	public int getPower(){
 		return Power;
 	}
+	public int getFuel() {
+		return Fuel;
+	}
 	public void setAngle(int Angle){
 		this.Angle = Angle;
 	}
 	public void setPower(int Power){
 		this.Power = Power;
+	}
+	public void setFuel(int Fuel){
+		this.Fuel = Fuel;
 	}
 
 	@Override
@@ -136,6 +154,4 @@ public class Tank extends Transform implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

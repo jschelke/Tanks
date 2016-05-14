@@ -22,3 +22,5 @@
 /Slider.class
 /GlobalVariables.class
 /Move.class
+/Terrain$TankTimerTask.class
+/Terrain$ShellTimerTask.class

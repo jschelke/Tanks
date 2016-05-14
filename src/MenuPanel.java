@@ -2,8 +2,9 @@ package src;
 
 import javax.swing.*;
 
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -11,12 +12,17 @@ import java.util.ArrayList;
 public class MenuPanel extends JPanel implements ActionListener {
 	private JButton PlayButton, QuitButton;
 	private Tanks mainscreen;
+	
+	final static String IMAGE_FOLDER = "images/";
+	private Image TanksBackground;
+	
 	@SuppressWarnings("rawtypes")
 	private JComboBox environment;//kies soort terrein
 	private String[] environmentChoices = {"Plains","Desert", "Arctic"};// keuzes voor de ComboBox
 	private String[] ColorChoices = {"Black","Blue","Dark Gray","Gray","Green","Magenta","Orange","Pink","Red","White","Yellow"};
 	@SuppressWarnings("unused")
 	private int environmentChoice = 0;
+	
 	private Slider amountPlayersSlider;
 	private JLabel amountPlayersLabel;
 	private int amountPlayers;
@@ -34,17 +40,22 @@ public class MenuPanel extends JPanel implements ActionListener {
 		environment = new JComboBox(environmentChoices);
 		environment.setSelectedIndex(0);
 		environment.addActionListener(this);
-		environment.setBounds(400, 10, 130, 30);
+		environment.setBounds(450, 10, 130, 30);
 		
 		amountPlayersLabel = new JLabel("Amount of Tanks",JLabel.CENTER);
-		amountPlayersLabel.setBounds(350, 80, 250, 20);;
+		amountPlayersLabel.setBounds(380, 80, 250, 20);
+		amountPlayersLabel.setForeground(Color.white);
+		
 		
 		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 8, 2, 2);
-		amountPlayersSlider.setBounds(350, 100, 250, 50);
+		amountPlayersSlider.setBounds(385, 100, 250, 50);
+		
+		TanksBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "TanksBackground.jpg")).getImage();
 
 		PlayButton = new JButton("Play");
+		PlayButton.setBackground(Color.ORANGE);
 		PlayButton.addActionListener(this);
-		PlayButton.setBounds(400, 250, 130, 30);
+		PlayButton.setBounds(450, 200, 130, 30);
 
 
 		QuitButton = new JButton("Quit");
@@ -61,6 +72,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.drawImage(TanksBackground, 0, 0, 1000, 700, this);
+		
 		int ElementAmount = PlayerColorSelection.size();
 		for(int i = 0; i<PlayerColorSelection.size();i++){
 //			this.add(PlayerColorSelection.get(0).setBounds(200, 200, 200, 50));

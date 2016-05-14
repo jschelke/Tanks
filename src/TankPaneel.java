@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 @SuppressWarnings("serial")
 public class TankPaneel extends JPanel implements ActionListener{
@@ -16,7 +17,8 @@ public class TankPaneel extends JPanel implements ActionListener{
 	private int AngleBegin = 0, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
-	private JLabel AngleLabel, PowerLabel,ErrorLabel;
+	private JLabel AngleLabel, PowerLabel,ErrorLabel, FuelLabel;
+	private JProgressBar FuelBar;
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain) {
@@ -27,15 +29,21 @@ public class TankPaneel extends JPanel implements ActionListener{
 	ErrorLabel = new JLabel("Wait till the shell hits the Terrain before firing again");
 	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
-	AngleLabel.setBounds(10, 80, 250, 20);
-	
+	AngleLabel.setBounds(20, 80, 250, 20);
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
-	AngleSlider.setBounds(10, 100, 250, 50);
+	AngleSlider.setBounds(20, 100, 250, 50);
 	
 	PowerLabel = new JLabel("POWER", JLabel.CENTER);
-	PowerLabel.setBounds(10, 280, 250, 20);
+	PowerLabel.setBounds(20, 230, 250, 20);
 	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
-	PowerSlider.setBounds(10, 300, 250, 50);
+	PowerSlider.setBounds(20, 250, 250, 50);
+	
+	FuelLabel = new JLabel("FUEL", JLabel.CENTER);
+	FuelLabel.setBounds(20, 380, 250, 20);
+	FuelBar = new JProgressBar(0,100);
+	FuelBar.setBounds(20, 400, 250, 30);
+	FuelBar.setValue(100);
+    FuelBar.setStringPainted(true);
 	
 	ShootButton = new JButton("Shoot!");
 	ShootButton.addActionListener(this);
@@ -45,6 +53,8 @@ public class TankPaneel extends JPanel implements ActionListener{
 	this.add(AngleSlider);
 	this.add(PowerLabel);
 	this.add(PowerSlider);
+	this.add(FuelLabel);
+	this.add(FuelBar);
 	this.add(ShootButton);
 	}
 
@@ -56,6 +66,7 @@ public class TankPaneel extends JPanel implements ActionListener{
 				PowerSlider.setValue(CurrentTank.getPower()*10);
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				ErrorLabel.setVisible(false);
+				FuelBar.setValue(CurrentTank.getFuel());
 				}
 			}
 			else{
