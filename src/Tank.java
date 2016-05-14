@@ -4,20 +4,32 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
 import com.sun.javafx.geom.transform.Affine3D;
 import com.sun.javafx.geom.transform.BaseTransform;
 
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 
-public class Tank extends Transform {
-	private int xcoord, ycoord,HP, BigRectWidth, BigRectHeight, SmallRectWidth,  SmallRectHeight, BigRadius, WheelRadius, TANKID;
+public class Tank extends Transform implements ActionListener{
+	static int xcoord;
+	static int ycoord;
+	private int HP;
+	private int BigRectWidth;
+	private int BigRectHeight;
+	private int SmallRectWidth;
+	private int SmallRectHeight;
+	private int BigRadius;
+	private int WheelRadius;
+	private int TANKID;
+	private int fuel;
 	private Color kleur;
 	private Terrain terrain;
 	private int Angle = 45, Power = 5;
+	static double vx = 0;
+	static double vy = 0;
 	
 	public Tank(Color kleur, Terrain terrain, int TANKID) {
 		this.TANKID = TANKID;
@@ -31,7 +43,8 @@ public class Tank extends Transform {
 		this.BigRadius = 9;
 		this.WheelRadius = 5;
 		this.kleur = kleur;
-		this.HP = 100;
+		this.HP = 100;	
+		this.fuel = fuel;
 	}
 	
 	public void drawTank(Graphics g){
@@ -48,16 +61,11 @@ public class Tank extends Transform {
 		g.setColor(kleur); //Bgtan van vector tot de muis voor hoek aan te passen + power = distance van dezelfde vector
 		Rectangle Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
 		AffineTransform at = g.getTransform();
-		if(Angle != 0){
-			g.rotate(Angle, xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
+			g.rotate(-Angle, xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
 			g.draw(Tankgun);
 			g.fill(Tankgun);
 			g.setTransform(at);
-		}else{
-			g.draw(Tankgun);
-			g.fill(Tankgun);
-		}
-	}
+}
 	
 	public boolean Hit(int Damage){
 		updateHeight();
@@ -68,6 +76,22 @@ public class Tank extends Transform {
 			return true;
 		else
 			return false;
+	}
+	
+	public static void Right(int fuel){
+		if(fuel>0){
+			vx = 0.5;
+			vy = 0;
+			fuel -= 5; 
+		}
+	}
+	
+	public static void Left(int fuel){
+		if(fuel>0){
+			vx = -0.5;
+			vy = 0;
+			fuel -= 5;
+		}
 	}
 	public void updateHeight(){
 		ycoord = terrain.getyPoints(xcoord);
@@ -106,4 +130,12 @@ public class Tank extends Transform {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
