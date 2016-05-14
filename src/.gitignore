@@ -21,6 +21,10 @@
 /SplineFactory.class
 /Slider.class
 /GlobalVariables.class
+<<<<<<< Updated upstream
 /Move.class
 /Terrain$TankTimerTask.class
 /Terrain$ShellTimerTask.class
+=======
+/TankCostumization.class
+>>>>>>> Stashed changes
