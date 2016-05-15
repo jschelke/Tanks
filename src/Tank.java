@@ -30,6 +30,7 @@ public class Tank extends Transform implements ActionListener{
 	static double vx = 0;
 	static double vy = 0;
 	protected String name;
+	protected Tank LastAttacker;
 	
 	public Tank(Color kleur, Terrain terrain, int TANKID,String name) {
 		this.TANKID = TANKID;
@@ -67,8 +68,9 @@ public class Tank extends Transform implements ActionListener{
 			g.setTransform(at);
 }
 	
-	public void Hit(int Damage){
+	public void Hit(int Damage,Tank Attacker){
 		updateHeight();
+		LastAttacker = Attacker;
 		if (Damage>0){
 			HP -=Damage;
 		}
@@ -92,6 +94,9 @@ public class Tank extends Transform implements ActionListener{
 			vy = 0;
 			Fuel -= 5;
 		}
+	}
+	public boolean isComputer(){
+		return false;
 	}
 	
 	public int updateme(int time){
@@ -157,4 +162,5 @@ public class Tank extends Transform implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

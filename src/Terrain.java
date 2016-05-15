@@ -19,7 +19,7 @@ public class Terrain extends JPanel implements ActionListener {
 	protected static int[] yPoints;
 	Timer timer = new Timer();
 	Shell firedShell;
-	private ArrayList<Tank> TankList;
+	ArrayList<Tank> TankList;
 	private int AmountOfTanks;
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
@@ -115,9 +115,12 @@ public class Terrain extends JPanel implements ActionListener {
 		g.fillPolygon(Points[0], yPoints, Points[0].length);
 		}
 	
-	public void drawhit(int posx,int hitRadius) {
+	public void drawhit(int posx,int hitRadius,Tank attacker) {
+		if(attacker.isComputer()){
+			((Computer) attacker).hitPosition(posx);
+		}
 		for(int i =-hitRadius;i<=hitRadius;i++){
-			if(posx-hitRadius>0 ||posx+hitRadius<700){
+			if(posx+i>0 &&posx+i<700){
 				yPoints[posx+i] = yPoints[posx+i]+(int)Math.sqrt(Math.abs(Math.pow(hitRadius,2)-Math.pow(i, 2)));
 				if(yPoints[posx+i]>Tanks.SCHERM_HOOGTE){
 					yPoints[posx+i] = Tanks.SCHERM_HOOGTE;
@@ -125,15 +128,17 @@ public class Terrain extends JPanel implements ActionListener {
 			}
 		}
 		for(int i = 0;i<TankList.size();i++){
-			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx));
+			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx),attacker);
 		}
 		repaint();
 	}
 
 	public class MyTimerTask extends TimerTask {
 		Shell shell;
-		public MyTimerTask(Shell shell) {
+		Tank tank;
+		public MyTimerTask(Shell shell,Tank tank) {
 			this.shell = shell;
+			this.tank = tank;
 		}
 		private int time = 0;
 		public void run() {
@@ -148,7 +153,7 @@ public class Terrain extends JPanel implements ActionListener {
 				timer.cancel();
 			}
 			else{
-				drawhit(returnValue,10);
+				drawhit(returnValue,10,tank);
 				firedShell = null;
 				repaint();
 				timer.cancel();
@@ -159,7 +164,7 @@ public class Terrain extends JPanel implements ActionListener {
 	public void ShellFired(int speed,int Angle,Tank tank){
 		firedShell = new Shell(speed,Angle,tank.getxcoord(),this);
 		timer = new Timer();
-		timer.schedule(new MyTimerTask(firedShell), 0, 20);
+		timer.schedule(new MyTimerTask(firedShell,tank), 0, 20);
 	}
 	public Tank fireTank(int speed,int Angle){
 		ShellFired(speed,Angle,TankList.get(CurrentTank));
