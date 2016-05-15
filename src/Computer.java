@@ -73,7 +73,7 @@ public class Computer extends Tank{
 		ComputerShotFired ClosestShot = null;
 		int ShotAccuracy;
 		int Power,Angle;
-		if(ShotsFired.size() == 0){
+		if(ShotsFired.size() == 0){ //toevoegen is hier nog nodig
 			System.out.println("nu nog niets");
 		} else{
 			for(ComputerShotFired Shot : ShotsFired){//kijkt naar vorige pogingen en haalt er een uit dat dichtbij het doelwit ligt
@@ -89,16 +89,19 @@ public class Computer extends Tank{
 				
 			} else{//Marker 1
 				if(ClosestShot.getxcoordTarget()<getxcoord()){// controleer of target links ligt van de computer
-					System.out.println("Debugging: /t Running: Marker 1");
+					System.out.println("Debugging Computer: /t Running: Marker 1");
 					Power = (ClosestShot.getPower()-(ClosestShot.getDistanceFromTarget()/(4+rand.nextInt(8))));
 					Angle = ClosestShot.getAngle();
 					ShotsFired.add(new ComputerShotFired(Target,Angle,Power));
 					terrain.fireTank(Power, Angle);
+				}else{ //Marker 2
+					System.out.println("Debugging Computer: /t Running: Marker 2");
+					Power = (ClosestShot.getPower()+(ClosestShot.getDistanceFromTarget()/(4+rand.nextInt(8))));
+					Angle = ClosestShot.getAngle();
+					ShotsFired.add(new ComputerShotFired(Target,Angle,Power));
+					terrain.fireTank(Power, Angle);
 				}
-				
 			}
-			
-			
 		}
 	}
 	private boolean checkShot(int Angle,int Power){//controleerd of het schot binnen bepaalde waarden valt(niet te ver weg)

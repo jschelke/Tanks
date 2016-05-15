@@ -63,7 +63,7 @@ public class Terrain extends JPanel implements ActionListener {
 		AmountOfTanks--;
 	}
 	
-	public int Tank_spawn(int TANKID){ 
+	public int Tank_spawn(int TANKID){ //geeft x coordinaten in het begin van het spel voor de Tanks
 		int Splitscreen = (yPoints.length-SideEffect)/AmountOfTanks;
 		Random rand = new Random();
 		return (rand.nextInt(Splitscreen) + Splitscreen*TANKID + ConfigureX);
@@ -76,7 +76,7 @@ public class Terrain extends JPanel implements ActionListener {
 		if(firedShell!=null){
 			firedShell.drawme(g);
 		}
-		if(HPLabels.size()==0){
+		if(HPLabels.size()==0){//tekenen van HP points labels en namen boven de Tanks
 			for(int i = 0; i<TankList.size();i++){
 				if(TankList.get(i).getHP()>0){
 					HPLabels.add(new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
@@ -84,7 +84,7 @@ public class Terrain extends JPanel implements ActionListener {
 					add(HPLabels.get(i));
 				
 					nameLabels.add(new JLabel(TankList.get(i).getName(),JLabel.CENTER));
-					nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
+					nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-30,getyPoints(TankList.get(i).getxcoord())-50, 60, 20);
 					add(nameLabels.get(i));
 				
 				TankList.get(i).drawTank(g);
@@ -110,12 +110,59 @@ public class Terrain extends JPanel implements ActionListener {
 		}
 	}
 
-	public void drawTerrain(Graphics g) {
+	public void drawTerrain(Graphics g) {// tekent het terrein
 		g.setColor(terrainColor);
 		g.fillPolygon(Points[0], yPoints, Points[0].length);
-		}
+	}
+	public Tank getCurrentTank() {// geeft de huidige actieve Tank weer
+		return TankList.get(CurrentTank);
+	}
 	
-	public void drawhit(int posx,int hitRadius,Tank attacker) {
+	public void fireTank(int speed,int Angle){//veranderen van geslecteerde Tank en doorsturen van commando om shell af te vuren
+		ShellFired(speed,Angle,getCurrentTank());
+		TankList.get(CurrentTank).setAngle(Angle);
+		TankList.get(CurrentTank).setPower(speed);
+		CurrentTank++;
+		if(CurrentTank >=AmountOfTanks){
+			CurrentTank -= AmountOfTanks;
+		}
+	}
+	public void ShellFired(int speed,int Angle,Tank tank){//starten timer en nieuwe Shell aanmaken
+		firedShell = new Shell(speed,Angle,tank.getxcoord(),this);
+		timer = new Timer();
+		timer.schedule(new MyTimerTask(firedShell,tank), 0, 20);
+	}
+
+	public class MyTimerTask extends TimerTask {// wordt gebruikt om de osistie van de shell te upadten en zo ook te tekenen
+		Shell shell;
+		Tank tank;
+		public MyTimerTask(Shell shell,Tank tank) {
+			this.shell = shell;
+			this.tank = tank;
+		}
+		private int time = 0;
+		public void run() {
+			int returnValue = shell.updateme(time);//hieruit kan worden gezien of er een inslag om het terrein is of de shell nog steeds vliegt
+			shell.updateme(time);
+			if(returnValue == -1){//Shell heeft nog niets geraaktt en wordt verder geupdate
+				time++;
+				repaint();
+			}else if(returnValue == -2){//Shell is uit het paneel gevlogen en heeft niets geraakt
+				firedShell = null;
+				repaint();
+				checkNextTank();
+				timer.cancel();
+			}
+			else{
+				drawhit(returnValue,10,tank);//Shell heeft het terrein geraakt
+				firedShell = null;
+				repaint();
+				timer.cancel();
+			}
+		}
+	}
+	
+	public void drawhit(int posx,int hitRadius,Tank attacker) {// als de shell het terrein raakt zal hiermee een krater getekent worden en wordt gecontroleerd of een tank geraakt is
 		System.out.println(posx);
 		if(attacker.isComputer()){
 			((Computer) attacker).hitPosition(posx);
@@ -132,50 +179,12 @@ public class Terrain extends JPanel implements ActionListener {
 			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx),attacker);
 		}
 		repaint();
-	}
-
-	public class MyTimerTask extends TimerTask {
-		Shell shell;
-		Tank tank;
-		public MyTimerTask(Shell shell,Tank tank) {
-			this.shell = shell;
-			this.tank = tank;
-		}
-		private int time = 0;
-		public void run() {
-			int returnValue = shell.updateme(time);
-			shell.updateme(time);
-			if(returnValue == -1){
-				time++;
-				repaint();
-			}else if(returnValue == -2){
-				firedShell = null;
-				repaint();
-				timer.cancel();
-			}
-			else{
-				drawhit(returnValue,10,tank);
-				firedShell = null;
-				repaint();
-				timer.cancel();
-			}
-		}
+		checkNextTank();
 	}
 	
-	public void ShellFired(int speed,int Angle,Tank tank){
-		firedShell = new Shell(speed,Angle,tank.getxcoord(),this);
-		timer = new Timer();
-		timer.schedule(new MyTimerTask(firedShell,tank), 0, 20);
-	}
-	public Tank fireTank(int speed,int Angle){
-		ShellFired(speed,Angle,TankList.get(CurrentTank));
-		TankList.get(CurrentTank).setAngle(Angle);
-		TankList.get(CurrentTank).setPower(speed);
-		CurrentTank++;
-		if(CurrentTank >=AmountOfTanks){
-			CurrentTank -= AmountOfTanks;
-		}
-		return TankList.get(CurrentTank);
+	private void checkNextTank(){ //controleerd of de volgende Tank een computer is en indien dit het geval is dan begint het proces om een shell af te vuren
+		if(TankList.get(CurrentTank).isComputer())
+			((Computer) TankList.get(CurrentTank)).fire();
 	}
 	
 	@Override

@@ -36,7 +36,7 @@ public class SplineFactory
 		double[] ControlPoints = new double[(int)((WIDTH*3/SectionWidth))+3];
 		Random rand = new Random();
 		
-		for(int i = 0;i<(ControlPoints.length/3);i+=1){
+		for(int i = 0;i<(ControlPoints.length/3);i+=1){ // kiezen van controle punten om een cubic Sline door te doen
 			ControlPoints[i*3] = i*SectionWidth;
 			ControlPoints[i*3+1] = 300+rand.nextInt(HEIGHT-300);
 		}
@@ -57,7 +57,7 @@ public class SplineFactory
 		xPoints[0] = 0;
 		yPoints[0] = (int) spline[1];
 		for(int i =1;i<WIDTH;i++){	//begint van 1
-			for(int j = teller;j<xPoints.length;j++){
+			for(int j = teller;j<xPoints.length;j++){//Dit is om een Array te creeren waarbij de index van een element overeenkomt met de xcoordinaat
 				if((int)spline[j*3]>xPoints[i-1]){
 					teller = j;
 //					System.out.println("i:\t"+i + "\tj:\t"+j+ "\tx:\t"+xPoints[i-1]+ "\ty:\t"+(int)spline[j*3]);

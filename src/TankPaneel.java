@@ -28,7 +28,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
 	private JFormattedTextField AngleTextField,PowerTextField;
-	private JLabel AngleLabel, PowerLabel,ErrorLabel, FuelLabel;
+	private JLabel AngleLabel, PowerLabel, FuelLabel;
 	private JProgressBar FuelBar;
 	Terrain terrain;
 	
@@ -38,8 +38,6 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.terrain = terrain;
 	
 	this.setLayout(null);
-	
-	ErrorLabel = new JLabel("Wait till the shell hits the Terrain before firing again");
 	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
 	AngleLabel.setBounds(20, 80, 250, 20);
@@ -96,26 +94,20 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	}
 	@SuppressWarnings("static-access")
 	public void keyPressed(KeyEvent evt){
-		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){
-			System.out.println("ENTER is pressed");
+		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){// als je op enter drukt dan wordt de hoek geupdate
 			if(AngleTextField.isEditValid()){
-				System.out.println("text is valid");
 				try {
 					AngleTextField.commitEdit();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				AngleSlider.setValue((int)AngleTextField.getValue());
 			}
-		}else if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == PowerTextField){
-			System.out.println("ENTER is pressed");
+		}else if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == PowerTextField){// als je op enter drukt dan wordt de snelheid geupdate
 			if(PowerTextField.isEditValid()){
-				System.out.println("text is valid");
 				try {
 					PowerTextField.commitEdit();
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				PowerSlider.setValue((int)PowerTextField.getValue());
@@ -126,17 +118,13 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
 			if(terrain.firedShell == null){
-				this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
+				terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
+				this.CurrentTank = terrain.getCurrentTank();
 				PowerSlider.setValue(CurrentTank.getPower());
 				AngleSlider.setValue(180-CurrentTank.getAngle());
-				ErrorLabel.setVisible(false);
 				FuelBar.setValue(CurrentTank.getFuel());
 				}
 			}
-			else{
-				ErrorLabel.setBounds(0,20,300,10);
-				add(ErrorLabel);
-		}
 			repaint();
 		}
 	@Override
@@ -145,6 +133,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 		PowerTextField.setValue(PowerSlider.getValue());
 		
 	}
+	
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
