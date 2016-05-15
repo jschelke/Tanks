@@ -2,26 +2,41 @@ package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.event.ChangeEvent;
+import javax.swing.text.NumberFormatter;
+
+
+
 
 @SuppressWarnings("serial")
-public class TankPaneel extends JPanel implements ActionListener{
+public class TankPaneel extends JPanel implements ActionListener, KeyListener,MouseListener{
 	private Tank CurrentTank;
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
-	private int AngleBegin = 0, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
+	private int AngleBegin = 45, AngleBetween = 45, PowerBegin = 50, PowerBetween = 25;
 	private JButton ShootButton;
 	private Slider AngleSlider,PowerSlider;
+	private JFormattedTextField AngleTextField,PowerTextField;
 	private JLabel AngleLabel, PowerLabel,ErrorLabel, FuelLabel;
 	private JProgressBar FuelBar;
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain) {
+	addKeyListener(this);
+	addMouseListener(this);
 	this.terrain = terrain;
 	
 	this.setLayout(null);
@@ -31,12 +46,34 @@ public class TankPaneel extends JPanel implements ActionListener{
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
 	AngleLabel.setBounds(20, 80, 250, 20);
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
-	AngleSlider.setBounds(20, 100, 250, 50);
+	AngleSlider.setBounds(20, 100, 200, 50);
+	
+	java.text.NumberFormat numberFormat = java.text.NumberFormat.getIntegerInstance();
+    NumberFormatter formatter = new NumberFormatter(numberFormat);
+    formatter.setMinimum(new Integer(AngleMin));
+    formatter.setMaximum(new Integer(AngleMax));
+    AngleTextField = new JFormattedTextField(formatter);
+    AngleTextField.setValue(new Integer(AngleSlider.getValue()));
+    AngleTextField.setColumns(5); //get some space
+    AngleTextField.setBounds(240, 100, 40, 20);
+    AngleTextField.addActionListener(this);
+    AngleTextField.addKeyListener(this);
 	
 	PowerLabel = new JLabel("POWER", JLabel.CENTER);
 	PowerLabel.setBounds(20, 230, 250, 20);
 	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
-	PowerSlider.setBounds(20, 250, 250, 50);
+	PowerSlider.setBounds(20, 250, 200, 50);
+	
+	java.text.NumberFormat numberFormat2 = java.text.NumberFormat.getIntegerInstance();
+    NumberFormatter formatter2 = new NumberFormatter(numberFormat2);
+    formatter2.setMinimum(new Integer(PowerMin));
+    formatter2.setMaximum(new Integer(PowerMax));
+    PowerTextField = new JFormattedTextField(formatter);
+    PowerTextField.setValue(new Integer(PowerSlider.getValue()));
+    PowerTextField.setColumns(5); //get some space
+    PowerTextField.setBounds(240, 250, 40, 20);
+    PowerTextField.addActionListener(this);
+    PowerTextField.addKeyListener(this);
 	
 	FuelLabel = new JLabel("FUEL", JLabel.CENTER);
 	FuelLabel.setBounds(20, 380, 250, 20);
@@ -51,19 +88,48 @@ public class TankPaneel extends JPanel implements ActionListener{
 	
 	this.add(AngleLabel);
 	this.add(AngleSlider);
+	this.add(AngleTextField);
 	this.add(PowerLabel);
 	this.add(PowerSlider);
+	add(PowerTextField);
 	this.add(FuelLabel);
 	this.add(FuelBar);
 	this.add(ShootButton);
 	}
-
+	@Override
+	public void keyPressed(KeyEvent evt){
+		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){
+			System.out.println("ENTER is pressed");
+			if(AngleTextField.isEditValid()){
+				System.out.println("text is valid");
+				try {
+					AngleTextField.commitEdit();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				AngleSlider.setValue((int)AngleTextField.getValue());
+			}
+		}else if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == PowerTextField){
+			System.out.println("ENTER is pressed");
+			if(PowerTextField.isEditValid()){
+				System.out.println("text is valid");
+				try {
+					PowerTextField.commitEdit();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				PowerSlider.setValue((int)PowerTextField.getValue());
+			}
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
 			if(terrain.firedShell == null){
-				this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue()/10, 180-AngleSlider.getValue());
-				PowerSlider.setValue(CurrentTank.getPower()*10);
+				this.CurrentTank = terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
+				PowerSlider.setValue(CurrentTank.getPower());
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				ErrorLabel.setVisible(false);
 				FuelBar.setValue(CurrentTank.getFuel());
@@ -75,4 +141,43 @@ public class TankPaneel extends JPanel implements ActionListener{
 		}
 			repaint();
 		}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		AngleTextField.setValue(AngleSlider.getValue());
+		PowerTextField.setValue(PowerSlider.getValue());
+		
 	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}

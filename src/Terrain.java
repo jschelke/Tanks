@@ -26,8 +26,6 @@ public class Terrain extends JPanel implements ActionListener {
 	private int SideEffect = 20;
 	private Color terrainColor;
 	
-	private String[] nameList;
-	
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
 	
@@ -35,7 +33,6 @@ public class Terrain extends JPanel implements ActionListener {
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
 		this.terrainColor = terrainColor;
-		this.nameList = nameList;
 		
 		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
@@ -43,7 +40,10 @@ public class Terrain extends JPanel implements ActionListener {
 		
 		
 		for(int i =0;i<AmountOfTanks;i++){
-			TankList.add(new Tank(colorList[i],this,i));
+			if(computerControlledList[i])
+				TankList.add(new Computer(colorList[i], this, i, nameList[i]));
+			else
+				TankList.add(new Tank(colorList[i],this,i,nameList[i]));
 		}
 		
 		repaint();
@@ -56,6 +56,11 @@ public class Terrain extends JPanel implements ActionListener {
 			return -1;
 		}
 		
+	}
+	public void TankKilled(Tank tank){ //hiercontroleren hoeveel tanks overblijven en hieruit naar een nieuw scherm sturen
+		TankList.remove(tank);
+		CurrentTank--;
+		AmountOfTanks--;
 	}
 	
 	public int Tank_spawn(int TANKID){ 
@@ -72,32 +77,35 @@ public class Terrain extends JPanel implements ActionListener {
 			firedShell.drawme(g);
 		}
 		if(HPLabels.size()==0){
-			for(int i = 0; i<nameList.length;i++){
-				HPLabels.add(new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
-				HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
-				add(HPLabels.get(i));
+			for(int i = 0; i<TankList.size();i++){
+				if(TankList.get(i).getHP()>0){
+					HPLabels.add(new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
+					HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
+					add(HPLabels.get(i));
 				
-				nameLabels.add(new JLabel(nameList[i],JLabel.CENTER));
-				nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
-				add(nameLabels.get(i));
+					nameLabels.add(new JLabel(TankList.get(i).getName(),JLabel.CENTER));
+					nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
+					add(nameLabels.get(i));
 				
 				TankList.get(i).drawTank(g);
+				}
 			}
 		}
 		else{
 			for(int i=0; i<TankList.size(); i++){//tekenen van Tanks en hun HP waarden
 				remove(HPLabels.get(i));
 				remove(nameLabels.get(i));
+				if(TankList.get(i).getHP()>0){
+					HPLabels.set(i, new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
+					HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
+					add(HPLabels.get(i));
 				
-				HPLabels.set(i, new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
-				HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
-				add(HPLabels.get(i));
+					nameLabels.set(i, new JLabel(TankList.get(i).getName(),JLabel.CENTER));
+					nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
+					add(nameLabels.get(i));
 				
-				nameLabels.set(i, new JLabel(nameList[i],JLabel.CENTER));
-				nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
-				add(nameLabels.get(i));
-				
-				TankList.get(i).drawTank(g);
+					TankList.get(i).drawTank(g);
+				}
 			}
 		}
 	}

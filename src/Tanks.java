@@ -19,12 +19,7 @@ public class Tanks extends JPanel {
 		window.setSize(SCHERM_BREEDTE, SCHERM_HOOGTE);
 		// toont window in het midden van het scherm
 		Dimension frameSize = window.getSize();
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // geeft
-																			// grootte
-																			// van
-																			// het
-																			// huidige
-																			// scherm!!!
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // geeft grootte van het huidige scherm
 		window.setLocation(screenSize.width / 2 - frameSize.width / 2, screenSize.height / 2 - frameSize.height / 2);
 
 		JPanel hoofdpaneel = new Tanks();

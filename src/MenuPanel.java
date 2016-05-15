@@ -138,6 +138,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 		}
 		public void run() {
 			repaint();
-			}
 		}
 	}
+}

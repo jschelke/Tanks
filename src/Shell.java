@@ -20,8 +20,8 @@ public class Shell {
 		this.starty = ycoord;
 	}
 	public int updateme(int time){
-		xcoord = startx + (int) (speed*Math.cos(Math.toRadians(Angle))*time);
-		ycoord = starty + ConfigureY  + (int) ((gravity*time*time/2)-(speed*Math.sin(Math.toRadians(Angle))*time));
+		xcoord = startx + (int) (speed/10*Math.cos(Math.toRadians(Angle))*time);
+		ycoord = starty + ConfigureY  + (int) ((gravity*time*time/2)-(speed/10*Math.sin(Math.toRadians(Angle))*time));
 		if(xcoord<700 && xcoord > 0 &&ycoord >= terrain.getyPoints(xcoord)&&time != 0){
 			return xcoord;
 		}

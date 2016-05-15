@@ -14,25 +14,27 @@ import com.sun.javafx.geom.transform.BaseTransform;
 import javafx.scene.transform.Transform;
 
 public class Tank extends Transform implements ActionListener{
-	private int xcoord;
-	private int ycoord;
-	private int HP;
-	private int BigRectWidth;
-	private int BigRectHeight;
-	private int SmallRectWidth;
-	private int SmallRectHeight;
-	private int BigRadius;
-	private int WheelRadius;
-	private int TANKID;
-	private Color kleur;
-	private Terrain terrain;
-	private int Angle = 45, Power = 5, Fuel = 100;
+	protected int xcoord;
+	protected int ycoord;
+	protected int HP;
+	protected int BigRectWidth;
+	protected int BigRectHeight;
+	protected int SmallRectWidth;
+	protected int SmallRectHeight;
+	protected int BigRadius;
+	protected int WheelRadius;
+	protected int TANKID;
+	protected Color kleur;
+	protected Terrain terrain;
+	protected int Angle = 45, Power = 50, Fuel = 100;
 	static double vx = 0;
 	static double vy = 0;
+	protected String name;
 	
-	public Tank(Color kleur, Terrain terrain, int TANKID) {
+	public Tank(Color kleur, Terrain terrain, int TANKID,String name) {
 		this.TANKID = TANKID;
 		this.terrain = terrain;
+		this.name = name;
 		this.xcoord = terrain.Tank_spawn(TANKID);
 		this.ycoord = terrain.getyPoints(xcoord);
 		this.BigRectWidth = 18;
@@ -70,8 +72,10 @@ public class Tank extends Transform implements ActionListener{
 		if (Damage>0){
 			HP -=Damage;
 		}
-		if(HP <= 0||ycoord<=0)
+		if(HP <= 0||ycoord<=0){
 			HP=0;
+			terrain.TankKilled(this);
+		}
 	}
 	
 	public static void Right(int Fuel){
@@ -104,6 +108,9 @@ public class Tank extends Transform implements ActionListener{
 	public void updateHeight(){
 		ycoord = terrain.getyPoints(xcoord);
 		return;
+	}
+	public String getName() {
+		return name;
 	}
 	public int getTANKID() {
 		return TANKID;

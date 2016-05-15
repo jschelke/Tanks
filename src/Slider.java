@@ -9,8 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import javafx.beans.value.ChangeListener;
+
 @SuppressWarnings("serial")
-public class Slider extends JPanel implements MouseListener  {
+public class Slider extends JPanel implements MouseListener{
 	JSlider slider;
 	
 	public Slider(String Name, int Minor, int Major, int Min, int Max, int Begin, int Between){
