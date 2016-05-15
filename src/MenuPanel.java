@@ -65,6 +65,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			CostumizationList.get(i).setBounds(160*i+10,200,150,160);
 			add(CostumizationList.get(i));
 		}
+//		System.out.println(CostumizationList.size());
 
 		QuitButton = new JButton("Quit");
 		QuitButton.addActionListener(this);
@@ -84,10 +85,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(TanksBackground, 0, 0, 1000, 700, this);
-		System.out.println("repainting");
 		if(amountPlayersSlider.getValue()>CostumizationList.size()){
 			for(int i = CostumizationList.size();i<=amountPlayersSlider.getValue();i++){
-				System.out.println("first loop started i:\t" +i);
+//				System.out.println("first loop started i:\t" +i);
 				CostumizationList.add(new TankCostumization(i));
 				CostumizationList.get(i).setBounds(160*i+10,200,150,160);
 				add(CostumizationList.get(i));
@@ -95,7 +95,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			}
 		}else if(amountPlayersSlider.getValue()<CostumizationList.size()){
 			for(int i = CostumizationList.size()-1;i>=amountPlayersSlider.getValue();i--){
-				System.out.println("second loop started i:\t" +i);
+//				System.out.println("second loop started i:\t" +i);
 				remove(CostumizationList.get(i));
 				CostumizationList.remove(i);
 			}
@@ -105,10 +105,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 	@SuppressWarnings({ "rawtypes", "unused" })
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == PlayButton) {
-			nameList = new String[CostumizationList.size()-1];
-			colorList = new Color[CostumizationList.size()-1];
-			computerControlledList = new boolean[CostumizationList.size()-1];
-			for(int i = 0;i<CostumizationList.size()-1;i++){
+			nameList = new String[CostumizationList.size()];
+			colorList = new Color[CostumizationList.size()];
+			computerControlledList = new boolean[CostumizationList.size()];
+			for(int i = 0;i<CostumizationList.size();i++){
+//				System.out.println("i:\t" + i);
 				 nameList[i] = CostumizationList.get(i).getName();
 				 colorList[i] = CostumizationList.get(i).getColor();
 				 computerControlledList[i] = CostumizationList.get(i).getComputerControlled();

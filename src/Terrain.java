@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-//maxPower: +- 10
+
 
 @SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener {
@@ -28,7 +28,8 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
-		this.AmountOfTanks = nameList.length-1;
+		this.AmountOfTanks = nameList.length;
+		//System.out.println(AmountOfTanks);
 		this.terrainColor = terrainColor;
 		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
@@ -38,6 +39,7 @@ public class Terrain extends JPanel implements ActionListener {
 		for(int i =0;i<AmountOfTanks;i++){
 			TankList.add(new Tank(colorList[i],this,i));
 		}
+		
 		repaint();
 		}
 	
@@ -53,11 +55,12 @@ public class Terrain extends JPanel implements ActionListener {
 	public int Tank_spawn(int TANKID){ 
 		int Splitscreen = (yPoints.length-SideEffect)/AmountOfTanks;
 		Random rand = new Random();
-		return rand.nextInt(Splitscreen) + Splitscreen*TANKID + ConfigureX;
+		return (rand.nextInt(Splitscreen) + Splitscreen*TANKID + ConfigureX);
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		
 		drawTerrain(g);
 		if(firedShell!=null){
 			firedShell.drawme(g);
@@ -67,6 +70,7 @@ public class Terrain extends JPanel implements ActionListener {
 			JLabel HPLabel = new JLabel(TankList.get(i).getHP() + "%",JLabel.CENTER);
 			HPLabel.setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
 			add(HPLabel);
+			
 		}
 	}
 

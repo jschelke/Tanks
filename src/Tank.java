@@ -16,8 +16,8 @@ import com.sun.javafx.geom.transform.BaseTransform;
 import javafx.scene.transform.Transform;
 
 public class Tank extends Transform implements ActionListener{
-	static int xcoord;
-	static int ycoord;
+	private int xcoord;
+	private int ycoord;
 	private int HP;
 	private int BigRectWidth;
 	private int BigRectHeight;
@@ -44,7 +44,8 @@ public class Tank extends Transform implements ActionListener{
 		this.BigRadius = 9;
 		this.WheelRadius = 5;
 		this.kleur = kleur;
-		this.HP = 100;	
+		this.HP = 100;
+		System.out.println("TankxValue:\t" + xcoord);
 	}
 	
 	public void drawTank(Graphics g){
