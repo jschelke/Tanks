@@ -23,7 +23,8 @@ public class TankCostumization extends JPanel{
 	
 	public TankCostumization(int tankID) {
 		this.tankID = tankID;
-		this.setLayout(new FlowLayout());
+		this.setLayout(null);
+		this.setBackground(null);
 		
 		IDLabel = new JLabel("Tank " + (tankID+1),JLabel.CENTER);
 		IDLabel.setBounds(0,0,150,20);
@@ -67,6 +68,9 @@ public class TankCostumization extends JPanel{
 	public String getName(){
 		return Name;
 	}
+	public boolean getComputerControlled(){
+		return ComputerControlled.isSelected();
+	}
 	public void ComboBoxColor(String Choice){
 		switch(Choice){
 		case "Black":
@@ -100,7 +104,7 @@ public class TankCostumization extends JPanel{
 		}
 		else if(e.getSource() == ColorChoice){
 			String Choice = (String) ((JComboBox<?>) e.getSource()).getSelectedItem();
-			color = Color.decode(Choice);
+			ComboBoxColor(Choice);
 		}
 	}
 

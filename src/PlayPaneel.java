@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -10,10 +11,9 @@ import javax.swing.JPanel;
 public class PlayPaneel extends JPanel {
 	
 
-	public PlayPaneel(int amountPlayers){
+	public PlayPaneel(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		
-		Terrain Terrain = new Terrain(amountPlayers);
+		Terrain Terrain = new Terrain(terrainColor,nameList,colorList,computerControlledList);
 		Terrain.setMaximumSize(new Dimension(700,700));
 		Terrain.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.add(Terrain);

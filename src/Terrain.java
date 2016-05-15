@@ -24,15 +24,19 @@ public class Terrain extends JPanel implements ActionListener {
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
 	private int SideEffect = 20;
+	private Color terrainColor;
 	
-	public Terrain(int AmountPlayers){
+	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
+		this.TankList = new ArrayList<Tank>(AmountOfTanks);
+		this.AmountOfTanks = nameList.length-1;
+		this.terrainColor = terrainColor;
 		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
-		this.TankList = new ArrayList<Tank>(AmountOfTanks);
-		this.AmountOfTanks = AmountPlayers;
+		
+		
 		for(int i =0;i<AmountOfTanks;i++){
-			TankList.add(new Tank(Color.RED,this,i));
+			TankList.add(new Tank(colorList[i],this,i));
 		}
 		repaint();
 		}
@@ -67,7 +71,7 @@ public class Terrain extends JPanel implements ActionListener {
 	}
 
 	public void drawTerrain(Graphics g) {
-		g.setColor(Color.GREEN);
+		g.setColor(terrainColor);
 		g.fillPolygon(Points[0], yPoints, Points[0].length);
 		}
 	
@@ -86,7 +90,7 @@ public class Terrain extends JPanel implements ActionListener {
 		repaint();
 	}
 
-	private class MyTimerTask extends TimerTask {
+	public class MyTimerTask extends TimerTask {
 		Shell shell;
 		public MyTimerTask(Shell shell) {
 			this.shell = shell;
