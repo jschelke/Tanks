@@ -26,11 +26,17 @@ public class Terrain extends JPanel implements ActionListener {
 	private int SideEffect = 20;
 	private Color terrainColor;
 	
+	private String[] nameList;
+	
+	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
+	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
+	
 	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
-		//System.out.println(AmountOfTanks);
 		this.terrainColor = terrainColor;
+		this.nameList = nameList;
+		
 		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
@@ -38,7 +44,6 @@ public class Terrain extends JPanel implements ActionListener {
 		
 		for(int i =0;i<AmountOfTanks;i++){
 			TankList.add(new Tank(colorList[i],this,i));
-			//System.out.println(colorList[i]);
 		}
 		
 		repaint();
@@ -66,12 +71,34 @@ public class Terrain extends JPanel implements ActionListener {
 		if(firedShell!=null){
 			firedShell.drawme(g);
 		}
-		for(int i=0; i<TankList.size(); i++){//tekenen van Tanks en hun HP waarden
-			TankList.get(i).drawTank(g);
-			JLabel HPLabel = new JLabel(TankList.get(i).getHP() + "%",JLabel.CENTER);
-			HPLabel.setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
-			add(HPLabel);
-			
+		if(HPLabels.size()==0){
+			for(int i = 0; i<nameList.length;i++){
+				HPLabels.add(new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
+				HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
+				add(HPLabels.get(i));
+				
+				nameLabels.add(new JLabel(nameList[i],JLabel.CENTER));
+				nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
+				add(nameLabels.get(i));
+				
+				TankList.get(i).drawTank(g);
+			}
+		}
+		else{
+			for(int i=0; i<TankList.size(); i++){//tekenen van Tanks en hun HP waarden
+				remove(HPLabels.get(i));
+				remove(nameLabels.get(i));
+				
+				HPLabels.set(i, new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
+				HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
+				add(HPLabels.get(i));
+				
+				nameLabels.set(i, new JLabel(nameList[i],JLabel.CENTER));
+				nameLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-50, 40, 20);
+				add(nameLabels.get(i));
+				
+				TankList.get(i).drawTank(g);
+			}
 		}
 	}
 

@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
-import javax.swing.Timer;
-
 import com.sun.javafx.geom.transform.Affine3D;
 import com.sun.javafx.geom.transform.BaseTransform;
 
@@ -49,7 +47,6 @@ public class Tank extends Transform implements ActionListener{
 	
 	public void drawTank(Graphics g){
 		drawTankgun((Graphics2D) g);
-		//System.out.println(kleur);
 		g.setColor(kleur);
 		g.fillOval(xcoord-(BigRectWidth/4), ycoord-BigRectHeight-(BigRadius/2), BigRadius, BigRadius);
 		g.setColor(kleur);
@@ -68,15 +65,13 @@ public class Tank extends Transform implements ActionListener{
 			g.setTransform(at);
 }
 	
-	public boolean Hit(int Damage){
+	public void Hit(int Damage){
 		updateHeight();
 		if (Damage>0){
 			HP -=Damage;
 		}
 		if(HP <= 0||ycoord<=0)
-			return true;
-		else
-			return false;
+			HP=0;
 	}
 	
 	public static void Right(int Fuel){
