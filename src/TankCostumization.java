@@ -1,8 +1,6 @@
 package src;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -11,6 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class TankCostumization extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2303426341972587919L;
 	private int tankID;
 	private String[] ColorChoices = {"Black","Blue","Dark Gray","Gray","Green","Magenta","Orange","Pink","Red","White","Yellow"};
 	private JComboBox<String> ColorChoice;
@@ -18,8 +20,7 @@ public class TankCostumization extends JPanel{
 	private JTextField NameField;
 	private JCheckBox ComputerControlled;
 	
-	private String Name;
-	private Color color;
+	private Color color = Color.BLACK;
 	
 	public TankCostumization(int tankID) {
 		this.tankID = tankID;
@@ -43,7 +44,6 @@ public class TankCostumization extends JPanel{
 		
 		ColorChoice = new JComboBox<String>(ColorChoices);
 		ColorChoice.setBounds(0, 80, 150, 30);
-		//ColorChoice.setVisible(true);
 		
 		ComputerLabel = new JLabel("Computer controlled:");
 		ComputerLabel.setBounds(0,110,150,20);
@@ -63,49 +63,39 @@ public class TankCostumization extends JPanel{
 		return tankID;
 	}
 	public Color getColor(){
+		ComboBoxColor((String) ColorChoice.getSelectedItem());
+		System.out.println(color);
 		return color;
 	}
 	public String getName(){
-		return Name;
+		return NameField.getText();
 	}
 	public boolean getComputerControlled(){
 		return ComputerControlled.isSelected();
 	}
 	public void ComboBoxColor(String Choice){
-		switch(Choice){
-		case "Black":
+		if("Black"==Choice)
 			color = Color.BLACK;
-		case "Blue":
+		if("Blue"==Choice)
 			color = Color.BLUE;
-		case "Dark Gray":
+		if("Dark Gray"==Choice)
 			color = Color.DARK_GRAY;
-		case "Gray":
+		if("Gray"==Choice)
 			color = Color.GRAY;
-		case "Green":
+		if("Green"==Choice)	
 			color = Color.GREEN;
-		case "Magenta":
+		if("Magenta"==Choice)
 			color = Color.MAGENTA;
-		case "Orange":
+		if("Orange"==Choice)
 			color = Color.ORANGE;
-		case "Pink":
+		if("Pink"==Choice)
 			color = Color.PINK;
-		case "Red":
+		if("Red"==Choice)
 			color = Color.RED;
-		case "White":
+		if("White"==Choice)
 			color = Color.WHITE;
-		case "Yellow":
+		if("Yellow"==Choice)
 			color = Color.GREEN;
-		}
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == NameField){
-			Name = NameField.getText();
-		}
-		else if(e.getSource() == ColorChoice){
-			String Choice = (String) ((JComboBox<?>) e.getSource()).getSelectedItem();
-			ComboBoxColor(Choice);
-		}
 	}
 
 }

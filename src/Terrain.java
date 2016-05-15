@@ -38,6 +38,7 @@ public class Terrain extends JPanel implements ActionListener {
 		
 		for(int i =0;i<AmountOfTanks;i++){
 			TankList.add(new Tank(colorList[i],this,i));
+			//System.out.println(colorList[i]);
 		}
 		
 		repaint();

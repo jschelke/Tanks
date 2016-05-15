@@ -1,7 +1,6 @@
 package src;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 
 
 import java.awt.Color;
@@ -20,9 +19,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 	final static String IMAGE_FOLDER = "images/";
 	private Image TanksBackground;
 
-	private JComboBox environment;//kies soort terrein
+	private JComboBox<String> environment;//kies soort terrein
 	private String[] environmentChoices = {"Plains","Desert", "Arctic"};// keuzes voor de ComboBox
-	private String[] ColorChoices = {"Black","Blue","Dark Gray","Gray","Green","Magenta","Orange","Pink","Red","White","Yellow"};
 	private int environmentChoice = 0;
 	
 	private Slider amountPlayersSlider;
@@ -109,10 +107,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 			colorList = new Color[CostumizationList.size()];
 			computerControlledList = new boolean[CostumizationList.size()];
 			for(int i = 0;i<CostumizationList.size();i++){
-//				System.out.println("i:\t" + i);
-				 nameList[i] = CostumizationList.get(i).getName();
-				 colorList[i] = CostumizationList.get(i).getColor();
-				 computerControlledList[i] = CostumizationList.get(i).getComputerControlled();
+				nameList[i] = CostumizationList.get(i).getName();
+				colorList[i] = CostumizationList.get(i).getColor();
+				computerControlledList[i] = CostumizationList.get(i).getComputerControlled();
 			}
 			if(environmentChoice == 0)
 				mainscreen.switchPanel(new PlayPaneel(Color.GREEN,nameList,colorList,computerControlledList));
@@ -123,7 +120,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 		}else if (e.getSource() == environment) {
 			JComboBox cb = (JComboBox)e.getSource();
 			String selection =  (String) ((JComboBox) e.getSource()).getSelectedItem();
-			repaint();
 			for(int i=0;i<environmentChoices.length;i++){
 				if(environmentChoices[i]==selection){
 					environmentChoice = i;

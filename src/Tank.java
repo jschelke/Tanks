@@ -45,12 +45,12 @@ public class Tank extends Transform implements ActionListener{
 		this.WheelRadius = 5;
 		this.kleur = kleur;
 		this.HP = 100;
-		System.out.println("TankxValue:\t" + xcoord);
 	}
 	
 	public void drawTank(Graphics g){
 		drawTankgun((Graphics2D) g);
-		g.setColor(Color.BLACK);
+		//System.out.println(kleur);
+		g.setColor(kleur);
 		g.fillOval(xcoord-(BigRectWidth/4), ycoord-BigRectHeight-(BigRadius/2), BigRadius, BigRadius);
 		g.setColor(kleur);
 		g.fillRoundRect(xcoord-(BigRectWidth/2), ycoord-BigRectHeight, BigRectWidth, BigRectHeight, BigRadius, BigRadius);
