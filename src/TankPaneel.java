@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
@@ -14,7 +13,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.event.ChangeEvent;
 import javax.swing.text.NumberFormatter;
 
 
@@ -96,7 +94,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.add(FuelBar);
 	this.add(ShootButton);
 	}
-	@Override
+	@SuppressWarnings("static-access")
 	public void keyPressed(KeyEvent evt){
 		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){
 			System.out.println("ENTER is pressed");

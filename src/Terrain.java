@@ -116,6 +116,7 @@ public class Terrain extends JPanel implements ActionListener {
 		}
 	
 	public void drawhit(int posx,int hitRadius,Tank attacker) {
+		System.out.println(posx);
 		if(attacker.isComputer()){
 			((Computer) attacker).hitPosition(posx);
 		}
