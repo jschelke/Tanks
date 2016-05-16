@@ -17,7 +17,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private Tanks mainscreen;
 	
 	final static String IMAGE_FOLDER = "images/";
-	private Image TanksBackground;
+	private Image TanksBackground, PlainsBackground, DesertBackground, ArcticBackground;
 
 	private JComboBox<String> environment;//kies soort terrein
 	private String[] environmentChoices = {"Plains","Desert", "Arctic"};// keuzes voor de ComboBox
@@ -52,7 +52,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 		amountPlayersSlider.setBounds(375, 100, 250, 50);
 		
 		TanksBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "TanksBackground.jpg")).getImage();
-
+		PlainsBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Plains.png")).getImage();
+		DesertBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Desert.jpg")).getImage();
+		ArcticBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Arctic.jpg")).getImage();
+		
 		PlayButton = new JButton("Play");
 		PlayButton.setBackground(Color.ORANGE);
 		PlayButton.addActionListener(this);
@@ -112,11 +115,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 				computerControlledList[i] = CostumizationList.get(i).getComputerControlled();
 			}
 			if(environmentChoice == 0)
-				mainscreen.switchPanel(new PlayPaneel(Color.GREEN,nameList,colorList,computerControlledList));
+				mainscreen.switchPanel(new PlayPaneel(Color.green,nameList,colorList,computerControlledList, PlainsBackground));
 			if(environmentChoice == 1)
-				mainscreen.switchPanel(new PlayPaneel(Color.YELLOW,nameList,colorList,computerControlledList));
+				mainscreen.switchPanel(new PlayPaneel(Color.YELLOW,nameList,colorList,computerControlledList, DesertBackground));
 			if(environmentChoice == 2)
-				mainscreen.switchPanel(new PlayPaneel(Color.WHITE,nameList,colorList,computerControlledList));
+				mainscreen.switchPanel(new PlayPaneel(Color.WHITE,nameList,colorList,computerControlledList, ArcticBackground));
 		}else if (e.getSource() == environment) {
 			JComboBox cb = (JComboBox)e.getSource();
 			String selection =  (String) ((JComboBox) e.getSource()).getSelectedItem();

@@ -14,8 +14,8 @@ import com.sun.javafx.geom.transform.BaseTransform;
 import javafx.scene.transform.Transform;
 
 public class Tank extends Transform implements ActionListener{
-	protected int xcoord;
-	protected int ycoord;
+	int xcoord;
+	int ycoord;
 	protected int HP;
 	protected int BigRectWidth;
 	protected int BigRectHeight;
@@ -26,7 +26,7 @@ public class Tank extends Transform implements ActionListener{
 	protected int TANKID;
 	protected Color kleur;
 	protected Terrain terrain;
-	protected int Angle = 45, Power = 50, Fuel = 100;
+	protected int Angle = 135, Power = 50, Fuel = 100;
 	static double vx = 0;
 	static double vy = 0;
 	protected String name;
@@ -86,7 +86,7 @@ public class Tank extends Transform implements ActionListener{
 	public static void Right(int Fuel){
 		if(Fuel>0){
 			vx = 0.5;
-			vy = 0;
+			vy = 0.5;
 			Fuel -= 5; 
 		}
 	}
@@ -94,7 +94,7 @@ public class Tank extends Transform implements ActionListener{
 	public static void Left(int Fuel){
 		if(Fuel>0){
 			vx = -0.5;
-			vy = 0;
+			vy = 0.5;
 			Fuel -= 5;
 		}
 	}

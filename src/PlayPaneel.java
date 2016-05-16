@@ -3,6 +3,7 @@ package src;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -11,9 +12,9 @@ import javax.swing.JPanel;
 public class PlayPaneel extends JPanel {
 	
 
-	public PlayPaneel(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
+	public PlayPaneel(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		Terrain Terrain = new Terrain(terrainColor,nameList,colorList,computerControlledList);
+		Terrain Terrain = new Terrain(terrainColor,nameList,colorList,computerControlledList, TerrainBackground);
 		Terrain.setMaximumSize(new Dimension(700,700));
 		Terrain.setAlignmentX(Component.LEFT_ALIGNMENT);
 		this.add(Terrain);
