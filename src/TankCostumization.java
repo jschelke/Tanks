@@ -25,7 +25,6 @@ public class TankCostumization extends JPanel{
 	public TankCostumization(int tankID) {
 		this.tankID = tankID;
 		this.setLayout(null);
-		this.setBackground(null);
 		
 		IDLabel = new JLabel("Tank " + (tankID+1),JLabel.CENTER);
 		IDLabel.setBounds(0,0,150,20);

@@ -31,6 +31,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private Color[] colorList;
 	private boolean[] computerControlledList;
 	
+	Color Sand = new Color(194, 178, 128);
+	Color Hill = new Color(148,214,49);
+	Color Snow = new Color(125,138,173);
+	
 	private Timer timer;
 	
 
@@ -50,16 +54,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 		
 		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 6, 2, 2);
 		amountPlayersSlider.setBounds(375, 100, 250, 50);
+		amountPlayersSlider.setOpaque(false);
 		
 		TanksBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "TanksBackground.jpg")).getImage();
-		PlainsBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Plains.png")).getImage();
+		PlainsBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Plains.jpg")).getImage();
 		DesertBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Desert.jpg")).getImage();
 		ArcticBackground= new ImageIcon(getClass().getResource(IMAGE_FOLDER + "Arctic.jpg")).getImage();
 		
 		PlayButton = new JButton("Play");
-		PlayButton.setBackground(Color.ORANGE);
+		PlayButton.setForeground(Color.ORANGE);
 		PlayButton.addActionListener(this);
 		PlayButton.setBounds(435, 450, 130, 30);
+		PlayButton.setContentAreaFilled(false);
+		PlayButton.setOpaque(false);
 		
 		for(int i = 0;i<amountPlayersSlider.getValue();i++){
 			CostumizationList.add(new TankCostumization(i));
@@ -77,7 +84,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(amountPlayersLabel);
 		this.add(amountPlayersSlider);
 		this.add(QuitButton);
-		
+			
 		timer = new Timer();
 		timer.schedule(new MyTimerTask(), 0, 1000);
 		
@@ -85,7 +92,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(TanksBackground, 0, 0, 1000, 700, this);
+
 		if(amountPlayersSlider.getValue()>CostumizationList.size()){
 			for(int i = CostumizationList.size();i<=amountPlayersSlider.getValue();i++){
 //				System.out.println("first loop started i:\t" +i);
@@ -101,6 +108,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 				CostumizationList.remove(i);
 			}
 		}
+		g.drawImage(TanksBackground, 0, 0, 1000, 700, this);
+		repaint();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unused" })
@@ -115,11 +124,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 				computerControlledList[i] = CostumizationList.get(i).getComputerControlled();
 			}
 			if(environmentChoice == 0)
-				mainscreen.switchPanel(new PlayPaneel(Color.green,nameList,colorList,computerControlledList, PlainsBackground));
+				mainscreen.switchPanel(new PlayPaneel(Hill,nameList,colorList,computerControlledList, PlainsBackground));
 			if(environmentChoice == 1)
-				mainscreen.switchPanel(new PlayPaneel(Color.YELLOW,nameList,colorList,computerControlledList, DesertBackground));
+				mainscreen.switchPanel(new PlayPaneel(Sand,nameList,colorList,computerControlledList, DesertBackground));
 			if(environmentChoice == 2)
-				mainscreen.switchPanel(new PlayPaneel(Color.WHITE,nameList,colorList,computerControlledList, ArcticBackground));
+				mainscreen.switchPanel(new PlayPaneel(Snow,nameList,colorList,computerControlledList, ArcticBackground));
 		}else if (e.getSource() == environment) {
 			JComboBox cb = (JComboBox)e.getSource();
 			String selection =  (String) ((JComboBox) e.getSource()).getSelectedItem();

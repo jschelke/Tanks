@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener, KeyListener {
+	private Tanks mainscreen;
 	private int[][] Points;
 	protected static int[] yPoints;
 	Timer timer = new Timer();
@@ -35,7 +36,8 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
 	
-	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
+	public Terrain(Tanks mainscreen, Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
+		this.mainscreen = mainscreen;
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
 		this.terrainColor = terrainColor;
@@ -51,6 +53,8 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 			else
 				TankList.add(new Tank(colorList[i],this,i,nameList[i]));
 		}
+		setFocusable(true);
+		addKeyListener(this);
 		repaint();
 		}
 	
@@ -69,17 +73,19 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	public void TankKilled(Tank tank){ //hier controleren hoeveel tanks overblijven en hieruit naar een nieuw scherm sturen
 		if(CurrentTank>tank.getTANKID())
 			CurrentTank--;
-			TankList.remove(tank);
 			AmountOfTanks--;
+			TankList.remove(tank);
+			for(int i = 0; i<TankList.size();i++){
+				JLabel name = nameLabels.get(i);
+				JOptionPane.showMessageDialog(this, name.getText() + " his tank was destroyed", "Destroy", JOptionPane.WARNING_MESSAGE);
+			} // Hier geeft hij altijd een fout want hij toont dat bericht te veel
 		if(AmountOfTanks == 1){
 			int GameOver = JOptionPane.showConfirmDialog(this,"Do you want to restart Tanks", "GAME OVER", JOptionPane.YES_NO_OPTION);
 	        if (GameOver == JOptionPane.YES_OPTION) {
-	        	//restart();
+	        	mainscreen.switchPanel();
 	        }else {
 	           System.exit(0);
 	        }
-		}else{
-			JOptionPane.showMessageDialog(this, "A tank was destroyed", "Destroy", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
@@ -228,7 +234,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		xcoord += Tank.vx;
+		xcoord += Tank.vx; //als je met Tankgetxcoord() doet moet dat static, niet goed voor de rest ...
 		ycoord += Tank.vy;
 	}
 
