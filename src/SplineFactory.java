@@ -64,33 +64,12 @@ public class SplineFactory
 					xPoints[i] = (int) spline[j*3];
 					yPoints[i] = (int) spline[j*3+1];
 					if((int)spline[j*3]-xPoints[i-1]>1){
-						if((int)spline[j*3]-xPoints[i-1]>4)
-							System.out.println("Defference larger than 4");
-						switch((int)spline[j*3]-xPoints[i-1]){
-							case 2:
-								xPoints[i]=xPoints[i-1]+1;
-								yPoints[i]=yPoints[i-1];
-								xPoints[i+1] = (int) spline[j*3];
-								yPoints[i+1] = (int) spline[j*3+1];
-							case 3:
-								xPoints[i]=xPoints[i-1]+1;
-								yPoints[i]=yPoints[i-1];
-								xPoints[i+1]=xPoints[i-1]+2;
-								yPoints[i+1]=yPoints[i-1];
-								xPoints[i+2] = (int) spline[j*3];
-								yPoints[i+2] = (int) spline[j*3+1];
-							case 4:
-								xPoints[i]=xPoints[i-1]+1;
-								yPoints[i]=yPoints[i-1];
-								xPoints[i+1]=xPoints[i-1]+3;
-								yPoints[i+1]=yPoints[i-1];
-								xPoints[i+2]=xPoints[i-1]+3;
-								yPoints[i+2]=yPoints[i-1];
-								xPoints[i+3] = (int) spline[j*3];
-								yPoints[i+3] = (int) spline[j*3+1];
-							default:
-								//System.out.println("Terraingeneration:\tdifference between xPoints greater than 4");
+						for(int k = 1;k<((int)spline[j*3]-xPoints[i-1]);k++){
+							xPoints[i+k-1]=xPoints[i-1]+k;
+							yPoints[i+k]=yPoints[i-1];
 						}
+						xPoints[i+((int)spline[j*3]-xPoints[i-1])-1] = (int) spline[j*3];
+						yPoints[i+2] = (int) spline[j*3+1];
 					}
 					break;
 				}		
@@ -106,7 +85,6 @@ public class SplineFactory
 //		for(int i = 0;i<xPoints.length;i++){
 //			System.out.println(i + "\t"+xPoints[i] + " " + yPoints[i]); 
 //		}
-		
 		return Points;
   }
   /**

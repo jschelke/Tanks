@@ -36,6 +36,9 @@ public class Tank extends Transform implements ActionListener{
 		this.TANKID = TANKID;
 		this.terrain = terrain;
 		this.name = name;
+		if(name == null){
+			this.name = "Player "+(TANKID+1);
+		}
 		this.xcoord = terrain.Tank_spawn(TANKID);
 		this.ycoord = terrain.getyPoints(xcoord);
 		this.BigRectWidth = 18;
@@ -70,9 +73,9 @@ public class Tank extends Transform implements ActionListener{
 	
 	public void Hit(int Damage,Tank Attacker){
 		updateHeight();
-		LastAttacker = Attacker;
 		if (Damage>0){
 			HP -=Damage;
+			LastAttacker = Attacker;
 		}
 		if(HP <= 0||ycoord<=0){
 			HP=0;

@@ -36,6 +36,7 @@ public class TankCostumization extends JPanel{
 		
 		NameField = new JTextField(150);
 		NameField.setBounds(0, 40, 150, 20);
+		NameField.setText("Player "+(tankID+1));
 		
 		
 		ColorLabel = new JLabel("Choose color:");
@@ -64,7 +65,6 @@ public class TankCostumization extends JPanel{
 	}
 	public Color getColor(){
 		ComboBoxColor((String) ColorChoice.getSelectedItem());
-		System.out.println(color);
 		return color;
 	}
 	public String getName(){

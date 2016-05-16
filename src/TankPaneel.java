@@ -117,7 +117,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
-			if(terrain.firedShell == null){
+			if(terrain.firedShell == null&&!terrain.getCurrentTank().isComputer()){
 				terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
 				this.CurrentTank = terrain.getCurrentTank();
 				PowerSlider.setValue(CurrentTank.getPower());
