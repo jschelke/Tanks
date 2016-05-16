@@ -35,5 +35,8 @@ public class Shell {
 		g.setColor(Color.BLACK);
 		g.fillOval(xcoord,ycoord, 5, 5);
 	}
+	public int getyPoint(){
+		return ycoord;
+	}
 
 }

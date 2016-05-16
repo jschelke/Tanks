@@ -99,11 +99,18 @@ public class Computer extends Tank{
 				ShotsFired.add(new ComputerShotFired(Target,Angle,Power));
 				terrain.fireTank(Power, Angle);
 			}else{ //Marker 2
+				
 				int AngleShot;
 				System.out.println("Debugging Computer: \t Running: Marker 2");
 				if(ClosestShot.isAngleReevaluationNeeded()&&ClosestShot.getTarget()==Target&&Math.abs(terrain.getAngleTerrain(ClosestShot.getxcoordHit()-20, ClosestShot.getxcoordHit()+20))>30){
 						AngleShot = ClosestShot.getAngle()+10+rand.nextInt(GuessAngleVariation-10);
-				}else{
+				}else if(getTopMountaininWayShootingRight(ClosestShot)!=0){
+					if(90-AngleStop-ClosestShot.getAngle()>GuessAngleVariation)
+						AngleShot = ClosestShot.getAngle() + rand.nextInt(GuessAngleVariation);
+					else
+						AngleShot = ClosestShot.getAngle() + rand.nextInt(90-AngleStop-ClosestShot.getAngle());
+				}
+				else{
 					AngleShot = ClosestShot.getAngle();
 				}
 				if(ClosestShot.getDistanceFromTarget()>0)
@@ -159,8 +166,9 @@ public class Computer extends Tank{
 		}
 	}
 	
-	public void hitPosition(int posx){ //stuurt positie van de laatste hit door naar Shotsfired
+	public void hitPosition(int posx,int posy){ //stuurt positie van de laatste hit door naar Shotsfired
 		ShotsFired.get(ShotsFired.size()-1).setDistanceFromTarget(posx);
+		ShotsFired.get(ShotsFired.size()-1).setycoordHit(posy);
 		evaluateAngle();
 	}
 	private void evaluateAngle(){
@@ -169,8 +177,21 @@ public class Computer extends Tank{
 			ShotsFired.get(ShotsFired.size()-1).AngleReevaluationNeeded();
 		}
 	}
+	public int getTopMountaininWayShootingRight(ComputerShotFired Shot){
+		int topMountain =terrain.getyPoints(this.getxcoord());
+		for(int i = this.getxcoord();i<Target.getxcoord();i++){// start van positie tank en controleerd of er een berg tussen jou en het doelwit staat
+			if(terrain.getyPoints(i)>topMountain){
+				topMountain = i;
+			}
+		}
+		if(topMountain<Shot.getycoordhit()){
+			return topMountain;
+		} else{
+			return 0;
+		}
+	}
 	
-	public boolean isComputer(){//controle of deze Tank een computer is
+	public boolean isComputer(ComputerShotFired  shot){//controle of deze Tank een computer is
 		return true;
 	}
 }

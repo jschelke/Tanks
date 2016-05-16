@@ -2,7 +2,7 @@ package src;
 
 public class ComputerShotFired {
 	private Tank Target;
-	private int Angle,Power,xcoordTarget,xcoordHit;
+	private int Angle,Power,xcoordTarget,xcoordHit,ycoordHit;
 	private int distanceFromTarget;
 	private boolean inPlayField;
 	private boolean AngleReevaluationNeeded = false;
@@ -31,6 +31,9 @@ public class ComputerShotFired {
 	public int getxcoordHit(){
 		return xcoordHit;
 	}
+	public int getycoordhit(){
+		return ycoordHit;
+	}
 	public void setDistanceFromTarget(int xcoordHit){
 		if(xcoordHit != 1000){
 			inPlayField = true;
@@ -51,6 +54,9 @@ public class ComputerShotFired {
 			}
 			
 		}
+	}
+	public void setycoordHit(int ycoord){
+		this.ycoordHit= ycoord;
 	}
 	public void AngleReevaluationNeeded(){
 		AngleReevaluationNeeded = true;
