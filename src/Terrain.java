@@ -2,6 +2,7 @@ package src;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,17 +10,23 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener {
+	final static String IMAGE_FOLDER = "images/";
+	private Image TerrainBackground;
+	
 	private int[][] Points;
 	protected static int[] yPoints;
+	
 	Timer timer = new Timer();
 	Shell firedShell;
 	ArrayList<Tank> TankList;
+	
 	private int AmountOfTanks;
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
@@ -29,15 +36,14 @@ public class Terrain extends JPanel implements ActionListener {
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
 	
-	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
+	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
 		this.terrainColor = terrainColor;
+		this.TerrainBackground = TerrainBackground;
 		
-		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
-		
 		
 		for(int i =0;i<AmountOfTanks;i++){
 			if(computerControlledList[i])
@@ -45,6 +51,8 @@ public class Terrain extends JPanel implements ActionListener {
 			else
 				TankList.add(new Tank(colorList[i],this,i,nameList[i]));
 		}
+		timer = new Timer();
+		timer.schedule(new TankTimerTask(), 0, 1000);
 		
 		repaint();
 		}
@@ -71,7 +79,7 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
+		g.drawImage(TerrainBackground, 0, 0, this);
 		drawTerrain(g);
 		if(firedShell!=null){
 			firedShell.drawme(g);
@@ -185,6 +193,14 @@ public class Terrain extends JPanel implements ActionListener {
 	private void checkNextTank(){ //controleerd of de volgende Tank een computer is en indien dit het geval is dan begint het proces om een shell af te vuren
 		if(TankList.get(CurrentTank).isComputer())
 			((Computer) TankList.get(CurrentTank)).fire();
+	}
+	
+	private class TankTimerTask extends TimerTask {
+		public TankTimerTask(){
+		}
+		public void run() {
+			repaint();
+		}
 	}
 	
 	@Override

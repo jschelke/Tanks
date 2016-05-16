@@ -104,9 +104,9 @@ public class Computer extends Tank{
 			}
 		}
 	}
-	private boolean checkShot(int Angle,int Power){//controleerd of het schot binnen bepaalde waarden valt(niet te ver weg)
+	/*private boolean checkShot(int Angle,int Power){//controleerd of het schot binnen bepaalde waarden valt(niet te ver weg)
 		
-	}
+	}*/
 	
 	public void hitPosition(int posx){ //stuurt positie van de laatste hit door naar Shotsfired
 		ShotsFired.get(ShotsFired.size()-1).setDistanceFromTarget(posx);;
