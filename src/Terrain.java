@@ -5,19 +5,23 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public class Terrain extends JPanel implements ActionListener {
-	final static String IMAGE_FOLDER = "images/";
+public class Terrain extends JPanel implements ActionListener, KeyListener {
+	Tanks mainscreen;
+	MenuPanel menu;
+	
 	private Image TerrainBackground;
 	
 	private int[][] Points;
@@ -27,6 +31,8 @@ public class Terrain extends JPanel implements ActionListener {
 	Shell firedShell;
 	ArrayList<Tank> TankList;
 	
+	private int xcoord;
+	private int ycoord;
 	private int AmountOfTanks;
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
@@ -69,6 +75,13 @@ public class Terrain extends JPanel implements ActionListener {
 		TankList.remove(tank);
 		CurrentTank--;
 		AmountOfTanks--;
+		//JOptionPane.showMessageDialog(this, "A tank was destroyed.", "Tanks", JOptionPane.WARNING_MESSAGE);
+		int GameOver = JOptionPane.showConfirmDialog(this, "Do you want to restart Tanks?", "GAME OVER", JOptionPane.YES_NO_OPTION);
+		if(GameOver == JOptionPane.YES_OPTION){
+			menu = new MenuPanel(mainscreen);
+		}else{
+			System.exit(0);
+		}
 	}
 	
 	public int Tank_spawn(int TANKID){ //geeft x coordinaten in het begin van het spel voor de Tanks
@@ -205,6 +218,29 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		xcoord += Tank.vx;
+		ycoord += Tank.vy;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+			Tank.Right(100);
+		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+			Tank.Left(100);
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -112,6 +112,8 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				}
 				PowerSlider.setValue((int)PowerTextField.getValue());
 			}
+		}else if(evt.getKeyCode() == KeyEvent.VK_SPACE){ // Als je op spatie drukt wordt er geschoten
+			ShootButton.doClick();
 		}
 	}
 	@Override

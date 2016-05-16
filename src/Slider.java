@@ -1,11 +1,9 @@
 package src;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
@@ -18,9 +16,6 @@ public class Slider extends JPanel implements MouseListener{
 		super(true);
 		this.setLayout(new BorderLayout());
 		
-		JLabel SliderLabel = new JLabel(Name, JLabel.CENTER);
-		SliderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
 		slider = new JSlider(JSlider.HORIZONTAL, Min, Max, Begin);
 		slider.addMouseListener(this);
 		
@@ -30,7 +25,6 @@ public class Slider extends JPanel implements MouseListener{
 		slider.setPaintLabels(true);
 		slider.setLabelTable(slider.createStandardLabels(Between));
 		
-		add(SliderLabel);
 		add(slider);
 	}
 	public int getValue(){
