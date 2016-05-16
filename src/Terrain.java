@@ -2,40 +2,45 @@ package src;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public class Terrain extends JPanel implements ActionListener {
+public class Terrain extends JPanel implements ActionListener, KeyListener {
 	private int[][] Points;
 	protected static int[] yPoints;
 	Timer timer = new Timer();
 	Shell firedShell;
 	ArrayList<Tank> TankList;
-	private int AmountOfTanks;
+	private int AmountOfTanks, xcoord, ycoord;
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
 	private int SideEffect = 20;
 	private Color terrainColor;
+	private Image TerrainBackground;
 	private boolean isStartupDrawComplete = false;
 	
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
 	
-	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList){
+	public Terrain(Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
 		this.terrainColor = terrainColor;
+		this.TerrainBackground = TerrainBackground; 
 		
-		this.setBackground(Color.CYAN);
 		Points = SplineFactory.TerrainGeneration();
 		yPoints = Points[1];
 		
@@ -64,8 +69,18 @@ public class Terrain extends JPanel implements ActionListener {
 	public void TankKilled(Tank tank){ //hier controleren hoeveel tanks overblijven en hieruit naar een nieuw scherm sturen
 		if(CurrentTank>tank.getTANKID())
 			CurrentTank--;
-		TankList.remove(tank);
-		AmountOfTanks--;
+			TankList.remove(tank);
+			AmountOfTanks--;
+		if(AmountOfTanks == 1){
+			int GameOver = JOptionPane.showConfirmDialog(this,"Do you want to restart Tanks", "GAME OVER", JOptionPane.YES_NO_OPTION);
+	        if (GameOver == JOptionPane.YES_OPTION) {
+	        	//restart();
+	        }else {
+	           System.exit(0);
+	        }
+		}else{
+			JOptionPane.showMessageDialog(this, "A tank was destroyed", "Destroy", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	public int Tank_spawn(int TANKID){ //geeft x coordinaten in het begin van het spel voor de Tanks
@@ -76,7 +91,8 @@ public class Terrain extends JPanel implements ActionListener {
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
+		g.drawImage(TerrainBackground, 0, 0, this);
+		drawTerrain(g);
 		if(firedShell!=null){
 			firedShell.drawme(g);
 		}
@@ -99,7 +115,7 @@ public class Terrain extends JPanel implements ActionListener {
 			for(int i=0; i<TankList.size(); i++){//tekenen van Tanks en hun HP waarden
 				remove(HPLabels.get(i));
 				remove(nameLabels.get(i));
-				if(TankList.get(i).getHP()>0){
+				if(TankList.get(i).getHP()>=0){
 					HPLabels.set(i, new JLabel(TankList.get(i).getHP()+"%",JLabel.CENTER));
 					HPLabels.get(i).setBounds(TankList.get(i).getxcoord()-20,getyPoints(TankList.get(i).getxcoord())-30, 40, 20);
 					add(HPLabels.get(i));
@@ -111,7 +127,6 @@ public class Terrain extends JPanel implements ActionListener {
 				}
 			}
 		}
-		drawTerrain(g);
 	}
 
 	public void drawTerrain(Graphics g) {// tekent het terrein
@@ -194,7 +209,7 @@ public class Terrain extends JPanel implements ActionListener {
 		checkNextTank();
 	}
 	
-	private void checkNextTank(){ //controleerd of de volgende Tank een computer is en indien dit het geval is dan begint het proces om een shell af te vuren
+	private void checkNextTank(){ //controleert of de volgende Tank een computer is en indien dit het geval is dan begint het proces om een shell af te vuren
 		CurrentTank++;
 		if(CurrentTank >=AmountOfTanks){
 			CurrentTank -= AmountOfTanks;
@@ -203,8 +218,39 @@ public class Terrain extends JPanel implements ActionListener {
 			((Computer) TankList.get(CurrentTank)).fire();
 	}
 	
+	private class TankTimerTask extends TimerTask {
+		public TankTimerTask(){
+		}
+		public void run() {
+			repaint();
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		xcoord += Tank.vx;
+		ycoord += Tank.vy;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+			Tank.Right(100);
+		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+			Tank.Left(100);
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }
