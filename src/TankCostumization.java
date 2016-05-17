@@ -14,7 +14,7 @@ public class TankCostumization extends JPanel{
 	 */
 	private static final long serialVersionUID = 2303426341972587919L;
 	private int tankID;
-	private String[] ColorChoices = {"Black","Blue","Green","Magenta","Orange","Pink","Red","White","Yellow"};
+	private String[] ColorChoices = {"Blue","Green","Magenta","Orange","Pink","Red","White","Yellow"};
 	private JComboBox<String> ColorChoice;
 	private JLabel ColorLabel,NameLabel,IDLabel,ComputerLabel;
 	private JTextField NameField;
@@ -79,8 +79,6 @@ public class TankCostumization extends JPanel{
 		return ComputerControlled.isSelected();
 	}
 	public void ComboBoxColor(String Choice){
-		if("Black"==Choice)
-			color = Color.BLACK;
 		if("Blue"==Choice)
 			color = Color.BLUE;
 		if("Green"==Choice)	

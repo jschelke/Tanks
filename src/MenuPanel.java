@@ -33,7 +33,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	Color Sand = new Color(194, 178, 128);
 	Color Hill = new Color(148,214,49);
-	Color Snow = Color.WHITE;
+	Color Snow = new Color(235,245,245);
 	
 	private Timer timer;
 	

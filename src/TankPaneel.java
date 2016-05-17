@@ -21,23 +21,29 @@ import javax.swing.text.NumberFormatter;
 @SuppressWarnings("serial")
 public class TankPaneel extends JPanel implements ActionListener, KeyListener,MouseListener{
 	private Tank CurrentTank;
+	private Tanks mainscreen;
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
 	private int AngleBegin = 45, AngleBetween = 45, PowerBegin = 50, PowerBetween = 25;
-	private JButton ShootButton;
+	private JButton ShootButton, MenuButton;
 	private Slider AngleSlider,PowerSlider;
 	private JFormattedTextField AngleTextField,PowerTextField;
 	private JLabel AngleLabel, PowerLabel, FuelLabel;
 	private JProgressBar FuelBar;
 	Terrain terrain;
 	
-	public TankPaneel(Terrain terrain) {
+	public TankPaneel(Terrain terrain, Tanks mainscreen) {
+	this.mainscreen = mainscreen;
 	addKeyListener(this);
 	addMouseListener(this);
 	this.terrain = terrain;
 	
 	this.setLayout(null);
+	
+	MenuButton = new JButton("Menu");
+	MenuButton.addActionListener(this);
+	MenuButton.setBounds(80, 20, 130, 30);
 	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
 	AngleLabel.setBounds(20, 80, 250, 20);
@@ -82,6 +88,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	ShootButton.addActionListener(this);
 	ShootButton.setBounds(80, 550, 130, 30);
 	
+	this.add(MenuButton);
 	this.add(AngleLabel);
 	this.add(AngleSlider);
 	this.add(AngleTextField);
@@ -126,9 +133,13 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				FuelBar.setValue(CurrentTank.getFuel());
 				}
+			}if(e.getSource() == MenuButton){
+				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
 			repaint();
 		}
+			
+		
 	@Override
 	public void mouseExited(MouseEvent e) {
 		AngleTextField.setValue(AngleSlider.getValue());
