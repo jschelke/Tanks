@@ -176,11 +176,11 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 				time++;
 				repaint();
 			}else if(returnValue == -2){//Shell is uit het paneel gevlogen en heeft niets geraakt
-				repaint();
-				checkNextTank();
 				if(tank.isComputer()){
 					((Computer) tank).hitPosition(1000,shell.getyPoint());//geeft een waarde terug die groter is dan de breedte van het scherm
 				}
+				repaint();
+				checkNextTank();
 				firedShell = null;
 				timer.cancel();
 				timer.purge();

@@ -9,7 +9,6 @@ public class ComputerShotFired {
 	public ComputerShotFired(Tank Target, int Angle,int Power){
 		this.Target = Target;
 		this.Angle = Angle;
-		System.out.println("Angleobject: " + Angle);
 		this.Power = Power;
 		this.xcoordTarget = Target.getxcoord();
 	}
@@ -44,13 +43,15 @@ public class ComputerShotFired {
 			inPlayField = false;
 			if(Angle<90){
 				this.xcoordHit = 1000;
-				distanceFromTarget = Target.getxcoord()+300;
-				System.out.println("shell exited playingfield on the right");
+				distanceFromTarget = -300;
+				System.out.println("shell exited playingfield on the right:\t"+getxcoordHit() + " Distance:\t"+getDistanceFromTarget());
+				
 			}
 			else{
+				inPlayField = false;
 				this.xcoordHit = -300;
-				distanceFromTarget = Target.getxcoord()-300;
-				System.out.println("shell exited playingfield on the left");
+				distanceFromTarget = 700-Target.getxcoord()+300;
+				System.out.println("shell exited playingfield on the left:\t"+getxcoordHit() + " Distance:\t"+getDistanceFromTarget());
 			}
 			
 		}
