@@ -25,12 +25,15 @@ public class TankCostumization extends JPanel{
 	public TankCostumization(int tankID) {
 		this.tankID = tankID;
 		this.setLayout(null);
+		this.setOpaque(false);
 		
 		IDLabel = new JLabel("Tank " + (tankID+1),JLabel.CENTER);
 		IDLabel.setBounds(0,0,150,20);
+		IDLabel.setForeground(Color.WHITE);
 		
 		NameLabel = new JLabel("Choose name:");
 		NameLabel.setBounds(0,20,150,20);
+		NameLabel.setForeground(Color.WHITE);
 		
 		
 		NameField = new JTextField(150);
@@ -40,6 +43,7 @@ public class TankCostumization extends JPanel{
 		
 		ColorLabel = new JLabel("Choose color:");
 		ColorLabel.setBounds(0,60,150,20);
+		ColorLabel.setForeground(Color.WHITE);
 		
 		
 		ColorChoice = new JComboBox<String>(ColorChoices);
@@ -47,9 +51,11 @@ public class TankCostumization extends JPanel{
 		
 		ComputerLabel = new JLabel("Computer controlled:");
 		ComputerLabel.setBounds(0,110,150,20);
+		ComputerLabel.setForeground(Color.WHITE);
 		
 		ComputerControlled = new JCheckBox();
 		ComputerControlled.setBounds(0, 130, 30, 30);
+		ComputerControlled.setOpaque(false);
 		
 		add(IDLabel);
 		add(NameLabel);

@@ -120,6 +120,9 @@ public class Tank extends Transform implements ActionListener{
 	public String getName() {
 		return name;
 	}
+	public Color getColor(){
+		return kleur;
+	}
 	public int getTANKID() {
 		return TANKID;
 	}

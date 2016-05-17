@@ -15,6 +15,7 @@ public class Slider extends JPanel implements MouseListener{
 	public Slider(String Name, int Minor, int Major, int Min, int Max, int Begin, int Between){
 		super(true);
 		this.setLayout(new BorderLayout());
+		this.setOpaque(false);
 		
 		slider = new JSlider(JSlider.HORIZONTAL, Min, Max, Begin);
 		slider.addMouseListener(this);

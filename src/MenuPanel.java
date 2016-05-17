@@ -33,7 +33,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	Color Sand = new Color(194, 178, 128);
 	Color Hill = new Color(148,214,49);
-	Color Snow = new Color(125,138,173);
+	Color Snow = Color.WHITE;
 	
 	private Timer timer;
 	
@@ -50,7 +50,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		
 		amountPlayersLabel = new JLabel("Amount of Tanks",JLabel.CENTER);
 		amountPlayersLabel.setBounds(375, 80, 250, 20);
-		amountPlayersLabel.setForeground(Color.white);
+		amountPlayersLabel.setForeground(Color.WHITE);
 		
 		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 6, 2, 2);
 		amountPlayersSlider.setBounds(375, 100, 250, 50);
@@ -76,8 +76,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 //		System.out.println(CostumizationList.size());
 
 		QuitButton = new JButton("Quit");
+		QuitButton.setForeground(Color.RED);
 		QuitButton.addActionListener(this);
 		QuitButton.setBounds(850, 600, 130, 30);
+		QuitButton.setContentAreaFilled(false);
+		QuitButton.setOpaque(false);
 
 		this.add(environment);
 		this.add(PlayButton);
