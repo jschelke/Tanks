@@ -1,16 +1,21 @@
 package src;
 
+//TODO see method set distancefromTerget
+
 public class ComputerShotFired {
 	private Tank Target;
 	private int Angle,Power,xcoordTarget,xcoordHit,ycoordHit;
 	private int distanceFromTarget;
-	private boolean inPlayField;
+	private boolean inPlayingField;
 	private boolean AngleReevaluationNeeded = false;
 	public ComputerShotFired(Tank Target, int Angle,int Power){
 		this.Target = Target;
 		this.Angle = Angle;
 		this.Power = Power;
 		this.xcoordTarget = Target.getxcoord();
+	}
+	public boolean inPlayingField(){
+		return inPlayingField;
 	}
 	public Tank getTarget() {
 		return Target;
@@ -33,14 +38,14 @@ public class ComputerShotFired {
 	public int getycoordhit(){
 		return ycoordHit;
 	}
-	public void setDistanceFromTarget(int xcoordHit){
+	public void setDistanceFromTarget(int xcoordHit){// changing hit method(xcoord, ycoord,inplayingfield) later calculating distance (tanks can move)
 		if(xcoordHit != 1000){
-			inPlayField = true;
+			inPlayingField = true;
 			this.xcoordHit = xcoordHit;
 			distanceFromTarget = Target.getxcoord()-xcoordHit;
 		}
 		else{
-			inPlayField = false;
+			inPlayingField = false;
 			if(Angle<90){
 				this.xcoordHit = 1000;
 				distanceFromTarget = -300;
@@ -48,7 +53,7 @@ public class ComputerShotFired {
 				
 			}
 			else{
-				inPlayField = false;
+				inPlayingField = false;
 				this.xcoordHit = -300;
 				distanceFromTarget = 700-Target.getxcoord()+300;
 				System.out.println("shell exited playingfield on the left:\t"+getxcoordHit() + " Distance:\t"+getDistanceFromTarget());
