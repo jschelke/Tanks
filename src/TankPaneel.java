@@ -44,12 +44,11 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	MenuButton.setBounds(80, 20, 130, 30);
 	
 	CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
-	CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
 	CurrentTankLabel.setBounds(45, 70, 200, 30);
 	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
-	AngleLabel.setForeground(terrain.getCurrentTank().getColor());
 	AngleLabel.setBounds(20, 110, 250, 20);
+	
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
 	AngleSlider.setBounds(20, 130, 200, 50);
 	
@@ -65,7 +64,6 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
     AngleTextField.addKeyListener(this);
 	
 	PowerLabel = new JLabel("POWER", JLabel.CENTER);
-	PowerLabel.setForeground(terrain.getCurrentTank().getColor());
 	PowerLabel.setBounds(20, 240, 250, 20);
 	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
 	PowerSlider.setBounds(20, 260, 200, 50);
@@ -82,7 +80,6 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
     PowerTextField.addKeyListener(this);
 	
 	FuelLabel = new JLabel("FUEL", JLabel.CENTER);
-	FuelLabel.setForeground(terrain.getCurrentTank().getColor());
 	FuelLabel.setBounds(20, 390, 250, 20);
 	FuelBar = new JProgressBar(0,100);
 	FuelBar.setBounds(20, 410, 250, 30);
@@ -109,6 +106,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.add(ShootButton);
 	}
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		remove(CurrentTankLabel);
 		CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
 		CurrentTankLabel.setBounds(45, 70, 200, 30);
@@ -144,13 +142,13 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
-			repaint();
 			if(terrain.firedShell == null&&!terrain.getCurrentTank().isComputer()){
 				terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
 				this.CurrentTank = terrain.getCurrentTank();
 				PowerSlider.setValue(CurrentTank.getPower());
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				FuelBar.setValue(CurrentTank.getFuel());
+				this.repaint();
 			}if(e.getSource() == MenuButton){
 				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
