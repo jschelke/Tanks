@@ -8,7 +8,10 @@ public class ComputerShotFired {
 	private int distanceFromTarget;
 	private boolean inPlayingField;
 	private boolean AngleReevaluationNeeded = false;
-	public ComputerShotFired(Tank Target, int Angle,int Power){
+	Terrain terrain;
+	
+	public ComputerShotFired(Tank Target, int Angle,int Power,Terrain terrain){
+		this.terrain = terrain;
 		this.Target = Target;
 		this.Angle = Angle;
 		this.Power = Power;
@@ -38,31 +41,14 @@ public class ComputerShotFired {
 	public int getycoordhit(){
 		return ycoordHit;
 	}
-	public void setDistanceFromTarget(int xcoordHit){// changing hit method(xcoord, ycoord,inplayingfield) later calculating distance (tanks can move)
-		if(xcoordHit != 1000){
-			inPlayingField = true;
-			this.xcoordHit = xcoordHit;
+	public void ImpactOfShell(int xcoordShell,int ycoordShell, boolean isImpact){// changing hit method(xcoord, ycoord,inplayingfield) later calculating distance (tanks can move)
+		this.xcoordHit = xcoordShell;
+		this.ycoordHit = ycoordShell;
+		inPlayingField = isImpact;
+		if(inPlayingField)
 			distanceFromTarget = Target.getxcoord()-xcoordHit;
-		}
-		else{
-			inPlayingField = false;
-			if(Angle<90){
-				this.xcoordHit = 1000;
-				distanceFromTarget = -300;
-				System.out.println("shell exited playingfield on the right:\t"+getxcoordHit() + " Distance:\t"+getDistanceFromTarget());
-				
-			}
-			else{
-				inPlayingField = false;
-				this.xcoordHit = -300;
-				distanceFromTarget = 700-Target.getxcoord()+300;
-				System.out.println("shell exited playingfield on the left:\t"+getxcoordHit() + " Distance:\t"+getDistanceFromTarget());
-			}
-			
-		}
-	}
-	public void setycoordHit(int ycoord){
-		this.ycoordHit= ycoord;
+		else
+			distanceFromTarget = Target.getxcoord() - (700+ycoordShell - terrain.getyPoints(xcoordHit));
 	}
 	public void AngleReevaluationNeeded(){
 		AngleReevaluationNeeded = true;

@@ -174,7 +174,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 				repaint();
 			}else if(returnValue == -2){//Shell is uit het paneel gevlogen en heeft niets geraakt
 				if(tank.isComputer()){
-					((Computer) tank).hitPosition(1000,shell.getyPoint());//geeft een waarde terug die groter is dan de breedte van het scherm
+					((Computer) tank).hitPosition(shell.getxPoint(),shell.getyPoint(),false);//geeft een waarde terug die groter is dan de breedte van het scherm
 				}
 				repaint();
 				checkNextTank();
@@ -194,7 +194,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	public void drawhit(int posx,int hitRadius,Tank attacker) {// als de shell het terrein raakt zal hiermee een krater getekent worden en wordt gecontroleerd of een tank geraakt is
 		if(attacker.isComputer()){
-			((Computer) attacker).hitPosition(posx,this.getyPoints(posx));
+			((Computer) attacker).hitPosition(posx,this.getyPoints(posx),true);
 		}
 		timer.purge();
 		for(int i =-hitRadius;i<=hitRadius;i++){

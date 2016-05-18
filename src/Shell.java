@@ -38,5 +38,8 @@ public class Shell {
 	public int getyPoint(){
 		return ycoord;
 	}
+	public int getxPoint(){
+		return xcoord;
+	}
 
 }
