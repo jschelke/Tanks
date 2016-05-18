@@ -18,7 +18,7 @@ public class Computer extends Tank{
 	private int AngleStop = 15; //zorgt dat de tank niet recht naar boven kan shieten als AngleStop = 10 kan de tank niet shieten tussen 80� en 100�
 	private int AccuracyFirstShot = 20;//als de tnak voor het eerst naar een doelwitschiet dan bepaals dit hoe nauwkeuerig dat schot is
 	private int MinimumPower = 15;
-	private int GuessAngleVariation = 20;
+	private int GuessAngleVariation = 30;
 	
 	public Computer(Color kleur, Terrain terrain, int TANKID, String name) {
 		super(kleur, terrain, TANKID, name);
@@ -86,56 +86,62 @@ public class Computer extends Tank{
 	
 	private void engageTank(){//kiest een geschikte hoek en snelheid voor te schieten
 		int Power,Angle;
-		double temp;
+		double Powerchange;
 		if(ShotsFired.size() == 0){ //waneer er nog geen schoten zijn afgevuurd runt dit
 			System.out.println("Take Guess Shot is running");
 			TakeShotGuess();
 		} else{
 			ComputerShotFired ClosestShot = closestShotFinder();
 			if(Target.getxcoord()<this.getxcoord()){//controleer of Target links ligt van Tank
-				System.out.println("Debugging Computer: \t Running: Marker 1");
-				temp = ClosestShot.getDistanceFromTarget()/(double)(4+rand.nextInt(2));
-				System.out.println("Power adjustment: " + temp);
-				Power = (int)(ClosestShot.getPower()-temp);
-				Angle = ClosestShot.getAngle();
-				if(Power>100)
-					Power = 100; 
-				if(Power<MinimumPower)
-					Power = MinimumPower;
-				ShotsFired.add(new ComputerShotFired(Target,Angle,Power,terrain));
-				terrain.fireTank(Power, Angle);
-			}else{ 													//Marker 2, Target ligt rechts van Tank
-				int AngleShot;
+				int AngleShot = ClosestShot.getAngle();
 				System.out.println("Debugging Computer: \t Running: Marker 2");
-				if(getTopMountaininWayShootingRight(ClosestShot)!=0&&ClosestShot.getDistanceFromTarget()>1&&ClosestShot.getPower()>90){
-					if(90-AngleStop-ClosestShot.getAngle()>GuessAngleVariation)
-						AngleShot = ClosestShot.getAngle() + rand.nextInt(GuessAngleVariation);
-					else
-						AngleShot = ClosestShot.getAngle() + rand.nextInt(90-AngleStop-ClosestShot.getAngle());
-				}
-				else{
-					AngleShot = ClosestShot.getAngle();
-				}
-				if(ClosestShot.getPower() == 100 && ClosestShot.getycoordhit()>terrain.getyPoints(ClosestShot.getxcoordTarget())){
-					if(90-AngleStop-ClosestShot.getAngle()>GuessAngleVariation)
-						AngleShot = ClosestShot.getAngle() + rand.nextInt(GuessAngleVariation);
-					else
-						AngleShot = ClosestShot.getAngle() + rand.nextInt(90-AngleStop-ClosestShot.getAngle());
-					}
-					temp = ClosestShot.getDistanceFromTarget()/(double)(6+rand.nextInt(6));
-					if(temp>-1&&temp<1)//wanneer het schot heel dicht is bij het doelwit
-						if(temp>0)
-							temp = 1;
+				if(getTopMountaininWayShootingLeft(ClosestShot)!=0&&ClosestShot.getDistanceFromTarget()>3&&ClosestShot.getPower()>90){
+					if(ClosestShot.getPower() == 100 && ClosestShot.getycoordhit()>terrain.getyPoints(ClosestShot.getxcoordTarget())){
+						if(180-AngleStop-ClosestShot.getAngle()>GuessAngleVariation+90)
+							AngleShot = ClosestShot.getAngle() - rand.nextInt(GuessAngleVariation);
 						else
-							temp = -1;
-				System.	out.println("Power adjustment: " + (int)temp);
-				System.out.println("total Power: "+(int)(ClosestShot.getPower()+temp));
-				Power = (int) (ClosestShot.getPower()+temp);
+							AngleShot = ClosestShot.getAngle() - rand.nextInt(180-AngleStop-ClosestShot.getAngle());
+					}
+				}
+				Powerchange = ClosestShot.getDistanceFromTarget()/(double)(6+rand.nextInt(6));
+				if(Powerchange>-1&&Powerchange<1)//wanneer het schot heel dicht is bij het doelwit
+					if(Powerchange>0)
+						Powerchange = 1;
+					else
+						Powerchange = -1;
+				System.	out.println("Power adjustment: " + (int)Powerchange);
+				System.out.println("total Power: "+(int)(ClosestShot.getPower()+Powerchange));
+				Power = (int) (ClosestShot.getPower()-Powerchange);
 				if(Power>100)
 					Power = 100; 
 				if(Power<MinimumPower)
 					Power = MinimumPower;
-				
+				ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
+				terrain.fireTank(Power, AngleShot);
+			}else{ 													//Marker 2, Target ligt rechts van Tank
+				int AngleShot = ClosestShot.getAngle();
+				System.out.println("Debugging Computer: \t Running: Marker 2");
+				if(getTopMountaininWayShootingRight(ClosestShot)!=0&&ClosestShot.getDistanceFromTarget()>3&&ClosestShot.getPower()>90){
+					if(ClosestShot.getPower() == 100 && ClosestShot.getycoordhit()>terrain.getyPoints(ClosestShot.getxcoordTarget())){
+						if(90-AngleStop-ClosestShot.getAngle()>GuessAngleVariation)
+							AngleShot = ClosestShot.getAngle() + rand.nextInt(GuessAngleVariation);
+						else
+							AngleShot = ClosestShot.getAngle() + rand.nextInt(90-AngleStop-ClosestShot.getAngle());
+					}
+				}
+				Powerchange = ClosestShot.getDistanceFromTarget()/(double)(6+rand.nextInt(6));
+				if(Powerchange>-3&&Powerchange<3)//wanneer het schot heel dicht is bij het doelwit
+					if(Powerchange>0)
+						Powerchange = 1;
+					else
+						Powerchange = -1;
+				System.	out.println("Power adjustment: " + (int)Powerchange);
+				System.out.println("total Power: "+(int)(ClosestShot.getPower()+Powerchange));
+				Power = (int) (ClosestShot.getPower()+Powerchange);
+				if(Power>100)
+					Power = 100; 
+				if(Power<MinimumPower)
+					Power = MinimumPower;
 				ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
 				terrain.fireTank(Power, AngleShot);
 			}
@@ -159,12 +165,13 @@ public class Computer extends Tank{
 			ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
 			terrain.fireTank(Power, AngleShot);
 		} else{
-			AngleTerrain = 90+(terrain.getAngleTerrain(this.getxcoord()-50,this.getxcoord()));//omdat het target links staat wordt bergaf, bergop en omgekeerd
-			if (AngleTerrain<0)
+			AngleTerrain = (terrain.getAngleTerrain(this.getxcoord()-50,this.getxcoord()));//omdat het target links staat wordt bergaf, bergop en omgekeerd
+			System.out.println("Angle terrain: " + AngleTerrain);
+			if (AngleTerrain>0)
 				AngleTerrain = 0;
-			AngleShot = AngleTerrain + rand.nextInt(90-AngleStop-AngleTerrain);
+			System.out.println(GuessAngleVariation + " - " + AngleStop +" + " + AngleTerrain + " = "+(GuessAngleVariation-AngleStop+AngleTerrain));
+			AngleShot = AngleTerrain + 90+AngleStop+rand.nextInt(GuessAngleVariation-AngleStop+AngleTerrain);
 			Power = (int)((this.getxcoord()-Target.getxcoord()+rand.nextInt(AccuracyFirstShot))/Math.cos(AngleShot));
-			AngleShot = 180-AngleShot;
 			if(Power>100)
 				Power = 100; 
 			if(Power<MinimumPower)
@@ -196,7 +203,7 @@ public class Computer extends Tank{
 	public int getTopMountaininWayShootingLeft(ComputerShotFired Shot){
 		int topMountain =terrain.getyPoints(this.getxcoord());
 		if(Shot.getxcoordHit()<Target.getxcoord()){
-			for(int i = this.getxcoord();i>Target.getxcoord();i--){// start van positie tank en controleerd of er een berg tussen jou en het doelwit staat
+			for(int i = Shot.getxcoordHit();i>Target.getxcoord();i--){// start van positie tank en controleerd of er een berg tussen jou en het doelwit staat
 				if(terrain.getyPoints(i)<topMountain){
 					topMountain = i;
 				}

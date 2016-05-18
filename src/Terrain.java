@@ -64,7 +64,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 		}
 	
 	public int getyPoints(int xcoord){
-		if(xcoord<700 ){
+		if(xcoord<700&&xcoord>0 ){
 			return(yPoints[xcoord]);
 		} else{
 			return -1;
