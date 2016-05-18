@@ -102,6 +102,8 @@ public class Tank extends Transform implements ActionListener{
 	}
 	
 	public void updateHeight(){
+		if(terrain.getyPoints(xcoord)-ycoord>5)
+		HP-=(terrain.getyPoints(xcoord)-ycoord)*2;
 		ycoord = terrain.getyPoints(xcoord);
 		return;
 	}
