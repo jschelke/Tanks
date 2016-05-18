@@ -8,8 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 @SuppressWarnings("serial")
 public class MenuPanel extends JPanel implements ActionListener {
@@ -34,8 +33,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 	Color Sand = new Color(194, 178, 128);
 	Color Hill = new Color(148,214,49);
 	Color Snow = new Color(235,245,245);
-	
-	private Timer timer;
 	
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -87,9 +84,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(amountPlayersLabel);
 		this.add(amountPlayersSlider);
 		this.add(QuitButton);
-			
-		timer = new Timer();
-		timer.schedule(new MyTimerTask(), 0, 1000);
 		
 	}
 
@@ -146,13 +140,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 			}
 		else {
 			System.exit(0);
-		}
-	}
-	private class MyTimerTask extends TimerTask {
-		public MyTimerTask(){
-		}
-		public void run() {
-			repaint();
 		}
 	}
 }
