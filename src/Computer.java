@@ -85,7 +85,7 @@ public class Computer extends Tank{
 	}
 	
 	private void engageTank(){//kiest een geschikte hoek en snelheid voor te schieten
-		int Power,Angle;
+		int Power;
 		double Powerchange;
 		if(ShotsFired.size() == 0){ //waneer er nog geen schoten zijn afgevuurd runt dit
 			System.out.println("Take Guess Shot is running");

@@ -1,13 +1,11 @@
 package src;
 
-//TODO see method set distancefromTerget
 
 public class ComputerShotFired {
 	private Tank Target;
 	private int Angle,Power,xcoordTarget,xcoordHit,ycoordHit;
 	private int distanceFromTarget;
 	private boolean inPlayingField;
-	private boolean AngleReevaluationNeeded = false;
 	Terrain terrain;
 	
 	public ComputerShotFired(Tank Target, int Angle,int Power,Terrain terrain){
@@ -41,7 +39,7 @@ public class ComputerShotFired {
 	public int getycoordhit(){
 		return ycoordHit;
 	}
-	public void ImpactOfShell(int xcoordShell,int ycoordShell, boolean isImpact){// changing hit method(xcoord, ycoord,inplayingfield) later calculating distance (tanks can move)
+	public void ImpactOfShell(int xcoordShell,int ycoordShell, boolean isImpact){
 		this.xcoordHit = xcoordShell;
 		this.ycoordHit = ycoordShell;
 		inPlayingField = isImpact;
