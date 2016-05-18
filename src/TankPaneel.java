@@ -111,10 +111,8 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	public void paintComponent(Graphics g){
 		remove(CurrentTankLabel);
 		CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
-		CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
 		CurrentTankLabel.setBounds(45, 70, 200, 30);
 		add(CurrentTankLabel);
-		repaint();
 	}
 	
 	@SuppressWarnings("static-access")
