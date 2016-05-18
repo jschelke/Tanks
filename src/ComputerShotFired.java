@@ -50,11 +50,5 @@ public class ComputerShotFired {
 		else
 			distanceFromTarget = Target.getxcoord() - (700+ycoordShell - terrain.getyPoints(xcoordHit));
 	}
-	public void AngleReevaluationNeeded(){
-		AngleReevaluationNeeded = true;
-	}
-	public boolean isAngleReevaluationNeeded(){
-		return AngleReevaluationNeeded;
-	}
 
 }

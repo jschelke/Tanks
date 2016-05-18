@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
+
 @SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener, KeyListener {
 	private Tanks mainscreen;
@@ -25,7 +26,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	Timer timer = new Timer();
 	Shell firedShell;
 	ArrayList<Tank> TankList;
-	private int AmountOfTanks, xcoord, ycoord;
+	private int AmountOfTanks;
 	private int CurrentTank = 0;
 	private int ConfigureX = 10;
 	private int SideEffect = 20;
@@ -35,6 +36,8 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
+	
+	private double vx, vy;
 	
 	public Terrain(Tanks mainscreen, Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
 		this.mainscreen = mainscreen;
@@ -53,6 +56,8 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 			else
 				TankList.add(new Tank(colorList[i],this,i,nameList[i]));
 		}
+		timer = new Timer();
+		timer.schedule(new TankTimerTask(), 0, 1000);
 		setFocusable(true);
 		addKeyListener(this);
 		repaint();
@@ -231,16 +236,18 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		xcoord += Tank.vx; //als je met Tankgetxcoord() doet moet dat static, niet goed voor de rest ...
-		ycoord += Tank.vy;
+		Tank tank = getCurrentTank();
+		tank.xcoord += vx;
+		tank.ycoord += vy;
+		repaint();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-			Tank.Right(100);
+			Tank.Right(100, vx, vy);
 		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-			Tank.Left(100);
+			Tank.Left(100, vx, vy);
 		}
 		
 	}

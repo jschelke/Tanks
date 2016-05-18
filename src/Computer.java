@@ -104,7 +104,7 @@ public class Computer extends Tank{
 					Power = MinimumPower;
 				ShotsFired.add(new ComputerShotFired(Target,Angle,Power,terrain));
 				terrain.fireTank(Power, Angle);
-			}else{ 													//Marker 2
+			}else{ 													//Marker 2, Target ligt rechts van Tank
 				int AngleShot;
 				System.out.println("Debugging Computer: \t Running: Marker 2");
 				if(getTopMountaininWayShootingRight(ClosestShot)!=0&&ClosestShot.getDistanceFromTarget()>1&&ClosestShot.getPower()>90){
@@ -122,16 +122,12 @@ public class Computer extends Tank{
 					else
 						AngleShot = ClosestShot.getAngle() + rand.nextInt(90-AngleStop-ClosestShot.getAngle());
 					}
-				//if(Math.abs(Target.getxcoord()-ClosestShot.getxcoordHit())>50){
-					temp = ClosestShot.getDistanceFromTarget()/(double)(2+rand.nextInt(10));
+					temp = ClosestShot.getDistanceFromTarget()/(double)(6+rand.nextInt(6));
 					if(temp>-1&&temp<1)//wanneer het schot heel dicht is bij het doelwit
 						if(temp>0)
 							temp = 1;
 						else
 							temp = -1;
-				//}else{//veel nauwkeurigere berekening
-				//	temp = (int)(ClosestShot.getDistanceFromTarget()/Math.cos(Math.toRadians(ClosestShot.getAngle())));
-				//}
 				System.	out.println("Power adjustment: " + (int)temp);
 				System.out.println("total Power: "+(int)(ClosestShot.getPower()+temp));
 				Power = (int) (ClosestShot.getPower()+temp);
@@ -181,13 +177,8 @@ public class Computer extends Tank{
 	
 	public void hitPosition(int posx,int posy,boolean isImpact){ //stuurt positie van de laatste hit door naar Shotsfired
 		ShotsFired.get(ShotsFired.size()-1).ImpactOfShell(posx,posy,isImpact);
-		evaluateAngle();
 	}
-	private void evaluateAngle(){
-		if(ShotsFired.get(ShotsFired.size()-1).getPower()>40&&Math.abs(ShotsFired.get(ShotsFired.size()-1).getxcoordHit()-this.getxcoord())<1.5*Math.abs(ShotsFired.get(ShotsFired.size()-1).getDistanceFromTarget())){
-			ShotsFired.get(ShotsFired.size()-1).AngleReevaluationNeeded();
-		}
-	}
+
 	public int getTopMountaininWayShootingRight(ComputerShotFired Shot){
 		int topMountain =terrain.getyPoints(this.getxcoord());
 		for(int i = Shot.getxcoordHit();i<Target.getxcoord();i++){// start van positie tank en controleerd of er een berg tussen jou en het doelwit staat

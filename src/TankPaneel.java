@@ -26,7 +26,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
-	private int AngleBegin = 45, AngleBetween = 45, PowerBegin = 50, PowerBetween = 25;
+	private int AngleBegin = 0, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
 	private JButton ShootButton, MenuButton;
 	private Slider AngleSlider,PowerSlider;
 	private JFormattedTextField AngleTextField,PowerTextField;
@@ -109,8 +109,10 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 		super.paintComponent(g);
 		remove(CurrentTankLabel);
 		CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
+		CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
 		CurrentTankLabel.setBounds(45, 70, 200, 30);
 		add(CurrentTankLabel);
+		repaint();
 	}
 	
 	@SuppressWarnings("static-access")
