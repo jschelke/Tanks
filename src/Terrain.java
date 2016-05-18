@@ -75,10 +75,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 			CurrentTank--;
 			AmountOfTanks--;
 			TankList.remove(tank);
-			for(int i = 0; i<TankList.size();i++){
-				JLabel name = nameLabels.get(i);
-				JOptionPane.showMessageDialog(this, name.getText() + " his tank was destroyed", "Destroy", JOptionPane.WARNING_MESSAGE);
-			} // Hier geeft hij altijd een fout want hij toont dat bericht te veel
+				JOptionPane.showMessageDialog(this, tank.getName() + " his tank was destroyed", "Destroy", JOptionPane.WARNING_MESSAGE);
 		if(AmountOfTanks == 1){
 			int GameOver = JOptionPane.showConfirmDialog(this,"Do you want to restart Tanks", "GAME OVER", JOptionPane.YES_NO_OPTION);
 	        if (GameOver == JOptionPane.YES_OPTION) {
@@ -209,7 +206,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		for(int i = 0;i<TankList.size();i++){
-			TankList.get(i).Hit(hitRadius-Math.abs(TankList.get(i).getxcoord()-posx),attacker);
+			TankList.get(i).Hit((hitRadius-Math.abs(TankList.get(i).getxcoord()-posx))*3,attacker);
 		}
 		repaint();
 		checkNextTank();

@@ -1,5 +1,6 @@
 package src;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,7 +30,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	private JButton ShootButton, MenuButton;
 	private Slider AngleSlider,PowerSlider;
 	private JFormattedTextField AngleTextField,PowerTextField;
-	private JLabel AngleLabel, PowerLabel, FuelLabel;
+	private JLabel AngleLabel, PowerLabel, FuelLabel,CurrentTankLabel;
 	private JProgressBar FuelBar;
 	Terrain terrain;
 	
@@ -94,11 +95,22 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.add(AngleTextField);
 	this.add(PowerLabel);
 	this.add(PowerSlider);
-	add(PowerTextField);
+	this.add(PowerTextField);
 	this.add(FuelLabel);
 	this.add(FuelBar);
 	this.add(ShootButton);
+	
+	CurrentTankLabel = new JLabel("Current player: "+ terrain.getCurrentTank().getName(),JLabel.CENTER);
+	CurrentTankLabel.setBounds(20, 40, 200, 30);
+	add(CurrentTankLabel);
 	}
+	public void paintComponent(Graphics g){
+		remove(CurrentTankLabel);
+		CurrentTankLabel = new JLabel("Current player: "+ terrain.getCurrentTank().getName(),JLabel.CENTER);
+		CurrentTankLabel.setBounds(20, 40, 200, 30);
+		add(CurrentTankLabel);
+	}
+	
 	@SuppressWarnings("static-access")
 	public void keyPressed(KeyEvent evt){
 		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){// als je op enter drukt dan wordt de hoek geupdate
@@ -126,6 +138,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
+			repaint();
 			if(terrain.firedShell == null&&!terrain.getCurrentTank().isComputer()){
 				terrain.fireTank((int)PowerSlider.getValue(), 180-AngleSlider.getValue());
 				this.CurrentTank = terrain.getCurrentTank();
@@ -136,7 +149,6 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 			}if(e.getSource() == MenuButton){
 				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
-			repaint();
 		}
 			
 		
