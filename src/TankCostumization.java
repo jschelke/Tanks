@@ -94,7 +94,7 @@ public class TankCostumization extends JPanel{
 		if("White"==Choice)
 			color = Color.WHITE;
 		if("Yellow"==Choice)
-			color = Color.GREEN;
+			color = Color.YELLOW;
 	}
 
 }

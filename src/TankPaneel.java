@@ -35,21 +35,23 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	Terrain terrain;
 	
 	public TankPaneel(Terrain terrain, Tanks mainscreen) {
-	this.mainscreen = mainscreen;
-	addKeyListener(this);
-	addMouseListener(this);
-	this.terrain = terrain;
-	
 	this.setLayout(null);
+	this.mainscreen = mainscreen;
+	this.terrain = terrain;
 	
 	MenuButton = new JButton("Menu");
 	MenuButton.addActionListener(this);
 	MenuButton.setBounds(80, 20, 130, 30);
 	
+	CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
+	CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
+	CurrentTankLabel.setBounds(45, 70, 200, 30);
+	
 	AngleLabel = new JLabel("ANGLE",JLabel.CENTER);
-	AngleLabel.setBounds(20, 80, 250, 20);
+	AngleLabel.setForeground(terrain.getCurrentTank().getColor());
+	AngleLabel.setBounds(20, 110, 250, 20);
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
-	AngleSlider.setBounds(20, 100, 200, 50);
+	AngleSlider.setBounds(20, 130, 200, 50);
 	
 	java.text.NumberFormat numberFormat = java.text.NumberFormat.getIntegerInstance();
     NumberFormatter formatter = new NumberFormatter(numberFormat);
@@ -58,14 +60,15 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
     AngleTextField = new JFormattedTextField(formatter);
     AngleTextField.setValue(new Integer(AngleSlider.getValue()));
     AngleTextField.setColumns(5); //get some space
-    AngleTextField.setBounds(240, 100, 40, 20);
+    AngleTextField.setBounds(240, 130, 40, 20);
     AngleTextField.addActionListener(this);
     AngleTextField.addKeyListener(this);
 	
 	PowerLabel = new JLabel("POWER", JLabel.CENTER);
-	PowerLabel.setBounds(20, 230, 250, 20);
+	PowerLabel.setForeground(terrain.getCurrentTank().getColor());
+	PowerLabel.setBounds(20, 240, 250, 20);
 	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
-	PowerSlider.setBounds(20, 250, 200, 50);
+	PowerSlider.setBounds(20, 260, 200, 50);
 	
 	java.text.NumberFormat numberFormat2 = java.text.NumberFormat.getIntegerInstance();
     NumberFormatter formatter2 = new NumberFormatter(numberFormat2);
@@ -74,14 +77,15 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
     PowerTextField = new JFormattedTextField(formatter);
     PowerTextField.setValue(new Integer(PowerSlider.getValue()));
     PowerTextField.setColumns(5); //get some space
-    PowerTextField.setBounds(240, 250, 40, 20);
+    PowerTextField.setBounds(240, 260, 40, 20);
     PowerTextField.addActionListener(this);
     PowerTextField.addKeyListener(this);
 	
 	FuelLabel = new JLabel("FUEL", JLabel.CENTER);
-	FuelLabel.setBounds(20, 380, 250, 20);
+	FuelLabel.setForeground(terrain.getCurrentTank().getColor());
+	FuelLabel.setBounds(20, 390, 250, 20);
 	FuelBar = new JProgressBar(0,100);
-	FuelBar.setBounds(20, 400, 250, 30);
+	FuelBar.setBounds(20, 410, 250, 30);
 	FuelBar.setValue(100);
     FuelBar.setStringPainted(true);
 	
@@ -89,7 +93,11 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	ShootButton.addActionListener(this);
 	ShootButton.setBounds(80, 550, 130, 30);
 	
+	addKeyListener(this);
+	addMouseListener(this);
+	
 	this.add(MenuButton);
+	this.add(CurrentTankLabel);
 	this.add(AngleLabel);
 	this.add(AngleSlider);
 	this.add(AngleTextField);
@@ -99,16 +107,14 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.add(FuelLabel);
 	this.add(FuelBar);
 	this.add(ShootButton);
-	
-	CurrentTankLabel = new JLabel("Current player: "+ terrain.getCurrentTank().getName(),JLabel.CENTER);
-	CurrentTankLabel.setBounds(20, 40, 200, 30);
-	add(CurrentTankLabel);
 	}
 	public void paintComponent(Graphics g){
 		remove(CurrentTankLabel);
-		CurrentTankLabel = new JLabel("Current player: "+ terrain.getCurrentTank().getName(),JLabel.CENTER);
-		CurrentTankLabel.setBounds(20, 40, 200, 30);
+		CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
+		CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
+		CurrentTankLabel.setBounds(45, 70, 200, 30);
 		add(CurrentTankLabel);
+		repaint();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -133,6 +139,8 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 			}
 		}else if(evt.getKeyCode() == KeyEvent.VK_SPACE){ // Als je op spatie drukt wordt er geschoten
 			ShootButton.doClick();
+		}else if(evt.getKeyCode() == 'M'){
+			MenuButton.doClick();
 		}
 	}
 	@Override
@@ -145,13 +153,12 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				PowerSlider.setValue(CurrentTank.getPower());
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				FuelBar.setValue(CurrentTank.getFuel());
-				}
 			}if(e.getSource() == MenuButton){
 				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
 		}
+}
 			
-		
 	@Override
 	public void mouseExited(MouseEvent e) {
 		AngleTextField.setValue(AngleSlider.getValue());
