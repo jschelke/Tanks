@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -26,9 +27,7 @@ public class Tank extends Transform implements ActionListener{
 	protected int TANKID;
 	protected Color kleur;
 	protected Terrain terrain;
-	protected int Angle = 135, Power = 50, Fuel = 100;
-	static double vx = 0;
-	static double vy = 0;
+	protected int Angle=0, Power=0, Fuel=0;
 	protected String name;
 	protected Tank LastAttacker;
 	
@@ -63,13 +62,13 @@ public class Tank extends Transform implements ActionListener{
 	
 	public void drawTankgun(Graphics2D g){
 		g.setColor(kleur); //Bgtan van vector tot de muis voor hoek aan te passen + power = distance van dezelfde vector
-		Rectangle Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
+		Shape Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
 		AffineTransform at = g.getTransform();
-			g.rotate(-Angle, xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
-			g.draw(Tankgun);
-			g.fill(Tankgun);
-			g.setTransform(at);
-}
+		g.rotate(180-terrain.getCurrentTank().getAngle(), xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
+		g.draw(Tankgun);
+		g.fill(Tankgun);
+		g.setTransform(at);
+	}
 	
 	public void Hit(int Damage,Tank Attacker){
 		updateHeight();
@@ -83,7 +82,7 @@ public class Tank extends Transform implements ActionListener{
 		}
 	}
 	
-	public static void Right(int Fuel){
+	public static void Right(int Fuel, double vx, double vy){
 		if(Fuel>0){
 			vx = 0.5;
 			vy = 0.5;
@@ -91,7 +90,7 @@ public class Tank extends Transform implements ActionListener{
 		}
 	}
 	
-	public static void Left(int Fuel){
+	public static void Left(int Fuel, double vx, double vy){
 		if(Fuel>0){
 			vx = -0.5;
 			vy = 0.5;
@@ -100,17 +99,6 @@ public class Tank extends Transform implements ActionListener{
 	}
 	public boolean isComputer(){
 		return false;
-	}
-	
-	public int updateme(int time){
-		if(xcoord<700 && xcoord > 0 &&ycoord >= terrain.getyPoints(xcoord)&&time != 0){
-			return xcoord;
-		}
-		else if(xcoord>=700 || xcoord <= 0) {
-			return -2;
-		}
-		else
-			return -1;
 	}
 	
 	public void updateHeight(){
