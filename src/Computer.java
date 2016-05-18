@@ -53,7 +53,7 @@ public class Computer extends Tank{
 	}
 	private void chooseTarget(){ // kiest aan de hand van vorige aanvallen,afstand en laatste aanvallen het doelwit van de volgende aanval
 		if(ShotsFired.size() == 0){
-			if(LastAttacker == null){
+			if(LastAttacker == null&&LastAttacker!=this){
 				Target = ClosestTarget;
 				System.out.println("ClosestTarget Chosen");
 			} else{
@@ -61,7 +61,7 @@ public class Computer extends Tank{
 				System.out.println("Last Attacker Chosen");
 			}
 		}else{
-			if(!(LastAttacker == null)&& isTankAlive(LastAttacker)){
+			if(!(LastAttacker == null)&& isTankAlive(LastAttacker)&&LastAttacker!=this){
 				Target = LastAttacker;
 				System.out.println("Last Attacker Chosen");
 			} else{
@@ -94,7 +94,7 @@ public class Computer extends Tank{
 			ComputerShotFired ClosestShot = closestShotFinder();
 			if(Target.getxcoord()<this.getxcoord()){//controleer of Target links ligt van Tank
 				int AngleShot = ClosestShot.getAngle();
-				System.out.println("Debugging Computer: \t Running: Marker 2");
+				System.out.println("Debugging Computer: \t Running: Marker 1");
 				if(getTopMountaininWayShootingLeft(ClosestShot)!=0&&ClosestShot.getDistanceFromTarget()>3&&ClosestShot.getPower()>90){
 					if(ClosestShot.getPower() == 100 && ClosestShot.getycoordhit()>terrain.getyPoints(ClosestShot.getxcoordTarget())){
 						if(180-AngleStop-ClosestShot.getAngle()>GuessAngleVariation+90)
@@ -103,7 +103,7 @@ public class Computer extends Tank{
 							AngleShot = ClosestShot.getAngle() - rand.nextInt(180-AngleStop-ClosestShot.getAngle());
 					}
 				}
-				Powerchange = ClosestShot.getDistanceFromTarget()/(double)(6+rand.nextInt(6));
+				Powerchange = ClosestShot.getDistanceFromTarget()/(double)(8+rand.nextInt(6));
 				if(Powerchange>-1&&Powerchange<1)//wanneer het schot heel dicht is bij het doelwit
 					if(Powerchange>0)
 						Powerchange = 1;
@@ -111,7 +111,7 @@ public class Computer extends Tank{
 						Powerchange = -1;
 				System.	out.println("Power adjustment: " + (int)Powerchange);
 				System.out.println("total Power: "+(int)(ClosestShot.getPower()+Powerchange));
-				Power = (int) (ClosestShot.getPower()-Powerchange);
+				Power = (int) (ClosestShot.getPower()+Powerchange);
 				if(Power>100)
 					Power = 100; 
 				if(Power<MinimumPower)
@@ -183,6 +183,8 @@ public class Computer extends Tank{
 	}
 	
 	public void hitPosition(int posx,int posy,boolean isImpact){ //stuurt positie van de laatste hit door naar Shotsfired
+		if(posx<0)
+			posx = 0;
 		ShotsFired.get(ShotsFired.size()-1).ImpactOfShell(posx,posy,isImpact);
 	}
 
