@@ -27,7 +27,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
 	private int AngleBegin = 0, AngleBetween = 45, PowerBegin = 0, PowerBetween = 25;
-	private JButton ShootButton, MenuButton;
+	private JButton ShootButton, MenuButton, LeftButton, RightButton;
 	private Slider AngleSlider,PowerSlider;
 	private JFormattedTextField AngleTextField,PowerTextField;
 	private JLabel AngleLabel, PowerLabel, FuelLabel,CurrentTankLabel;
@@ -41,6 +41,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	
 	MenuButton = new JButton("Menu");
 	MenuButton.addActionListener(this);
+	MenuButton.addKeyListener(this);
 	MenuButton.setBounds(80, 20, 130, 30);
 	
 	CurrentTankLabel = new JLabel(terrain.getCurrentTank().getName(),JLabel.CENTER);
@@ -78,17 +79,28 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
     PowerTextField.setBounds(240, 260, 40, 20);
     PowerTextField.addActionListener(this);
     PowerTextField.addKeyListener(this);
+    
+    LeftButton = new JButton("Left");
+    LeftButton.addActionListener(this);
+    LeftButton.addKeyListener(this);
+    LeftButton.setBounds(60, 370, 80, 30);
+    
+    RightButton = new JButton("Right");
+    RightButton.addActionListener(this);
+    RightButton.addKeyListener(this);
+    RightButton.setBounds(150, 370, 80, 30);
 	
 	FuelLabel = new JLabel("FUEL", JLabel.CENTER);
-	FuelLabel.setBounds(20, 390, 250, 20);
+	FuelLabel.setBounds(20, 430, 250, 20);
 	FuelBar = new JProgressBar(0,100);
-	FuelBar.setBounds(20, 410, 250, 30);
+	FuelBar.setBounds(20, 450, 250, 30);
 	FuelBar.setValue(100);
     FuelBar.setStringPainted(true);
 	
 	ShootButton = new JButton("Shoot!");
 	ShootButton.addActionListener(this);
 	ShootButton.setBounds(80, 550, 130, 30);
+	ShootButton.addKeyListener(this);
 	
 	addKeyListener(this);
 	addMouseListener(this);
@@ -101,6 +113,8 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	this.add(PowerLabel);
 	this.add(PowerSlider);
 	this.add(PowerTextField);
+	this.add(LeftButton);
+	this.add(RightButton);
 	this.add(FuelLabel);
 	this.add(FuelBar);
 	this.add(ShootButton);
@@ -112,10 +126,10 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 		CurrentTankLabel.setForeground(terrain.getCurrentTank().getColor());
 		CurrentTankLabel.setBounds(45, 70, 200, 30);
 		add(CurrentTankLabel);
+		FuelBar.setValue(terrain.getCurrentTank().getFuel());
 		repaint();
 	}
 	
-	@SuppressWarnings("static-access")
 	public void keyPressed(KeyEvent evt){
 		if(evt.getKeyCode() == evt.VK_ENTER && evt.getSource() == AngleTextField){// als je op enter drukt dan wordt de hoek geupdate
 			if(AngleTextField.isEditValid()){
@@ -135,12 +149,18 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				}
 				PowerSlider.setValue((int)PowerTextField.getValue());
 			}
-		}else if(evt.getKeyCode() == KeyEvent.VK_SPACE){ // Als je op spatie drukt wordt er geschoten
+		}else if(evt.getKeyCode() == KeyEvent.VK_S){ // Als je op spatie drukt wordt er geschoten
+			System.out.println("S");
 			ShootButton.doClick();
-		}else if(evt.getKeyCode() == 'M'){
+		}else if(evt.getKeyCode() == KeyEvent.VK_M){
+			System.out.println("M");
 			MenuButton.doClick();
+		}else if(evt.getKeyCode() == KeyEvent.VK_RIGHT){
+		terrain.getCurrentTank().update_right(1);
+		terrain.repaint();
+		System.out.println("Right");
+			}
 		}
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == ShootButton){
@@ -149,12 +169,22 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				this.CurrentTank = terrain.getCurrentTank();
 				PowerSlider.setValue(CurrentTank.getPower());
 				AngleSlider.setValue(180-CurrentTank.getAngle());
-				FuelBar.setValue(CurrentTank.getFuel());
-				this.repaint();
+				repaint();
 			}
 		}else if(e.getSource() == MenuButton){
 			mainscreen.GoToMenu();
-			System.out.println("Menu");
+		}else if(e.getSource() == LeftButton){
+			if(terrain.getCurrentTank().getFuel()>0){
+				terrain.getCurrentTank().update_left(2);
+				terrain.repaint();
+				FuelBar.setValue(terrain.getCurrentTank().getFuel());
+			}	
+		}else if(e.getSource() == RightButton){
+			if(terrain.getCurrentTank().getFuel()>0){
+				terrain.getCurrentTank().update_right(2);
+				terrain.repaint();
+				FuelBar.setValue(terrain.getCurrentTank().getFuel());
+			}	
 		}
 }
 			

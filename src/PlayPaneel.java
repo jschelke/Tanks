@@ -29,7 +29,7 @@ public class PlayPaneel extends JPanel {
 	}
 	public void GoToMenu(){
 		mainscreen.switchPanel(new MenuPanel(mainscreen));
-		System.out.println("Menu");
+
 	}
 	
 }

@@ -27,7 +27,7 @@ public class Tank extends Transform implements ActionListener{
 	protected int TANKID;
 	protected Color kleur;
 	protected Terrain terrain;
-	protected int Angle=0, Power=0, Fuel=0;
+	protected int Angle=0, Power=0, Fuel=100;
 	protected String name;
 	protected Tank LastAttacker;
 	
@@ -81,21 +81,15 @@ public class Tank extends Transform implements ActionListener{
 			terrain.TankKilled(this);
 		}
 	}
-	
-	public static void Right(int Fuel, double vx, double vy){
-		if(Fuel>0){
-			vx = 0.5;
-			vy = 0.5;
-			Fuel -= 5; 
-		}
+	public void update_right(int vx){
+		xcoord += vx;
+		Fuel -= 5;
+		updateHeight();
 	}
-	
-	public static void Left(int Fuel, double vx, double vy){
-		if(Fuel>0){
-			vx = -0.5;
-			vy = 0.5;
-			Fuel -= 5;
-		}
+	public void update_left(int vx){
+		xcoord -= vx;
+		Fuel -= 5;
+		updateHeight();
 	}
 	public boolean isComputer(){
 		return false;
@@ -103,7 +97,7 @@ public class Tank extends Transform implements ActionListener{
 	
 	public void updateHeight(){
 		if(terrain.getyPoints(xcoord)-ycoord>5)
-		HP-=(terrain.getyPoints(xcoord)-ycoord)*2;
+			HP-=(terrain.getyPoints(xcoord)-ycoord)*2;
 		ycoord = terrain.getyPoints(xcoord);
 		return;
 	}
@@ -136,9 +130,6 @@ public class Tank extends Transform implements ActionListener{
 	}
 	public void setPower(int Power){
 		this.Power = Power;
-	}
-	public void setFuel(int Fuel){
-		this.Fuel = Fuel;
 	}
 
 	@Override

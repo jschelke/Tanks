@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public class Terrain extends JPanel implements ActionListener, KeyListener {
+public class Terrain extends JPanel implements ActionListener {
 	private PlayPaneel Play;
 	private int[][] Points;
 	protected static int[] yPoints;
@@ -36,8 +36,6 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	private ArrayList<JLabel> HPLabels= new ArrayList<JLabel>();
 	private ArrayList<JLabel> nameLabels= new ArrayList<JLabel>();
-	
-	private double vx, vy;
 	
 	public Terrain(PlayPaneel Play, Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
 		this.Play = Play;
@@ -59,7 +57,6 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer();
 		timer.schedule(new TankTimerTask(), 0, 1000);
 		setFocusable(true);
-		addKeyListener(this);
 		repaint();
 		}
 	
@@ -236,31 +233,5 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Tank tank = getCurrentTank();
-		tank.xcoord += vx;
-		tank.ycoord += vy;
-		repaint();
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-			Tank.Right(100, vx, vy);
-		}else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-			Tank.Left(100, vx, vy);
-		}
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 }
