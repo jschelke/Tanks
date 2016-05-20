@@ -27,7 +27,7 @@ public class Tank extends Transform implements ActionListener{
 	protected int TANKID;
 	protected Color kleur;
 	protected Terrain terrain;
-	protected int Angle=0, Power=0, Fuel=0;
+	protected int Angle=0, Power=50, Fuel=0;
 	protected String name;
 	protected Tank LastAttacker;
 	
@@ -105,6 +105,8 @@ public class Tank extends Transform implements ActionListener{
 		if(terrain.getyPoints(xcoord)-ycoord>5)
 		HP-=(terrain.getyPoints(xcoord)-ycoord)*2;
 		ycoord = terrain.getyPoints(xcoord);
+		if(ycoord>700)
+			HP=0;
 		return;
 	}
 	public String getName() {

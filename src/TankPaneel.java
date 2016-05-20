@@ -51,6 +51,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	
 	AngleSlider = new Slider(ANGLE, AngleMinor, AngleMajor, AngleMin, AngleMax, AngleBegin, AngleBetween);
 	AngleSlider.setBounds(20, 130, 200, 50);
+	AngleSlider.setValue(terrain.getCurrentTank().getAngle());
 	
 	java.text.NumberFormat numberFormat = java.text.NumberFormat.getIntegerInstance();
     NumberFormatter formatter = new NumberFormatter(numberFormat);
@@ -65,8 +66,10 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	
 	PowerLabel = new JLabel("POWER", JLabel.CENTER);
 	PowerLabel.setBounds(20, 240, 250, 20);
+	
 	PowerSlider = new Slider(POWER, PowerMinor, PowerMajor, PowerMin, PowerMax, PowerBegin, PowerBetween);
 	PowerSlider.setBounds(20, 260, 200, 50);
+	PowerSlider.setValue(terrain.getCurrentTank().getPower());
 	
 	java.text.NumberFormat numberFormat2 = java.text.NumberFormat.getIntegerInstance();
     NumberFormatter formatter2 = new NumberFormatter(numberFormat2);
@@ -151,9 +154,9 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				FuelBar.setValue(CurrentTank.getFuel());
 				this.repaint();
-			}if(e.getSource() == MenuButton){
-				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
+		}else if(e.getSource() == MenuButton){
+			mainscreen.switchPanel(new MenuPanel(mainscreen));//TODO dit moet worden aangeroepen worden in playpaneel
 		}
 }
 			
