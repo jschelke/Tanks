@@ -64,7 +64,7 @@ public class Tank extends Transform implements ActionListener{
 		g.setColor(kleur); //Bgtan van vector tot de muis voor hoek aan te passen + power = distance van dezelfde vector
 		Shape Tankgun = new Rectangle(xcoord, ycoord-BigRectHeight-(WheelRadius*1/2), SmallRectWidth, SmallRectHeight);
 		AffineTransform at = g.getTransform();
-		g.rotate(180-terrain.getCurrentTank().getAngle(), xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
+		g.rotate(180-getAngle(), xcoord, ycoord-BigRectHeight-(WheelRadius*1/2) -1);
 		g.draw(Tankgun);
 		g.fill(Tankgun);
 		g.setTransform(at);
@@ -83,12 +83,12 @@ public class Tank extends Transform implements ActionListener{
 	}
 	public void update_right(int vx){
 		xcoord += vx;
-		Fuel -= 5;
+		Fuel -= 4;
 		updateHeight();
 	}
 	public void update_left(int vx){
 		xcoord -= vx;
-		Fuel -= 5;
+		Fuel -= 4;
 		updateHeight();
 	}
 	public boolean isComputer(){

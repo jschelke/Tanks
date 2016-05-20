@@ -49,7 +49,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		amountPlayersLabel.setBounds(375, 80, 250, 20);
 		amountPlayersLabel.setForeground(Color.WHITE);
 		
-		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 6, 2, 2);
+		amountPlayersSlider = new Slider("Amount of Players", 1, 2, 2, 4, 2, 2);
 		amountPlayersSlider.setBounds(375, 100, 250, 50);
 		amountPlayersSlider.setOpaque(false);
 		
@@ -67,7 +67,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		
 		for(int i = 0;i<amountPlayersSlider.getValue();i++){
 			CostumizationList.add(new TankCostumization(i));
-			CostumizationList.get(i).setBounds(160*i+10,200,150,160);
+			CostumizationList.get(i).setBounds(160*i+200+10,200,150,160);
 			add(CostumizationList.get(i));
 		}
 //		System.out.println(CostumizationList.size());
@@ -94,7 +94,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			for(int i = CostumizationList.size();i<=amountPlayersSlider.getValue();i++){
 //				System.out.println("first loop started i:\t" +i);
 				CostumizationList.add(new TankCostumization(i));
-				CostumizationList.get(i).setBounds(160*i+10,200,150,160);
+				CostumizationList.get(i).setBounds(160*i+200,200,150,160);
 				add(CostumizationList.get(i));
 				repaint();
 			}
