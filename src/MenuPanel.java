@@ -121,11 +121,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 				computerControlledList[i] = CostumizationList.get(i).getComputerControlled();
 			}
 			if(environmentChoice == 0)
-				mainscreen.switchPanel(new PlayPaneel(Hill,nameList,colorList,computerControlledList, PlainsBackground));
+				mainscreen.switchPanel(new PlayPaneel(mainscreen, Hill,nameList,colorList,computerControlledList, PlainsBackground));
 			if(environmentChoice == 1)
-				mainscreen.switchPanel(new PlayPaneel(Sand,nameList,colorList,computerControlledList, DesertBackground));
+				mainscreen.switchPanel(new PlayPaneel(mainscreen, Sand,nameList,colorList,computerControlledList, DesertBackground));
 			if(environmentChoice == 2)
-				mainscreen.switchPanel(new PlayPaneel(Snow,nameList,colorList,computerControlledList, ArcticBackground));
+				mainscreen.switchPanel(new PlayPaneel(mainscreen, Snow,nameList,colorList,computerControlledList, ArcticBackground));
 		}else if (e.getSource() == environment) {
 			JComboBox cb = (JComboBox)e.getSource();
 			String selection =  (String) ((JComboBox) e.getSource()).getSelectedItem();

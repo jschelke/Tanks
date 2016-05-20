@@ -22,7 +22,7 @@ import javax.swing.text.NumberFormatter;
 @SuppressWarnings("serial")
 public class TankPaneel extends JPanel implements ActionListener, KeyListener,MouseListener{
 	private Tank CurrentTank;
-	private Tanks mainscreen;
+	private PlayPaneel mainscreen;
 	private String ANGLE, POWER;
 	private int AngleMinor = 15, AngleMajor = 45, PowerMinor = 5, PowerMajor = 25;
 	private int AngleMin = 0, AngleMax = 180, PowerMin = 0, PowerMax = 100;
@@ -34,7 +34,7 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 	private JProgressBar FuelBar;
 	Terrain terrain;
 	
-	public TankPaneel(Terrain terrain, Tanks mainscreen) {
+	public TankPaneel(Terrain terrain, PlayPaneel mainscreen) {
 	this.setLayout(null);
 	this.mainscreen = mainscreen;
 	this.terrain = terrain;
@@ -151,9 +151,10 @@ public class TankPaneel extends JPanel implements ActionListener, KeyListener,Mo
 				AngleSlider.setValue(180-CurrentTank.getAngle());
 				FuelBar.setValue(CurrentTank.getFuel());
 				this.repaint();
-			}if(e.getSource() == MenuButton){
-				mainscreen.switchPanel(new MenuPanel(mainscreen));
 			}
+		}else if(e.getSource() == MenuButton){
+			mainscreen.GoToMenu();
+			System.out.println("Menu");
 		}
 }
 			

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Terrain extends JPanel implements ActionListener, KeyListener {
-	private Tanks mainscreen;
+	private PlayPaneel Play;
 	private int[][] Points;
 	protected static int[] yPoints;
 	Timer timer = new Timer();
@@ -39,8 +39,8 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 	
 	private double vx, vy;
 	
-	public Terrain(Tanks mainscreen, Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
-		this.mainscreen = mainscreen;
+	public Terrain(PlayPaneel Play, Color terrainColor,String[] nameList,Color[] colorList,boolean[] computerControlledList, Image TerrainBackground){
+		this.Play = Play;
 		this.TankList = new ArrayList<Tank>(AmountOfTanks);
 		this.AmountOfTanks = nameList.length;
 		this.terrainColor = terrainColor;
@@ -84,7 +84,7 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 		if(AmountOfTanks == 1){
 			int GameOver = JOptionPane.showConfirmDialog(this,"Do you want to restart Tanks", "GAME OVER", JOptionPane.YES_NO_OPTION);
 	        if (GameOver == JOptionPane.YES_OPTION) {
-	        	mainscreen.switchPanel();
+	        	Play.GoToMenu();
 	        }else {
 	           System.exit(0);
 	        }
