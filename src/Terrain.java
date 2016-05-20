@@ -184,12 +184,12 @@ public class Terrain extends JPanel implements ActionListener, KeyListener {
 				repaint();
 				checkNextTank();
 				firedShell = null;
-				timer.purge();
+				timer.cancel();
 			}
 			else{
 				repaint();
 				drawhit(returnValue,10,tank);//Shell heeft het terrein geraakt
-				timer.purge();
+				timer.cancel();
 			}
 		}
 	}
