@@ -117,7 +117,7 @@ public class Computer extends Tank{
 				if(Power<MinimumPower)
 					Power = MinimumPower;
 				ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
-				terrain.fireTank(Power, AngleShot);
+				this.FireShell(Power, AngleShot);
 			}else{ 													//Marker 2, Target ligt rechts van Tank
 				int AngleShot = ClosestShot.getAngle();
 				System.out.println("Debugging Computer: \t Running: Marker 2");
@@ -143,7 +143,7 @@ public class Computer extends Tank{
 				if(Power<MinimumPower)
 					Power = MinimumPower;
 				ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
-				terrain.fireTank(Power, AngleShot);
+				this.FireShell(Power, AngleShot);
 			}
 		}
 	}
@@ -153,7 +153,7 @@ public class Computer extends Tank{
 			AngleTerrain = terrain.getAngleTerrain(this.getxcoord(),this.getxcoord()+50);
 			if (AngleTerrain<0)
 				AngleTerrain = 0;
-			if(90-AngleStop-AngleTerrain>GuessAngleVariation)
+			if(90-AngleStop-AngleTerrain>=GuessAngleVariation)
 				AngleShot = AngleTerrain + rand.nextInt(GuessAngleVariation);
 			else
 				AngleShot = AngleTerrain + rand.nextInt(90-AngleStop-AngleTerrain);
@@ -163,22 +163,21 @@ public class Computer extends Tank{
 			if(Power<MinimumPower)
 				Power = MinimumPower;
 			ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
-			terrain.fireTank(Power, AngleShot);
+			this.FireShell(Power, AngleShot);
 		} else{
 			AngleTerrain = (terrain.getAngleTerrain(this.getxcoord()-50,this.getxcoord()));//omdat het target links staat wordt bergaf, bergop en omgekeerd
 			System.out.println("Angle terrain: " + AngleTerrain);
-			if (AngleTerrain>0)
+			if (AngleTerrain<0)
 				AngleTerrain = 0;
 			System.out.println(GuessAngleVariation + " - " + AngleStop +" + " + AngleTerrain + " = "+(GuessAngleVariation-AngleStop+AngleTerrain));
 			AngleShot = AngleTerrain + 90+AngleStop+rand.nextInt(GuessAngleVariation-AngleStop+AngleTerrain);
-			Power = (int)((this.getxcoord()-Target.getxcoord()+rand.nextInt(AccuracyFirstShot))/Math.cos(AngleShot));
+			Power = (int)((this.getxcoord()-Target.getxcoord()+rand.nextInt(AccuracyFirstShot))/Math.abs(Math.cos(Math.toRadians(AngleShot))));
 			if(Power>100)
 				Power = 100; 
 			if(Power<MinimumPower)
 				Power = MinimumPower;
 			ShotsFired.add(new ComputerShotFired(Target,AngleShot,Power,terrain));
-			System.out.println("Shot fired Angle:\t" + AngleShot + "\tPower:\t"+Power );
-			terrain.fireTank(Power, AngleShot);
+			this.FireShell(Power, AngleShot);
 		}
 	}
 	
@@ -217,6 +216,16 @@ public class Computer extends Tank{
 		} else{
 			return 0;
 		}
+	}
+	private void FireShell(int Power,int AngleShot){
+		while(terrain.firedShell != null){
+			try {
+			    Thread.sleep(1000);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			   Thread.currentThread().interrupt();
+			}
+		}
+		terrain.fireTank(Power, AngleShot);
 	}
 	
 	public boolean isComputer(){//controle of deze Tank een computer is

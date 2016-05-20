@@ -182,14 +182,11 @@ public class Terrain extends JPanel implements ActionListener {
 				checkNextTank();
 				firedShell = null;
 				timer.cancel();
-				timer.purge();
 			}
 			else{
-				firedShell = null;
 				repaint();
-				timer.cancel();
-				timer.purge();
 				drawhit(returnValue,10,tank);//Shell heeft het terrein geraakt
+				timer.cancel();
 			}
 		}
 	}
@@ -198,7 +195,6 @@ public class Terrain extends JPanel implements ActionListener {
 		if(attacker.isComputer()){
 			((Computer) attacker).hitPosition(posx,this.getyPoints(posx),true);
 		}
-		timer.purge();
 		for(int i =-hitRadius;i<=hitRadius;i++){
 			if(posx+i>0 &&posx+i<700){
 				yPoints[posx+i] = yPoints[posx+i]+(int)Math.sqrt(Math.abs(Math.pow(hitRadius,2)-Math.pow(i, 2)));
@@ -210,6 +206,7 @@ public class Terrain extends JPanel implements ActionListener {
 		for(int i = 0;i<TankList.size();i++){
 			TankList.get(i).Hit((hitRadius-Math.abs(TankList.get(i).getxcoord()-posx))*3,attacker);
 		}
+		firedShell = null;
 		repaint();
 		checkNextTank();
 	}
@@ -219,6 +216,7 @@ public class Terrain extends JPanel implements ActionListener {
 		if(CurrentTank >=AmountOfTanks){
 			CurrentTank -= AmountOfTanks;
 		}
+		System.out.println("next tank is "+ CurrentTank);
 		if(TankList.get(CurrentTank).isComputer())
 			((Computer) TankList.get(CurrentTank)).fire();
 	}

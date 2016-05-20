@@ -99,6 +99,8 @@ public class Tank extends Transform implements ActionListener{
 		if(terrain.getyPoints(xcoord)-ycoord>5)
 			HP-=(terrain.getyPoints(xcoord)-ycoord)*2;
 		ycoord = terrain.getyPoints(xcoord);
+		if(ycoord>700)
+			HP=0;
 		return;
 	}
 	public String getName() {
